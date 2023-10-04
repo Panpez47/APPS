@@ -9,8 +9,8 @@
     <header>
         <div>
             <ul>
-            <li><a href="index.html">Inicio</a></li>
-            <li><a href="maestros.html">Maestro</a></li>
+            <li><a href="index.php">Inicio</a></li>
+            <li><a href="maestros.php">Maestro</a></li>
             <li><a href="materias.html">Materias</a></li>
             <li><a href="materias.html">Horarios</a></li>
             <li><a href="reportes.html">Reportes</a></li>
