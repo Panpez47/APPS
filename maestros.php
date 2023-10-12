@@ -4,14 +4,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./Styles/estilos.css">
+    <link rel="stylesheet" href="./Styles/barranav.css">
     <title>Maestros</title>
 </head>
 <body>
     
     <!--Header-->
     <header>
-        <div>
-            <ul>
+        <div class="navbar" >
+            <ul >
             <li><a href="index.php">Inicio</a></li>
             <li><a href="maestros.php">Maestro</a></li>
             <li><a href="materias.html">Materias</a></li>
