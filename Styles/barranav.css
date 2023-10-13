@@ -30,5 +30,5 @@
   /* Estilos al pasar el mouse por encima de los enlaces */
   .navbar a:hover {
     /*text-decoration: underline; /* Agrega subrayado al pasar el mouse */
-    color: #f0ebd8;
+    background-color: #f0ebd8;
 }
