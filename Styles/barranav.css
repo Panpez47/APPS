@@ -3,7 +3,7 @@
 .navbar {
     background-color: #3e5c76; /* Color de fondo de la barra de navegación */
     padding: 10px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-align: center;
   }
   
   /* Estilos para la lista no ordenada (ul) que contiene las opciones */
@@ -30,5 +30,19 @@
   /* Estilos al pasar el mouse por encima de los enlaces */
   .navbar a:hover {
     /*text-decoration: underline; /* Agrega subrayado al pasar el mouse */
-    color: #f0ebd8;
+    color: rgb(155, 155, 155);
+}
+
+.active{
+  
+
+  background-color: #254561;
+  display: flex;
+  justify-content: center;
+  padding: 7px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  border-radius: 30px;
+ 
+  
+
 }

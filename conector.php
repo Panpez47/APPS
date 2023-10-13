@@ -12,7 +12,7 @@ $conexion = new mysqli($host, $usuario, $contrasena, $base_de_datos);
 if ($conexion->connect_error) {
     die("Error de conexión: " . $conexion->connect_error);
 } else {
-    echo "Conexión exitosa a la base de datos!";
+    echo "<p style =Conexión exitosa a la base de datos!";
     // Puedes realizar consultas y operaciones en la base de datos aquí.
 }
 ?>

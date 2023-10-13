@@ -11,7 +11,7 @@
     <header>
         <div class="navbar" >
             <ul >
-            <li><a href="index.php">Inicio</a></li>
+            <li class="active"><a href="index.php">Inicio</a></li>
             <li><a href="maestros.php">Maestro</a></li>
             <li><a href="materias.html">Materias</a></li>
             <li><a href="materias.html">Horarios</a></li>

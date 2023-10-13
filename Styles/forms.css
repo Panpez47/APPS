@@ -1,0 +1,62 @@
+
+/* Estilos para el contenedor */
+.container {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    height: 100vh; /* Asegura que el contenedor ocupe toda la altura de la ventana del navegador */
+   
+  }
+  
+  /* Estilos para el formulario */
+  form {
+    background-color: #748cab;
+    
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    justify-content: center;
+    
+  }
+  
+  /* Estilos para las etiquetas y campos de entrada del formulario */
+  label {
+    display: block; /* Hace que cada etiqueta aparezca en una nueva línea */
+    margin-top: 10px;
+  }
+  
+  input {
+    /*width: 100%;*/
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    justify-content: center;
+    border-radius: 10px; /* Añade esquinas redondeadas a los campos de entrada */
+    text-align: center; /* Alinea el contenido del campo de entrada al centro */
+    
+  }
+  
+  input[type="submit"] {
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  
+  .enviar1{
+    display: block;
+    margin: 0 auto;
+    margin-top: 15px;
+  }
+  .enviar1:hover{        
+    background-color:#0363c9;
+  }
+  
+
+
+
+  
