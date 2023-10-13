@@ -30,6 +30,7 @@
   /* Estilos al pasar el mouse por encima de los enlaces */
   .navbar a:hover {
     /*text-decoration: underline; /* Agrega subrayado al pasar el mouse */
+<<<<<<< HEAD
     color: rgb(155, 155, 155);
 }
 
@@ -45,4 +46,7 @@
  
   
 
+=======
+    background-color: #43a522;
+>>>>>>> e9914cc40060868426075a637f0ac3b5396db01d
 }
