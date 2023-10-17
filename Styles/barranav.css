@@ -1,35 +1,35 @@
 
-/* Estilos para la barra de navegación */
+/* Estilos para la barra de navegación 
 .navbar {
-    background-color: #3e5c76; /* Color de fondo de la barra de navegación */
+    background-color: #3e5c76; /* Color de fondo de la barra de navegación 
     padding: 10px;
     text-align: center;
   }
   
-  /* Estilos para la lista no ordenada (ul) que contiene las opciones */
+  /* Estilos para la lista no ordenada (ul) que contiene las opciones 
   .navbar ul {
-    list-style: none; /* Elimina los puntos de la lista */
-    padding: 0; /* Elimina el relleno predeterminado de la lista */
-    margin: 0; /* Elimina el margen predeterminado de la lista */
-    display: flex; /* Cambia la disposición de los elementos a flexbox */
+    list-style: none; /* Elimina los puntos de la lista 
+    padding: 0; /* Elimina el relleno predeterminado de la lista 
+    margin: 0; /* Elimina el margen predeterminado de la lista 
+    display: flex; /* Cambia la disposición de los elementos a flexbox 
     right: 0;
     justify-content: center;
 }
   
-  /* Estilos para cada elemento de la lista (li) */
+  /* Estilos para cada elemento de la lista (li) 
   .navbar li {
-    margin-right: 20px; /* Espacio entre elementos */
+    margin-right: 20px; /* Espacio entre elementos 
   }
   
-  /* Estilos para los enlaces (a) dentro de los elementos de la lista */
+  /* Estilos para los enlaces (a) dentro de los elementos de la lista 
   .navbar a {
-    text-decoration: none; /* Elimina la subrayado predeterminado de los enlaces */
-    color: #f0ebd8; /* Color del texto de los enlaces */
+    text-decoration: none; /* Elimina la subrayado predeterminado de los enlaces 
+    color: #f0ebd8; /* Color del texto de los enlaces 
   }
   
-  /* Estilos al pasar el mouse por encima de los enlaces */
+  /* Estilos al pasar el mouse por encima de los enlaces 
   .navbar a:hover {
-    /*text-decoration: underline; /* Agrega subrayado al pasar el mouse */
+   /* Agrega subrayado al pasar el mouse 
     color: rgb(155, 155, 155);
 }
 
@@ -42,7 +42,131 @@
   padding: 7px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
   border-radius: 30px;
- 
-  
 
+}
+*/
+
+
+
+
+
+body {
+  font-family: 'Roboto', sans-serif;
+  padding: 0;
+  margin: 0;
+}
+
+small {
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.4);
+}
+
+h1 {
+  text-align: center;
+  padding: 50px 0;
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: -1px;
+  color: inherit;
+  font-size: 40px;
+}
+
+h2 {
+  text-align: center;
+  font-size: 30px;
+  margin: 0;
+  font-weight: 300;
+  color: inherit;
+  padding: 50px;
+}
+
+.center {
+  text-align: center;
+}
+
+section {
+  height: 100vh;
+}
+
+/* NAVIGATION */
+nav {
+  width: 40%;
+  margin: 0 auto;
+  background-color: #3e5c76;
+  padding: 15px 0;
+  /*box-shadow: 0px 5px 0px #d62121;*/
+  border-radius: 0px 0px 30px 30px;
+
+}
+nav ul {
+  list-style: none;
+  text-align: center;
+  /*margin-right: 50px;*/
+  padding-right: 50px;
+  padding-left: 50px;
+}
+nav ul li {
+  display: inline-block;
+}
+nav ul li a {
+  display: block;
+  padding: 3px;
+  text-decoration: none;
+  color: #f0ebd8;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin: 0 10px;
+}
+nav ul li a,
+nav ul li a:after,
+nav ul li a:before {
+  transition: all .5s;
+}
+nav ul li a:hover {
+  color: rgb(155, 155, 155);
+}
+
+
+/* stroke */
+nav.stroke ul li a,
+nav.fill ul li a {
+  position: relative;
+}
+nav.stroke ul li a:after,
+nav.fill ul li a:after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 0%;
+  content: '.';
+  color: transparent;
+  background: #aaa;
+  height: 1px;
+}
+nav.stroke ul li a:hover:after {
+  width: 100%;
+}
+
+nav.fill ul li a {
+  transition: all 2s;
+}
+
+nav.fill ul li a:after {
+  text-align: left;
+  content: '.';
+  margin: 0;
+  opacity: 0;
+}
+nav.fill ul li a:hover {
+  color: #fff;
+  z-index: 1;
+}
+nav.fill ul li a:hover:after {
+  z-index: -10;
+  animation: fill 1s forwards;
+  -webkit-animation: fill 1s forwards;
+  -moz-animation: fill 1s forwards;
+  opacity: 1;
 }

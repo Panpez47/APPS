@@ -12,7 +12,16 @@
 <body>
     
     <!--Header-->
-    <header>
+
+    <nav class="stroke">
+    <ul>
+      <li><a href="#">Home</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Downloads</a></li>
+      <li><a href="#">More</a></li>
+    </ul>
+  </nav>
+    <!--<header>
         <div class="navbar" >
             <ul >
             <li><a href="index.php">Inicio</a></li>
@@ -22,7 +31,7 @@
             <li><a href="reportes.html">Reportes</a></li>
            </ul> 
         </div>
-    </header>
+    </header>-->
 
     <!--Formulario-->
     <div class="container">
