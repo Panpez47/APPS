@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="./Styles/barranav.css">
     <link rel="stylesheet" href="./Styles/forms.css">
-    <title>Maestros</title>
+    <title>Reportes</title>
 </head>
 <body>
 
@@ -15,9 +15,9 @@
     <nav class="stroke">
         <ul>
             <li><a href="index.php">Home</a></li>
-            <li><a class="active" href="maestros.php">Maestros</a></li>
+            <li><a href="maestros.php">Maestros</a></li>
             <li><a href="materias.php">Materias</a></li>
-            <li><a href="reportes.php">Reportes</a></li>
+            <li><a class="active" href="reportes.php">Reportes</a></li>
         </ul>
     </nav>
 
