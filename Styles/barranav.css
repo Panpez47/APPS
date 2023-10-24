@@ -1,79 +1,62 @@
 /* Estilos para la barra de navegación */
-
 /* Variables */
 @import url(https://fonts.googleapis.com/css?family=Open+Sans);
 
-/* Definición de variables CSS personalizadas para colores */
 :root {
-  --primary-color: #127369;
-  --secondary-color: #10403B;
-  --accent-color: #8AA6A3;
-  --text-color: #4C5958;
-  --background-color: #BFBFBF;
+  --primary-color: #0D1321;
+  --secondary-color: #1D2D44;
+  --accent-color: #3E5C76;
+  --text-color: #748CAB;
+  --background-color: #F0EBD8; 
 }
 
-/* Estilos para el fondo del sitio */
 html {
   height: 100%;
-  background-image: linear-gradient(to right top, var(--primary-color) 0%, var(--secondary-color) 100%);
+  background-color: var(--primary-color); /* Fondo de color primario */
 }
 
-/* Estilos para la barra de navegación */
 nav {
-  /* Ancho máximo para la barra de navegación */
   max-width: 960px;
-  
-  /* Aplicación de una máscara de degradado horizontal a la barra */
-  mask-image: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, #ffffff 25%, #ffffff 75%, rgba(255, 255, 255, 0) 100%);
-  
-  /* Margen horizontal automático para centrar la barra */
   margin: 0 auto;
-  
-  /* Espaciado superior e inferior de la barra de navegación */
-  padding: 60px 0;
+  padding: 20px 0; /* Espaciado superior e inferior reducido */
+  background-color: var(--secondary-color); /* Color de fondo primario */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra ligera */
 }
 
-/* Estilos para la lista no ordenada (ul) dentro de la barra de navegación */
 nav ul {
-  /* Texto centrado dentro de la lista */
   text-align: center;
-  
-  /* Fondo degradado para la lista */
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.2) 25%, rgba(255, 255, 255, 0.2) 75%, rgba(255, 255, 255, 0) 100%);
-  
-  /* Sombra en la lista */
-  box-shadow: 0 0 25px rgba(0, 0, 0, 0.1), inset 0 0 1px rgba(255, 255, 255, 0.6);
 }
 
-/* Estilos para los elementos de la lista (li) en la barra de navegación */
 nav ul li {
-  /* Elementos de lista en línea (uno al lado del otro) */
   display: inline-block;
+  margin: 0 10px; /* Espacio entre elementos de la lista */
 }
 
-/* Estilos para los enlaces (a) dentro de la lista en la barra de navegación */
 nav ul li a {
-  /* Relleno y estilos de fuente para los enlaces */
-  padding: 18px;
+  padding: 10px 20px; /* Relleno reducido */
   font-family: "Open Sans";
   text-transform: uppercase;
-  color: var(--text-color);
+  color: var(--accent-color); /* Color de acento */
   font-size: 18px;
   text-decoration: none;
-  display: block;
-  
-  /* Fuente en negrita y color de texto negro */
   font-weight: bold;
-  color: whitesmoke;
+  transition: color 0.3s; /* Transición de color al hacer hover */
   
-  /* Transición suave del color del texto al hacer hover */
-  transition: color 0.3s;
 }
 
-/* Estilos al hacer hover en los enlaces */
 nav ul li a:hover {
-  /* Sombra y cambio de color de fondo y de texto al hacer hover */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), inset 0 0 1px rgba(255, 255, 255, 0.6);
-  background: var(--background-color);
-  color: var(--accent-color);
+  color: var(--background-color); /* Color de fondo al hacer hover */
+  background: var(--accent-color);
 }
+
+
+.active{
+  padding-top: 10px 20px;
+  background: var(--accent-color);
+  color: #F0EBD8;
+}
+
+
+
+
+

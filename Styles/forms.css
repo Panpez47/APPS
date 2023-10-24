@@ -1,62 +1,68 @@
 /* Estilos para el contenedor */
-@import url(https://fonts.googleapis.com/css?family=Open+Sans);
-
-
 .container {
-    display: flex;
-    justify-content: center; /* Centra horizontalmente */
-    align-items: center; /* Centra verticalmente */
-    height: 100vh; /* Asegura que el contenedor ocupe toda la altura de la ventana del navegador */
-  }
-  
-  /* Estilos para el formulario */
-  form {
-    background-color: var(--secondary-color); /* Color de fondo secundario */
-    padding: 20px; /* Espaciado interior */
-    border-radius: 10px; /* Esquinas redondeadas */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    display: flex; /* Estiliza el formulario como una columna */
-    flex-direction: column;
-    align-items: center;
-    transition: transform 0.3s; /* Transición para animación de escalado */
-  }
-  
-  /* Estilos para las etiquetas y campos de entrada del formulario */
-  label {
-    margin-top: 10px;
-    font-size: 18px; /* Tamaño de fuente ligeramente más grande */
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    font-weight: bold; /* Fuente en negrita */
-    color: whitesmoke; /* Color de texto en negro */
-    transition: color 0.3s; /* Transición de color al hacer hover */
-  }
-  
-  input {
-    width: 100%; /* Ancho completo del formulario */
-    padding: 12px; /* Espaciado interior */
-    margin: 10px 0; /* Espacio vertical entre campos de entrada */
-    border: 2px solid var(--primary-color); /* Borde más grueso */
-    border-radius: 5px; /* Esquinas redondeadas */
-    text-align: center; /* Alineación centrada */
-    font-size: 16px; /* Tamaño de fuente ligeramente más pequeño */
-  }
-  
-  input[type="submit"] {
-    background-color: var(--accent-color); /* Color de acento */
-    color: #fff;
-    border: none;
-    padding: 12px 20px; /* Espaciado interior del botón */
-    border-radius: 5px; /* Esquinas redondeadas */
-    cursor: pointer;
-    font-size: 18px; /* Tamaño de fuente ligeramente más grande */
-    transition: background-color 0.3s; /* Transición suave al hacer hover */
-  }
-  
-  form:hover {
-    transform: scale(1.05); /* Escalado al hacer hover en el formulario */
-  }
-  
-  input[type="submit"]:hover {
-    background-color: var(--primary-color); /* Color principal al hacer hover */
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: var(--primary-color); /* Fondo de color primario */
+}
+
+/* Estilos para el formulario */
+form {
+  background-color: var(--secondary-color);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  max-width: 400px; /* Ancho máximo del formulario */
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s;
+  font-family: Arial, sans-serif; /* Fuente Arial */
+}
+
+/* Estilos para los títulos del formulario */
+h2 {
+  font-size: 24px;
+  color: var(--accent-color); /* Color de acento */
+  margin: 0 0 20px; /* Espacio inferior */
+}
+
+/* Estilos para las etiquetas y campos de entrada del formulario */
+label {
+  font-size: 18px;
+  font-weight: bold;
+  color: white; /* Color de texto en blanco */
+  margin: 10px 0;
+  width: 100%;
+  text-align: left; /* Alineación izquierda */
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid var(--accent-color); /* Borde en color de acento */
+  border-radius: 5px;
+  font-size: 16px;
+  margin: 10px 0;
+  color: black; /* Color de texto en negro */
+  background-color: white; /* Fondo blanco */
+  text-align: left; /* Alineación izquierda */
+}
+
+input[type="submit"] {
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background-color 0.3s;
+}
+
+/* Estilos al hacer hover en el botón */
+input[type="submit"]:hover {
+  background-color: var(--primary-color); /* Color principal al hacer hover */
+}
