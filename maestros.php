@@ -28,13 +28,17 @@
             <br>
             <input type="text" name="nombre" required>
             <br>
-            <label for="apellido">Apellido:</label>
+            <label for="apellido">Apellidos:</label>
             <br>
             <input type="text" name="apellido" required>
             <br>
-            <label for="idmateria">Materia:</label>
+            <label for="Cedula">Cedula:</label>
             <br>
-            <input type="text" name="idmateria" required>
+            <input type="text" name="Cedula" required>
+            <br>
+            <label for="E-mail">E-mail:</label>
+            <br>
+            <input type="text" name="E-mail" required>
             <br>
             <input class="enviar1" type="submit" name="enviar1" required>
         </form>

@@ -24,17 +24,21 @@
     <!--Formulario-->
     <div class="container">
         <form method="POST">
-            <label for="nombre">Nombre del Maestro:</label>
+            <label for="nombre">Nombre de la materia:</label>
             <br>
             <input type="text" name="nombre" required>
             <br>
-            <label for="apellido">Apellido:</label>
+            <label for="maestro">Maestro:</label>
             <br>
-            <input type="text" name="apellido" required>
+            <input type="text" name="maestro" required>
             <br>
-            <label for="idmateria">Materia:</label>
+            <label for="Semestre">Semestre:</label>
             <br>
-            <input type="text" name="idmateria" required>
+            <input type="text" name="Semestre" required>
+            <br>
+            <label for="Carrera">Carrera:</label>
+            <br>
+            <input type="text" name="Carrera" required>
             <br>
             <input class="enviar1" type="submit" name="enviar1" required>
         </form>
