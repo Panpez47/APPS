@@ -1,59 +1,60 @@
-CREATE TABLE Materia(
-ID_Materia int(3) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-Nombre_materia varchar(20) NOT NULL,
-Horas_materia varchar(20) NOT NULL);
+CREATE TABLE `Materia` (
+  `ID_Materia` int(3) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `Nombre_materia` varchar(20) NOT NULL,
+  `ID_Maestro` int(3)
+);
 
-INSERT INTO `MATERIA` (`Nombre_materia`,`Horas_materia`)
-	VALUES  ('Geografia','46'), ('Matematicas','60');
+CREATE TABLE `Maestros` (
+  `ID_Maestro` int(3) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `Nombre_maestro` varchar(30) NOT NULL
+);
 
+CREATE TABLE `Generacion` (
+  `ID_Generacion` int(3) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `Nombre` varchar(30) NOT NULL,
+  `ID_Semestre` int(3),
+  `ID_Grupopedagogico` int(3)
+);
 
+CREATE TABLE `Semestre` (
+  `ID_Semestre` int(3) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `Nombre_semestre` varchar(10)
+);
 
+CREATE TABLE `Grupopedagogico` (
+  `ID_Grupopedagogico` int(3) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `Nombre` varchar(10)
+);
 
+CREATE TABLE `Incidencias` (
+  `ID_Incidencias` int(3) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `Motivo` varchar(50),
+  `Fecha` date,
+  `ID_Maestro` int(3)
+);
 
+CREATE TABLE `Actext` (
+  `id_act` int(3) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `nombre_act` varchar(50),
+  `ID_Maestro` int(3)
+);
 
-CREATE TABLE Maestros(
-ID_Maestro int (3) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-Nombre_maestro varchar(30) NOT NULL,
-Ape_maestro varchar(30) NOT NULL,
-ID_Materia int(3),
-FOREIGN KEY (ID_Materia) REFERENCES Materia (ID_Materia));
-  
+CREATE TABLE `generacion_materia` (
+  `id_mm` int(3) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `ID_Materia` int(3),
+  `ID_Generacion` int(3)
+);
 
-CREATE TABLE Generacion(
-ID_Generacion int(3) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-Nombre_maestro varchar(30) NOT NULL,
-ID_materia int(3),
-FOREIGN KEY (ID_materia) REFERENCES Materia (ID_Materia));
+ALTER TABLE `Actext` ADD FOREIGN KEY (`ID_Maestro`) REFERENCES `Maestros` (`ID_Maestro`);
 
+ALTER TABLE `Incidencias` ADD FOREIGN KEY (`ID_Maestro`) REFERENCES `Maestros` (`ID_Maestro`);
 
-CREATE TABLE Semestre(
-ID_Semestre int(3) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-Nombre_semestre varchar(10),
-ID_Generacion int(3),
-FOREIGN KEY (ID_Generacion) REFERENCES Generacion (ID_Generacion));
+ALTER TABLE `Materia` ADD FOREIGN KEY (`ID_Maestro`) REFERENCES `Maestros` (`ID_Maestro`);
 
-CREATE TABLE Grupopedagogico(
-ID_Grupopedagogico int(3) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-Nombre_maestro varchar(10),
-ID_Materia int(3),
-FOREIGN KEY (ID_Materia) REFERENCES Materia (ID_Materia));
+ALTER TABLE `Semestre` ADD FOREIGN KEY (`ID_Semestre`) REFERENCES `Generacion` (`ID_Semestre`);
 
-CREATE TABLE Incidencias(
-ID_Incidencias int(3) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-Motivo varchar(50),
-Fecha date,
-ID_Materia int(3),
-ID_Maestro int(3),
-FOREIGN KEY (ID_Materia) REFERENCES Materia (ID_Materia),
-FOREIGN KEY (ID_Maestro) REFERENCES Maestros (ID_Maestro));
+ALTER TABLE `Grupopedagogico` ADD FOREIGN KEY (`ID_Grupopedagogico`) REFERENCES `Generacion` (`ID_Grupopedagogico`);
 
+ALTER TABLE `generacion_materia` ADD FOREIGN KEY (`ID_Materia`) REFERENCES `Materia` (`ID_Materia`);
 
-
-
-SELECT MAESTROS.Nombre_maestro, MAESTROS.Ape_maestro, MATERIA.Nombre_materia FROM MAESTROS 
-	INNER JOIN MATERIA ON MAESTROS.ID_Materia = MATERIA.ID_Materia
-	 WHERE MATERIA.ID_Materia = 3;
-
-
-
-
+ALTER TABLE `generacion_materia` ADD FOREIGN KEY (`ID_Generacion`) REFERENCES `Generacion` (`ID_Generacion`);

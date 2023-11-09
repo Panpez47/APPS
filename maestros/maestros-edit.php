@@ -28,7 +28,7 @@ include("../conector.php");
     if(isset($_POST['enviar'])){
 
     }else{
-        $id=$GET['ID_Maestro'];
+        $id = $GET['ID_Maestro'];
         $sql ="select * from maestros where id='".$id."'";
         $resultado=mysqli_query($conexion,$sql);
 
