@@ -14,10 +14,10 @@
 
     <nav class="stroke">
         <ul>
-            <li><a href="index.php">Home</a></li>
+            <li><a href="../index.php">Home</a></li>
             <li><a class="active" href="maestros.php">Maestros</a></li>
-            <li><a href="materias.php">Materias</a></li>
-            <li><a href="reportes.php">Reportes</a></li>
+            <li><a href="../materias.php">Materias</a></li>
+            <li><a href="../reportes.php">Reportes</a></li>
         </ul>
     </nav>
 

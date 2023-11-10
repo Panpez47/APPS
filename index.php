@@ -11,7 +11,7 @@
    <nav class="stroke">
         <ul>
             <li><a class="active" href="index.php">Home</a></li>
-            <li><a href="maestros.php">Maestros</a></li>
+            <li><a href="./maestros/maestros-data.php">Maestros</a></li>
             <li><a href="materias.php">Materias</a></li>
             <li><a href="reportes.php">Reportes</a></li>
         </ul>

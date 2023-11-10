@@ -1,3 +1,90 @@
-table{
-    color:white;
+.tablita,#datosTabla{
+
+    width: 80%;
+    border-collapse: collapse;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    border-width: 0.3mm;
+    margin-top: 15px;
+    margin-left: 130px;
+    color: black;
+    background-color: #F0EBD8;
+    border:1px solid black;
+    
 }
+
+#headerTabla{
+    color: black;
+    background-color: #748CAB;
+    width: 136px;
+    height: 65px;
+    border-bottom: 1px solid black;
+}
+
+  
+.lineasVerticales td {
+    border:1px solid black;
+    
+  }
+
+  .button{
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem; 
+    padding-left: 0.5rem;
+    padding-right: 0.5rem; 
+    border-radius: 0.375rem; 
+    color: #ffffff; 
+    background-color: #3B82F6; 
+    margin-right: 0.5rem;
+    
+  }
+  .button:hover {
+    background-color: #1D4ED8; 
+ }
+
+  .button1{
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem; 
+    padding-left: 0.5rem;
+    padding-right: 0.5rem; 
+    border-radius: 0.375rem; 
+    color: #ffffff; 
+    background-color: #EF4444; 
+    
+  }
+  .button1:hover {
+    background-color: #B91C1C; 
+ }
+
+ .buttonnav{
+    /*display: flex;
+    margin-left: 74%;*/
+    margin-top: 1.2rem;
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem; 
+    padding-left: 5rem;
+    padding-right: 5rem; 
+    border-radius: 0.375rem; 
+    color: #ffffff;
+    background-color: #748CAB; 
+    display: inline-block;
+    cursor: pointer;
+    
+    
+ }
+
+ .buttonnav:hover{
+    font-weight: bold;
+    background-color: rgb(194, 189, 173);
+
+ }
+
+ .ContenedorAgregar{
+    display: flex;
+    margin-left: 73.3%;
+    
+ }
+
+
+ 
+
