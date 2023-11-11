@@ -34,8 +34,7 @@
             <tr id="headerTabla">
                 <td><b>ID</b></td>
                 <td><b>Nombre del Maestro</b></td>
-                <td><b>Apellido del Maestro</b></td>
-                <td><b>ID Materia</b></td>
+                <td><b>Horario</b></td>
                 <td><b>Acciones</b></td>
             </tr>
 
@@ -50,17 +49,12 @@
             <tr id="datosTabla">
                 <td><?php echo $mostrar['ID_Maestro']?></td>
                 <td><?php echo $mostrar['Nombre_maestro']?></td>
-                <td><?php echo $mostrar['Ape_maestro']?></td>
-                <td><?php echo $mostrar['ID_Materia']?></td>
+                <td><?php echo $mostrar['Horario']?></td>
+                
+
                 <td id="botonesss">
-                    <button class="button"><b>Editar</b></button><button class="button1"><b>Borrar</b></button>
-                    <a href="maestros-edit.php?
-                    $id=<?php echo $mostrar['ID_Maestro']?> &
-                    $nombre=<?php echo $mostrar['Nombre_maestro']?> &
-                    $apellido=<?php echo $mostrar['Ape_maestro']?> &
-                    $idmateria=<?php echo $mostrar['ID_Materia']?>
-                    "> 
-      
+                    <a href="maestros-edit.php?id=<?php echo $mostrar['ID_Maestro']?>" <button class="button"><b>Editar</b></button></a>
+                    <a href="maestros-delete.php?id=<?php echo $mostrar['ID_Maestro']?>" <button class="button1"><b>Borrar</b></button></a>
                 </td>
             </tr>
             <?php

@@ -1,20 +1,18 @@
 <?php
-
-include("conector.php");
+include("../conector.php");
 
 if (isset($_POST['enviar1'])){
     try {
-        if (!(strlen($_POST['nombre']) >= 1 &&
-            strlen($_POST['apellido']) >= 1 &&
-            strlen($_POST['idmateria']) >= 1)) {
+
+        if (!(strlen($_POST['nombreMaestro']) >= 1 &&
+            strlen($_POST['horario']) >= 1 )){
             throw new Exception("¡Por favor complete los campos!");
         }
 
-        $nombre = trim($_POST['nombre']);
-        $apellido = trim($_POST['apellido']);
-        $idmateria = trim($_POST['idmateria']);
+        $nombre = trim($_POST['nombreMaestro']);
+        $horario = trim($_POST['horario']);
 
-        $consulta = "INSERT INTO `MAESTROS`(`Nombre_maestro`, `Ape_maestro`, `ID_Materia`) VALUES ('$nombre','$apellido','$idmateria')";
+        $consulta = "INSERT INTO `maestros`(`Nombre_maestro`, `Horario`) VALUES ('$nombre','$horario')";
         $resultado = mysqli_query($conexion, $consulta);
 
         if (!$resultado) {
@@ -23,6 +21,10 @@ if (isset($_POST['enviar1'])){
 
         // Mensaje de éxito
         $mensajeExito = "¡Su registro fue exitoso!";
+        
+        // Redirigir al usuario después de la inserción exitosa
+        header("Location: maestros.php");
+        exit();
         ?>
         
         <div class="ok"><script>
@@ -35,3 +37,5 @@ if (isset($_POST['enviar1'])){
         <?php
     }
 }
+
+?>
