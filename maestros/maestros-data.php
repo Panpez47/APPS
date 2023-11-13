@@ -62,6 +62,6 @@
             ?>
         </table> 
     </div>
-
+            <script src ="confirmacion.js"></script>
 </body>
 </html>
