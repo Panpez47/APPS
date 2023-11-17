@@ -35,6 +35,7 @@
       padding: 12px;
       text-align: left;
       max-width: 150px;
+      position: relative;
     }
 
     th {
@@ -57,6 +58,7 @@
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
+      position: relative;
     }
 
     .export-buttons {
@@ -80,14 +82,33 @@
       background-color: #ddd; /* Color de fondo para celdas combinadas */
     }
 
-    .delete-button {
+    /*.delete-button {
       background-color: #ff6666;
       color: #fff;
       border: none;
       padding: 5px;
       cursor: pointer;
       margin-left: 5px;
+    }*/
+
+    
+    .delete-button {
+    background-color: #ff6666;
+    color: #fff;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0;
+    visibility: hidden;
     }
+
+    td:hover .delete-button {
+    visibility: visible;
+    }
+
+
 
   </style>
 </head>
@@ -98,8 +119,8 @@
   <ul class="materias-list">
     <li class="materia-item" draggable="true" ondragstart="drag(event)">Matematicas</li>
     <li class="materia-item" draggable="true" ondragstart="drag(event)">Fisica</li>
-    <li class="materia-item" draggable="true" ondragstart="drag(event)">Quimica</li>
-    <li class="materia-item" draggable="true" ondragstart="drag(event)">Automatas</li>
+    <li class="materia-item" draggable="true" ondragstart="drag(event)">Programacion</li>
+    <li class="materia-item" draggable="true" ondragstart="drag(event)">Historia</li>
     <li class="materia-item" draggable="true" ondragstart="drag(event)">Biologia</li>
   </ul>
 </div>
@@ -130,8 +151,7 @@
   <?php endfor; ?>
 </table>
 
-<!-- Botón para activar el modo de borrado -->
-<button onclick="activarModoBorrado()">Activar Modo Borrado</button>
+
 
 <div class="export-buttons">
   <button onclick="exportToExcel()">Exportar a Excel</button>
@@ -201,22 +221,28 @@
       }
     }
 
+    
+
     // Agregar el botón de borrar
-    var deleteButton = document.createElement("button");
-    deleteButton.textContent = "Borrar";
-    deleteButton.classList.add("delete-button");
-    deleteButton.onclick = function() {
-      deleteMateria(this);
-    };
-    draggedElement.appendChild(deleteButton);
+  var deleteButton = document.createElement("button");
+  deleteButton.textContent = "X";
+  deleteButton.classList.add("delete-button");
+  deleteButton.onclick = function() {
+    deleteMateria(this);
+  };
+  draggedElement.appendChild(deleteButton);
 
-    ev.target.appendChild(draggedElement);
-  }
+  // Añadir la clase materia-item al td
+  //draggedElement.classList.add("materia-item");
 
+  ev.target.appendChild(draggedElement);
+}
 
-
-
+  //Funcion para eliminar la materia
   function deleteMateria(button) {
+  var confirmDelete = confirm("¿Seguro que quieres borrar la materia?");
+  
+  if (confirmDelete) {
     var cell = button.parentNode;
     var table = cell.parentNode.parentNode;
     var rowIndex = cell.parentNode.rowIndex;
@@ -235,20 +261,11 @@
       }
     }
   }
+}
 
 
-  var modoBorrado = false;
-
-  function activarModoBorrado() {
-    modoBorrado = !modoBorrado;
-
-    var deleteButtons = document.querySelectorAll('.delete-button');
-    deleteButtons.forEach(function(button) {
-      button.style.display = modoBorrado ? 'inline-block' : 'none';
-    });
-  }
   
-
+ //Funcion para exportar a Excel
   function exportToExcel() {
     var table = document.querySelector("table");
     var ws = XLSX.utils.table_to_sheet(table);
@@ -257,6 +274,7 @@
     XLSX.writeFile(wb, "horario.xlsx");
   }
 
+   //Funcion para exportar a PDF
   function exportToPDF() {
   var table = document.querySelector("table");
   var pdf = new jsPDF();
