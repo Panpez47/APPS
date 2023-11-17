@@ -4,16 +4,14 @@ include("../conector.php");
 if (isset($_POST['enviar1'])){
     try {
 
-        if (!(strlen($_POST['Nombre_maestro']) >= 1 &&
-            strlen($_POST['Horario']) >= 1 )){
+        if (!(strlen($_POST['semestre']) >= 1 )){
             throw new Exception("¡Por favor complete los campos!");
         }
 
         $id = trim($_POST['id']);
-        $nombre = trim($_POST['Nombre_maestro']);
-        $horario = trim($_POST['Horario']);
+        $nombre = trim($_POST['semestre']);
 
-        $consulta = "UPDATE maestros SET Nombre_maestro='$nombre', Horario= '$horario' WHERE ID_Maestro = '$id'";
+        $consulta = "UPDATE semestre SET Nombre_semestre ='$nombre' WHERE ID_Semestre = '$id'";
         $resultado = mysqli_query($conexion, $consulta);
 
         if (!$resultado) {
@@ -24,7 +22,7 @@ if (isset($_POST['enviar1'])){
         $mensajeExito = "¡Su registro fue exitoso!";
 
         // Redirigir al usuario después de la inserción exitosa
-        header("Location: maestros-data.php");
+        header("Location: semestre-data.php");
         exit();
         ?>
 

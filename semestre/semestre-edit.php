@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="../Styles/barranav.css">
     <link rel="stylesheet" href="../Styles/tables.css">
 
-    <title>Maestros</title>
+    <title>Semestre</title>
 </head>
 <body>
     <?php
@@ -23,7 +23,7 @@
         </ul>
     </nav>
     <div class="ContenedorAgregar">
-        <a href="../maestros/maestros.php">
+        <a href="./semestre.php">
             <button class="buttonnav"><b>Agregar</b></button>
         </a>
     </div>
@@ -32,29 +32,27 @@
         <form  method="post">
             <table class = "tablita lineasVerticales">
                 <tr id="headerTabla">
-                    <td><b>Nombre del Maestro</b></td>
-                    <td><b>Horario</b></td>
+                    <td><b>Nombre del semestre</b></td>
                     <td><b>Accion</b></td>
                 </tr>
-
+    
                 <?php
                 $id = $_GET["id"];
-                $sql="SELECT * from maestros WHERE ID_Maestro = '$id'";
+                $sql="SELECT * from semestre WHERE ID_Semestre = '$id'";
                 $result=mysqli_query($conexion,$sql);
-                $filas=['ID_MAESTRO'];
-                $idMaestro=$filas;
+                $filas=['ID_Semestre'];
+                $idSemestre=$filas;
                 while($mostrar=mysqli_fetch_array($result)){
                 ?>
-
+    
                 <tr id="datosTabla">
-                    <input type="hidden" name="id" value="<?php echo $mostrar['ID_Maestro']?>">
-                    <td><input type="text" name="Nombre_maestro" value="<?php echo $mostrar['Nombre_maestro']?>"></td>
-                    <td><input type="text" name="Horario" value="<?php echo $mostrar['Horario']?>"></td>
+                    <input type="hidden" name="id" value="<?php echo $mostrar['ID_Semestre']?>">
+                    <td><input type="text" name="semestre" value="<?php echo $mostrar['Nombre_semestre']?>"></td>
                     <td><input type="submit" name ="enviar1"></td>
                 </tr>
                 <?php
                 }
-                include("maestros-actualizar.php");
+                include("semestre-actualizar.php");
                 ?>
             </table> 
             

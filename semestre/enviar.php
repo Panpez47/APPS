@@ -4,16 +4,13 @@ include("../conector.php");
 if (isset($_POST['enviar1'])){
     try {
 
-        if (!(strlen($_POST['Nombre_maestro']) >= 1 &&
-            strlen($_POST['Horario']) >= 1 )){
+        if (!(strlen($_POST['semestre']) >= 1)){
             throw new Exception("¡Por favor complete los campos!");
         }
 
-        $id = trim($_POST['id']);
-        $nombre = trim($_POST['Nombre_maestro']);
-        $horario = trim($_POST['Horario']);
+        $nombre = trim($_POST['semestre']);
 
-        $consulta = "UPDATE maestros SET Nombre_maestro='$nombre', Horario= '$horario' WHERE ID_Maestro = '$id'";
+        $consulta = "INSERT INTO `semestre`(`Nombre_semestre`) VALUES ('$nombre')";
         $resultado = mysqli_query($conexion, $consulta);
 
         if (!$resultado) {
@@ -22,12 +19,12 @@ if (isset($_POST['enviar1'])){
 
         // Mensaje de éxito
         $mensajeExito = "¡Su registro fue exitoso!";
-
+        
         // Redirigir al usuario después de la inserción exitosa
-        header("Location: maestros-data.php");
+        header("Location: semestre.php");
         exit();
         ?>
-
+        
         <div class="ok"><script>
             alert("<?php echo $mensajeExito; ?>");
         </script><h3 style='color: green'><?php echo $mensajeExito; ?></h3></div>
@@ -38,5 +35,4 @@ if (isset($_POST['enviar1'])){
         <?php
     }
 }
-
 ?>

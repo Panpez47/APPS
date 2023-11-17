@@ -36,6 +36,7 @@
         <br>
         <input type="submit" name = "enviar1" >
     </form>
+    
     </div>
     <?php
     include("enviar.php");
