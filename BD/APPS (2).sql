@@ -6,12 +6,12 @@ CREATE TABLE `Maestros` (
 
 CREATE TABLE `Semestre` (
   `ID_Semestre` int(3) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  `Nombre_semestre` varchar(10)
+  `Nombre_semestre` varchar(30)
 );
 
 CREATE TABLE `Grupopedagogico` (
   `ID_Grupopedagogico` int(3) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  `Nombre` varchar(10)
+  `Nombre` varchar(30)
 );
 
 CREATE TABLE `Materia` (
@@ -20,6 +20,7 @@ CREATE TABLE `Materia` (
   `Horas` int(20),
   `ID_Maestro` int(3),
   `ID_Generacion` int(3),
+  `id_carrera` int(3),
   `ID_Grupopedagogico` int(3),
   `ID_Semestre` int(3)
 );
@@ -27,6 +28,11 @@ CREATE TABLE `Materia` (
 CREATE TABLE `Generacion` (
   `ID_Generacion` int(3) PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `Nombre` varchar(30) NOT NULL
+);
+
+CREATE TABLE `Carrera` (
+  `id_carrera` int(3) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(50) NOT NULL
 );
 
 CREATE TABLE `Incidencias` (
@@ -51,5 +57,7 @@ ALTER TABLE `Materia` ADD FOREIGN KEY (`ID_Grupopedagogico`) REFERENCES `Grupope
 ALTER TABLE `Incidencias` ADD FOREIGN KEY (`ID_Maestro`) REFERENCES `Maestros` (`ID_Maestro`);
 
 ALTER TABLE `Actext` ADD FOREIGN KEY (`ID_Maestro`) REFERENCES `Maestros` (`ID_Maestro`);
+
+ALTER TABLE `Materia` ADD FOREIGN KEY (`id_carrera`) REFERENCES `Carrera` (`id_carrera`);
 
 ALTER TABLE `Materia` ADD FOREIGN KEY (`ID_Generacion`) REFERENCES `Generacion` (`ID_Generacion`);
