@@ -10,7 +10,7 @@ if (isset($_POST['enviar1'])){
 
         $nombre = trim($_POST['grupo']);
 
-        $consulta = "INSERT INTO `Grupopedagogico`(`Nombre`) VALUES ('$nombre')";
+        $consulta = "INSERT INTO `grupopedagogico`(`Nombre`) VALUES ('$nombre')";
         $resultado = mysqli_query($conexion, $consulta);
 
         if (!$resultado) {

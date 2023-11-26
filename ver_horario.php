@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Horario Semanal</title>
+    <title>Ver y Editar Horario</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -60,45 +60,51 @@
     </style>
 </head>
 <body>
-    <h1>Horario Semanal</h1>
+    <h1>Ver y Editar Horario</h1>
 
-    <!-- Formulario para guardar horario -->
-<form action="guardar_horario.php" method="post">
-    <table>
-        <tr>
-            <th>Hora</th>
-            <th>Lunes</th>
-            <th>Martes</th>
-            <th>Miércoles</th>
-            <th>Jueves</th>
-            <th>Viernes</th>
-            <th>Sábado</th>
-        </tr>
-        <?php for ($hora = 5; $hora <= 20; $hora++): ?>
+    <!-- Formulario para ver y editar horario -->
+    <form action="guardar_horario.php" method="post">
+        <table>
             <tr>
-                <td><?php echo $hora . ':00'; ?></td>
-                <?php for ($dia = 1; $dia <= 6; $dia++): ?>
-                    <td>
-                        <input type="text" name="materia[<?php echo $dia; ?>][<?php echo $hora; ?>]" list="materiasList" />
-                        <datalist id="materiasList">
-                            <option value="Matematicas - Alejandro Panduro López">
-                            <option value="Español - Octavio Corral Tovar">
-                            <option value="Biologia - Gerardo Mora Hernandez">
-                            <option value="Programacion - Hugo Gonzalez Martinez">
-                        </datalist>
-                    </td>
-                <?php endfor; ?>
+                <th>Hora</th>
+                <th>Lunes</th>
+                <th>Martes</th>
+                <th>Miércoles</th>
+                <th>Jueves</th>
+                <th>Viernes</th>
+                <th>Sábado</th>
             </tr>
-        <?php endfor; ?>
-    </table>
-    <br>
-    <input type="submit" value="Guardar Horario">
-</form>
+            <?php
+            // Leer el archivo JSON
+            $json_data = file_get_contents('horario.json');
+            $horario = json_decode($json_data, true);
+
+            // Mostrar el horario guardado
+            for ($hora = 5; $hora <= 20; $hora++):
+                ?>
+                <tr>
+                    <td><?php echo $hora . ':00'; ?></td>
+                    <?php for ($dia = 1; $dia <= 6; $dia++): ?>
+                        <td>
+                            <input type="text" name="materia[<?php echo $dia; ?>][<?php echo $hora; ?>]" value="<?php echo isset($horario[$dia][$hora]) ? $horario[$dia][$hora] : ''; ?>" list="materiasList" />
+                            <datalist id="materiasList">
+                                <option value="Matematicas">
+                                <option value="Español">
+                                <option value="Biologia">
+                                <option value="Programacion">
+                            </datalist>
+                        </td>
+                    <?php endfor; ?>
+                </tr>
+            <?php endfor; ?>
+        </table>
+        <br>
+        <input type="submit" value="Guardar Cambios">
+    </form>
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
         function showEditableList(spanElement) {
-            // Ocultar el texto y mostrar la lista desplegable en modo edición
             $(spanElement).hide().siblings('.editable-list').show();
         }
     </script>

@@ -9,8 +9,8 @@
     <title>Grupos</title>
 </head>
 <body>
-    <!--Header-->
-    <nav class="stroke">
+     <!--Header-->
+   <nav class="stroke">
         <ul>
             <li><a class="active" href="index.php">Horario</a></li>
             <li><a href="./maestros/maestros-data.php">Maestros</a></li>
@@ -31,7 +31,7 @@
         <br>
         <input type="submit" name = "enviar1" >
     </form>
-    <?php 
+    <?php
     include("enviar.php");
     ?>
 </body>

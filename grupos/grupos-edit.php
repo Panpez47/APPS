@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="../Styles/barranav.css">
     <link rel="stylesheet" href="../Styles/tables.css">
 
-    <title>Grupos</title>
+    <title>Semestre</title>
 </head>
 <body>
     <?php
@@ -32,7 +32,7 @@
         <form  method="post">
             <table class = "tablita lineasVerticales">
                 <tr id="headerTabla">
-                    <td><b>Nombre del grupo</b></td>
+                    <td><b>Nombre del Grupo</b></td>
                     <td><b>Accion</b></td>
                 </tr>
     
@@ -47,7 +47,7 @@
     
                 <tr id="datosTabla">
                     <input type="hidden" name="id" value="<?php echo $mostrar['ID_Grupopedagogico']?>">
-                    <td><input type="text" name="semestre" value="<?php echo $mostrar['Nombre']?>"></td>
+                    <td><input type="text" name="grupo" value="<?php echo $mostrar['Nombre']?>"></td>
                     <td><input type="submit" name ="enviar1"></td>
                 </tr>
                 <?php

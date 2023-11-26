@@ -23,6 +23,7 @@
         <label for="nombreactext">Actividad Extra:</label>
         <input type="text" id="actext" name="actext" required>
         <br>
+        <label for="maestro">Maestro:</label>
         <select id="actividad" name="actividad" required>
             <?php
             // Iterar sobre los resultados y generar opciones para la lista desplegable

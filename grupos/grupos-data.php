@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="../Styles/barranav.css">
     <link rel="stylesheet" href="../Styles/tables.css">
 
-    <title>Grupos</title>
+    <title>Grupo</title>
 </head>
 <body>
     <?php
@@ -37,7 +37,7 @@
         <table class = "tablita lineasVerticales">
             <tr id="headerTabla">
                 <td><b>ID</b></td>
-                <td><b>Grupos</b></td>
+                <td><b>Grupo</b></td>
                 <td><b>Acciones</b></td>
             </tr>
 
@@ -45,7 +45,7 @@
             $sql="SELECT * from grupopedagogico";
             $result=mysqli_query($conexion,$sql);
             $filas=['ID_Grupopedagogico'];
-            $idGrupo=$filas;
+            $idSemestre=$filas;
             while($mostrar=mysqli_fetch_array($result)){
             ?>
 
