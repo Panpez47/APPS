@@ -1,5 +1,5 @@
- <!--Header-->
- <nav class="stroke">
+    <!--Header-->
+    <nav class="stroke">
         <ul>
             <li><a class="active" href="index.php">Horario</a></li>
             <li><a href="./maestros/maestros-data.php">Maestros</a></li>

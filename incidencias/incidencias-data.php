@@ -45,7 +45,8 @@
             <?php
             $sql = "SELECT * FROM incidencias";
             $result = mysqli_query($conexion, $sql);
-
+            $filas=['ID_Incidencias'];
+            $idSemestre=$filas;
             while ($mostrar = mysqli_fetch_array($result)) {
                 ?>
                 <tr id="datosTabla">
@@ -55,13 +56,13 @@
                     <td><?php echo $mostrar['Fecha'] ?></td>
 
                     <td id="botonesss">
-                        <a href="editar-incidencia.php?id=<?php echo $mostrar['ID_Incidencias'] ?>"><button class="button"><b>Editar</b></button></a>
-                        <a href="borrar-incidencia.php?id=<?php echo $mostrar['ID_Incidencias'] ?>"><button class="button1"><b>Borrar</b></button></a>
+                        <a href="incidencias-edit.php?id=<?php echo $mostrar['ID_Incidencias'] ?>"><button class="button"><b>Editar</b></button></a>
+                        <a href="incidencias-delete.php?id=<?php echo $mostrar['ID_Incidencias'] ?>"><button class="button1"><b>Borrar</b></button></a>
                     </td>
                 </tr>
                 <?php
             }
-
+            
             // Función para obtener el nombre del maestro
             function obtenerNombreMaestro($conexion, $idMaestro)
             {

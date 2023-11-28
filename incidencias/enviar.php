@@ -10,10 +10,9 @@ if (isset($_POST['enviar1'])) {
 
         // Obtener datos del formulario
         $motivo = trim($_POST['motivo']);
-        $idMaestro = $_POST['actividad']; // Ajusta este campo según la estructura de tu formulario
-
+        $idMaestro = $_POST['actividad'];
         // Obtener y formatear la fecha
-        $fecha = date('Y-m-d', strtotime($_POST['fecha']));
+        $fecha = date('d-m-Y', strtotime($_POST['fecha']));
 
         // Insertar datos en la tabla "incidencia"
         $consulta = "INSERT INTO `incidencias` (`Motivo`, `ID_Maestro`, `Fecha`) VALUES ('$motivo', '$idMaestro', '$fecha')";

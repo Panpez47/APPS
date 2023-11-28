@@ -40,7 +40,7 @@
                 $id = $_GET["id"];
                 $sql="SELECT * from semestre WHERE ID_Semestre = '$id'";
                 $result=mysqli_query($conexion,$sql);
-                $filas=['ID_Semestre'];
+                $filas=['ID_Incidencias'];
                 $idSemestre=$filas;
                 while($mostrar=mysqli_fetch_array($result)){
                 ?>
