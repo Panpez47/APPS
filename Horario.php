@@ -1,3 +1,29 @@
+<?php
+include("conector.php");
+
+// Realizar la consulta para obtener las materias y los maestros desde la base de datos
+$query = "SELECT m.ID_Materia, m.Nombre_materia, m.ID_Maestro, ma.Nombre_maestro FROM Materia m
+          JOIN Maestros ma ON m.ID_Maestro = ma.ID_Maestro";
+$result = mysqli_query($conexion, $query);
+
+// Verificar si la consulta fue exitosa
+if ($result) {
+    // Obtener las materias, maestros y almacenarlos en un array
+    $materiasMaestros = array();
+    while ($row = mysqli_fetch_assoc($result)) {
+        $materiasMaestros[] = array(
+            'ID_Materia' => $row['ID_Materia'],
+            'Nombre_materia' => $row['Nombre_materia'],
+            'ID_Maestro' => $row['ID_Maestro'],
+            'Nombre_maestro' => $row['Nombre_maestro']
+        );
+    }
+} else {
+    // Manejar el error si la consulta no fue exitosa
+    echo "Error en la consulta: " . mysqli_error($conexion);
+}
+
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -8,60 +34,7 @@
     <link rel="stylesheet" href="./Styles/table-horario.css">
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.6/xlsx.full.min.js"></script>
     
-    <style>
-        /*body {
-            font-family: Arial, sans-serif;
-        }
-
-        h1 {
-            text-align: center;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        th, td {
-            padding: 10px;
-            text-align: center;
-            border: 1px solid #ddd;
-            position: relative;
-        }
-
-        input[type="text"], select {
-            width: calc(100% - 12px);
-            padding: 5px;
-            box-sizing: border-box;
-            border: none;
-            outline: none;
-        }
-
-        input[type="text"]:focus, select:focus {
-            outline: none;
-        }
-
-        input[type="submit"] {
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #45a049;
-        }
-
-        /* Estilo para la lista desplegable en modo edición 
-        .editable-list {
-            display: none;
-            position: absolute;
-            z-index: 1;
-        }*/
-    </style>
+    
 </head>
 <body>
 
@@ -93,24 +66,25 @@
             <th>Viernes</th>
             <th>Sábado</th>
         </tr>
+        
         <?php for ($hora = 5; $hora <= 20; $hora++): ?>
-            <tr id="datosTabla">
+        <tr id="datosTabla">
+            <td>
+                <input type="text" name="hora[<?php echo $hora; ?>]" value="<?php echo sprintf("%02d:00 - %02d:50", $hora, $hora); ?>" />
+            </td>
+            <?php for ($dia = 1; $dia <= 6; $dia++): ?>
                 <td>
-                    <input type="text" name="hora[<?php echo $hora; ?>]" value="<?php echo sprintf("%02d:00 - %02d:50", $hora, $hora); ?>" />
+                    <input type="text" name="materia[<?php echo $dia; ?>][<?php echo $hora; ?>]" list="materiasList" />
+                    <datalist id="materiasList">
+                        <?php foreach ($materiasMaestros as $materiaMaestro): ?>
+                            <option value="<?php echo $materiaMaestro['Nombre_materia'] . ' - ' . $materiaMaestro['Nombre_maestro']; ?>" data-id="<?php echo $materiaMaestro['ID_Materia']; ?>">
+                        <?php endforeach; ?>
+                    </datalist>
                 </td>
-                <?php for ($dia = 1; $dia <= 6; $dia++): ?>
-                    <td>
-                        <input type="text" name="materia[<?php echo $dia; ?>][<?php echo $hora; ?>]" list="materiasList" />
-                        <datalist id="materiasList">
-                            <option value="Matemáticas - Alejandro Panduro López">
-                            <option value="Español - Octavio Corral Tovar">
-                            <option value="Biología - Gerardo Mora Hernández">
-                            <option value="Programación - Hugo González Martínez">
-                        </datalist>
-                    </td>
-                <?php endfor; ?>
-            </tr>
-        <?php endfor; ?>
+            <?php endfor; ?>
+        </tr>
+    <?php endfor; ?>
+
     </table>
     <br>
     <input type="submit" onclick="guardarHorario()" value="Guardar Horario">
@@ -146,6 +120,25 @@
         XLSX.writeFile(wb, "horario.xlsx");
     }
 
+    function obtenerDatosTabla() {
+        var data = [['Hora', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']];
+        var filas = document.querySelectorAll('#datosTabla');
+
+        filas.forEach(function (fila) {
+            var rowData = [];
+            var celdas = fila.querySelectorAll('td');
+
+            celdas.forEach(function (celda) {
+                // Obtener el texto o el valor del input según sea el caso
+                var contenido = celda.querySelector('input') ? celda.querySelector('input').value : celda.innerText;
+                rowData.push(contenido);
+            });
+
+            data.push(rowData);
+        });
+
+        return data;
+    }
     function guardarHorario() {
             // Preguntar al usuario el nombre con el que desea guardar el horario
             var nombreHorario = prompt("Por favor, ingrese el nombre con el que desea guardar el horario:");
@@ -165,6 +158,9 @@
                 alert("Por favor, ingrese un nombre válido.");
             }
         }
+
+        
+
     </script>
 </body>
 </html>

@@ -6,60 +6,7 @@
     <title>Ver y Editar Horario</title>
     <link rel="stylesheet" href="./Styles/barranav.css">
     <link rel="stylesheet" href="./Styles/table-horario.css">
-    <style>
-        /*body {
-            font-family: Arial, sans-serif;
-        }
-
-        h1 {
-            text-align: center;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        th, td {
-            padding: 10px;
-            text-align: center;
-            border: 1px solid #ddd;
-            position: relative;
-        }
-
-        input[type="text"], select {
-            width: calc(100% - 12px);
-            padding: 5px;
-            box-sizing: border-box;
-            border: none;
-            outline: none;
-        }
-
-        input[type="text"]:focus, select:focus {
-            outline: none;
-        }
-
-        input[type="submit"] {
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #45a049;
-        }
-
-        /* Estilo para la lista desplegable en modo edición 
-        .editable-list {
-            display: none;
-            position: absolute;
-            z-index: 1;
-        }*/
-    </style>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.6/xlsx.full.min.js"></script>
 </head>
 <body>
 
@@ -124,12 +71,55 @@
         </table>
         <br>
         <input type="submit" value="Guardar Cambios">
+        <button type="button" onclick="exportarExcel()">Exportar a Excel</button>
     </form>
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
         function showEditableList(spanElement) {
             $(spanElement).hide().siblings('.editable-list').show();
+        }
+
+        function exportarExcel() {
+            // Obtén las horas y días de la semana con los datos de los inputs
+            var data = obtenerDatosTabla();
+
+            // Crear una nueva hoja de cálculo
+            var wb = XLSX.utils.book_new();
+            var ws = XLSX.utils.aoa_to_sheet(data);
+
+            // Agregar la hoja de cálculo al libro
+            XLSX.utils.book_append_sheet(wb, ws, "Horario");
+
+            // Autoajustar el ancho de las columnas
+            var range = XLSX.utils.decode_range(ws['!ref']);
+            for (var C = range.s.c; C <= range.e.c; ++C) {
+                ws['!cols'] = ws['!cols'] || [];
+                ws['!cols'][C] = { wch: 20 }; // Puedes ajustar el ancho según tus necesidades
+            }
+
+            // Guardar el archivo Excel
+            XLSX.writeFile(wb, "horario.xlsx");
+        }
+
+        function obtenerDatosTabla() {
+            var data = [['Hora', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']];
+            var filas = document.querySelectorAll('#datosTabla');
+
+            filas.forEach(function (fila) {
+                var rowData = [];
+                var celdas = fila.querySelectorAll('td');
+
+                celdas.forEach(function (celda) {
+                    // Obtener el texto o el valor del input según sea el caso
+                    var contenido = celda.querySelector('input') ? celda.querySelector('input').value : celda.innerText;
+                    rowData.push(contenido);
+                });
+
+                data.push(rowData);
+            });
+
+            return data;
         }
     </script>
 </body>
