@@ -3,25 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario de Disponibilidad</title>
+    <title>Horarios Guardados</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin: 20px auto;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+    </style>
 </head>
 <body>
-    <h2>Formulario de Disponibilidad del Maestro</h2>
-    <form action="guardar.php" method="post">
-        <label for="nombre">Nombre:</label>
-        <input type="text" name="nombre" required><br>
+    <h1>Horarios Guardados</h1>
 
-        <label>Días disponibles:</label><br>
-        <input type="checkbox" name="dias[]" value="lunes"> Lunes
-        <input type="checkbox" name="dias[]" value="martes"> Martes
-        <input type="checkbox" name="dias[]" value="miercoles"> Miércoles
-        <input type="checkbox" name="dias[]" value="jueves"> Jueves
-        <input type="checkbox" name="dias[]" value="viernes"> Viernes<br>
+    <table>
+        <tr>
+            <th>Nombre del Archivo</th>
+            <th>Acciones</th>
+        </tr>
 
-        <label for="horario">Horario disponible:</label>
-        <input type="text" name="horario" placeholder="Ej. 9:00 AM - 12:00 PM" required><br>
+        <?php
+        $directorio = 'Horarios/';
+        $archivos = scandir($directorio);
 
-        <input type="submit" value="Guardar">
-    </form>
+        foreach ($archivos as $archivo) {
+            if ($archivo != "." && $archivo != "..") {
+                echo "<tr>";
+                echo "<td>{$archivo}</td>";
+                echo "<td><a href='ver_horario.php?archivo={$archivo}'>Ver Horario</a></td>";
+                echo "</tr>";
+            }
+        }
+        ?>
+    </table>
 </body>
 </html>

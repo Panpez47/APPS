@@ -1,0 +1,141 @@
+.tablita,#datosTabla{
+
+    width: 90%;
+    border-collapse: collapse;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    border-width: 0.3mm;
+    margin-top: 15px;
+    margin-left: 60px;
+    color: black;
+    background-color: #F0EBD8;
+    border:1px solid black;
+    
+}
+
+#headerTabla{
+    color: black;
+    background-color: #748CAB;
+    width: 136px;
+    height: 65px;
+    border-bottom: 1px solid black;
+}
+
+  
+.lineasVerticales td {
+    border:1px solid black;
+    
+  }
+
+  .button{
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem; 
+    padding-left: 0.5rem;
+    padding-right: 0.5rem; 
+    border-radius: 0.375rem; 
+    color: #ffffff; 
+    background-color: #3B82F6; 
+    margin-right: 0.5rem;
+    
+  }
+  .button:hover {
+    background-color: #1D4ED8; 
+ }
+
+  .button1{
+    padding-top: 0.2rem;
+    padding-bottom: 0.2rem; 
+    padding-left: 0.5rem;
+    padding-right: 0.5rem; 
+    border-radius: 0.375rem; 
+    color: #ffffff; 
+    background-color: #EF4444; 
+    
+  }
+  .button1:hover {
+    background-color: #B91C1C; 
+ }
+
+ .buttonnav{
+    /*display: flex;
+    margin-left: 74%;*/
+    margin-top: 1.2rem;
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem; 
+    padding-left: 5rem;
+    padding-right: 5rem; 
+    border-radius: 0.375rem; 
+    color: #ffffff;
+    background-color: #748CAB; 
+    display: inline-block;
+    cursor: pointer;
+    
+    
+ }
+
+ .buttonnav:hover{
+    font-weight: bold;
+    background-color: rgb(194, 189, 173);
+
+ }
+
+ .ContenedorAgregar{
+    display: flex;
+    margin-left: 73.3%;
+    
+ }
+
+ body {
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    text-align: center;
+    color:#F0EBD8;
+}
+
+/*table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #000000;
+    position: relative;
+}
+*/
+input[type="text"], select {
+    width: calc(100% - 12px);
+    padding: 5px;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    background-color: #F0EBD8;
+}
+
+input[type="text"]:focus, select:focus {
+    outline: none;
+}
+
+input[type="submit"],button {
+    padding: 10px;
+    background-color: #748CAB;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #596a81;
+}
+
+/* Estilo para la lista desplegable en modo ediciÃ³n */
+.editable-list {
+    display: none;
+    position: absolute;
+    z-index: 1;
+}

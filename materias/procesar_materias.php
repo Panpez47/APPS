@@ -26,9 +26,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["enviar_materia"])) {
 
     // Cerrar la conexión a la base de datos
     mysqli_close($conexion);
-} else {
-    // Redirigir si se intenta acceder directamente a este archivo sin enviar el formulario
-    header("Location: formulario_materias.php");
-    exit();
 }
+    // Redirigir si se intenta acceder directamente a este archivo sin enviar el formulario
+    header("Location: materias-data.php");
+    exit();
+
 ?>
