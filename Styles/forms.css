@@ -3,7 +3,7 @@
   display: flex;
   justify-content: center;
   padding: 10px;
-  align-items: center;
+  align-items: flex-start; /* Alinea los elementos en la parte superior del contenedor */
   height: 100vh;
   background-color: var(--primary-color); /* Fondo de color primario */
 }
@@ -21,6 +21,12 @@ form {
   align-items: center;
   transition: transform 0.3s;
   font-family: Arial, sans-serif; /* Fuente Arial */
+  margin-top: 20px; /* Ajusta el margen superior para dejar espacio entre la barra de navegación y el formulario */
+  margin-bottom: 20px; /* Añade margen inferior para evitar que el contenido se pegue al fondo */
+
+  /* Ajusta la posición fija solo en la parte superior */
+  position: sticky;
+  top: 0;
 }
 
 /* Estilos para los títulos del formulario */
@@ -36,7 +42,7 @@ label {
   font-weight: bold;
   color: white; /* Color de texto en blanco */
   margin: 10px 0;
-  width: 110%;
+  width: 100%; /* Ajusta el ancho al 100% */
   text-align: left; /* Alineación izquierda */
 }
 
@@ -70,4 +76,26 @@ input[type="submit"]:hover {
   background-color: var(--primary-color); /* Color principal al hacer hover */
 }
 
+/* Estilos para los select */
+select {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid var(--accent-color); /* Borde en color de acento */
+  border-radius: 10px;
+  font-size: 16px;
+  margin: 10px 0;
+  color: black; /* Color de texto en negro */
+  background-color: white; /* Fondo blanco */
+  text-align: left; /* Alineación izquierda */
+  -webkit-appearance: none; /* Elimina la apariencia predeterminada del sistema (flecha en el cuadro desplegable) */
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z' /></svg>"); /* Agrega una pequeña flecha personalizada */
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+}
 
+/* Estilos adicionales al hacer hover en el select */
+select:hover {
+  border-color: var(--primary-color); /* Cambia el color del borde al hacer hover */
+}

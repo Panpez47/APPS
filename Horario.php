@@ -37,17 +37,19 @@ if ($result) {
     
 </head>
 <body>
-
+<!--Menu-->
 <nav class="stroke">
         <ul>
-            <li><a class="active" href="../APPS/Horario.php">Horario</a></li>
+            <li><a class="active" href="./Horario-data.php">Horario</a></li>
             <li><a href="./maestros/maestros-data.php">Maestros</a></li>
-            <li><a href="materias.php">Materias</a></li>
-            <li><a href="#">Generacion</a></li>
-            <li><a href="./semestre.php">Semestre</a></li>
-            <li><a href="reportes.php">Reportes</a></li>
-            <li><a href="#">Extras</a></li>
-            <li><a href="#">GruposP</a></li>
+            <li><a href="./materias/materias-data.php">Materias</a></li>
+            <li><a href="./generacion/generacion-data.php">Generacion</a></li> <br> <br>
+            <li><a href="./semestre/semestre-data.php">Semestre</a></li>
+            <li><a href="./incidencias/incidencias-data.php">Reportes</a></li>
+            <li><a href="./actext/actext-data.php">Extras</a></li>
+            <li><a href="./grupos/grupos-data.php">Grupos</a></li>
+            <li><a href="./carrera/carrera-data.php">Carrera</a></li>
+
         </ul>
     </nav>
 
@@ -87,8 +89,8 @@ if ($result) {
 
     </table>
     <br>
-    <input type="submit" onclick="guardarHorario()" value="Guardar Horario">
-    <button type="button" onclick="exportarExcel()">Exportar a Excel</button>
+    <input id="guardarhorario" type="submit" onclick="guardarHorario()" value="Guardar Horario">
+    <button id="exportar" type="button" onclick="exportarExcel()">Exportar a Excel</button>
 </form>
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>

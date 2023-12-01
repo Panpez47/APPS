@@ -79,9 +79,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["editar_materia"])) {
     <!--Menu-->
     <nav class="stroke">
         <ul>
-            <li><a href="../Horario.php">Horario</a></li>
+            <li><a href="../Horario-data.php">Horario</a></li>
             <li><a href="../maestros/maestros-data.php">Maestros</a></li>
-            <li><a href="materias-data.php">Materias</a></li>
+            <li><a class="active" href="../materias/materias-data.php">Materias</a></li>
             <li><a href="../generacion/generacion-data.php">Generacion</a></li> <br> <br>
             <li><a href="../semestre/semestre-data.php">Semestre</a></li>
             <li><a href="../incidencias/incidencias-data.php">Reportes</a></li>

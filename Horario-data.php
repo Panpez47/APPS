@@ -15,26 +15,60 @@
             text-align: center;
         }
 
-        table {
+        /*table {
             width: 80%;
             border-collapse: collapse;
             margin: 20px auto;
-        }
+        }*/
 
-        th, td {
+         td {
             padding: 10px;
             text-align: left;
             border: 1px solid #ddd;
         }
 
-        .ver-horario-link {
+        /* Añade este estilo para centrar la columna de acciones */
+        #headerTabla th:nth-child(2),
+        .tablita td:nth-child(2) {
+            text-align: center;
+            width: 400px; /* Ajusta el ancho según tus preferencias */
+        }
+
+        .ver-horario {
         color: #007BFF; /* Color del texto */
         text-decoration: none; /* Sin subrayado */
         font-weight: bold; /* Texto en negrita */
-    }
-    .ver-horario-link:hover{
-        color: #004cff;
-    }
+        padding-top: 0.2rem;
+        padding-bottom: 0.2rem; 
+        padding-left: 0.5rem;
+        padding-right: 0.5rem; 
+        border-radius: 0.375rem; 
+        color: #ffffff; 
+        background-color: #3B82F6; 
+        margin-right: 0.5rem;
+        }
+        
+        .ver-horario:hover{
+            background-color: #1D4ED8;
+        }
+
+        .borrar-horario {
+        color: #007BFF; /* Color del texto */
+        text-decoration: none; /* Sin subrayado */
+        font-weight: bold; /* Texto en negrita */
+        padding-top: 0.2rem;
+        padding-bottom: 0.2rem; 
+        padding-left: 0.5rem;
+        padding-right: 0.5rem; 
+        border-radius: 0.375rem; 
+        color: #ffffff; 
+        background-color: #EF4444; 
+        margin-right: 0.5rem;
+        }
+        
+        .borrar-horario:hover{
+            background-color: #B91C1C;
+        }
     </style>
 </head>
 <body>
@@ -42,7 +76,7 @@
 <!--Menu-->
 <nav class="stroke">
         <ul>
-            <li><a href="./Horario.php">Horario</a></li>
+            <li><a class="active" href="./Horario-data.php">Horario</a></li>
             <li><a href="./maestros/maestros-data.php">Maestros</a></li>
             <li><a href="./materias/materias-data.php">Materias</a></li>
             <li><a href="./generacion/generacion-data.php">Generacion</a></li> <br> <br>
@@ -74,11 +108,23 @@
             if ($archivo != "." && $archivo != "..") {
                 echo "<tr>";
                 echo "<td>{$archivo}</td>";
-                echo "<td><a href='ver_horario.php?archivo={$archivo}' class='ver-horario-link'>Ver Horario</a></td>";
+                echo "<td><a href='ver_horario.php?archivo={$archivo}' class='ver-horario'>Ver Horario</a><a href='javascript:borrarHorario(\"{$archivo}\")' class='borrar-horario'>Borrar Horario</a></td>";
+    
                 echo "</tr>";
             }
         }
         ?>
     </table>
+
+    <script>
+    function borrarHorario(archivo) {
+        // Mostrar un mensaje de confirmación
+        var confirmacion = confirm("¿Estás seguro de que quieres borrar el horario?");
+        if (confirmacion) {
+            // Aquí puedes agregar la lógica para borrar el horario, por ejemplo, una llamada AJAX
+            window.location.href = 'borrar_horario.php?archivo=' + archivo; // Cambia 'borrar_horario.php' al archivo y ruta correctos
+        }
+    }
+</script>
 </body>
 </html>
