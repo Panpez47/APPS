@@ -45,7 +45,7 @@ if ($result) {
             <li><a href="./materias/materias-data.php">Materias</a></li>
             <li><a href="./generacion/generacion-data.php">Generacion</a></li> <br> <br>
             <li><a href="./semestre/semestre-data.php">Semestre</a></li>
-            <li><a href="./incidencias/incidencias-data.php">Reportes</a></li>
+            <li><a href="./incidencias/incidencias-data.php">Incidencias</a></li>
             <li><a href="./actext/actext-data.php">Extras</a></li>
             <li><a href="./grupos/grupos-data.php">Grupos</a></li>
             <li><a href="./carrera/carrera-data.php">Carrera</a></li>
@@ -72,7 +72,7 @@ if ($result) {
         <?php for ($hora = 5; $hora <= 20; $hora++): ?>
         <tr id="datosTabla">
             <td>
-                <input type="text" name="hora[<?php echo $hora; ?>]" value="<?php echo sprintf("%02d:00 - %02d:50", $hora, $hora); ?>" />
+                <input class="centrar-hora" type="text" name="hora[<?php echo $hora; ?>]" value="<?php echo sprintf("%02d:00 - %02d:50", $hora, $hora); ?>" />
             </td>
             <?php for ($dia = 1; $dia <= 6; $dia++): ?>
                 <td>
@@ -91,6 +91,10 @@ if ($result) {
     <br>
     <input id="guardarhorario" type="submit" onclick="guardarHorario()" value="Guardar Horario">
     <button id="exportar" type="button" onclick="exportarExcel()">Exportar a Excel</button>
+
+    <a href="horario-data.php">
+    <button id="Regresar" type="button" href>Regresar</button>
+    </a>
 </form>
 
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>

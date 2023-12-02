@@ -130,9 +130,19 @@ input[type="submit"],button {
     cursor: pointer;
 }
 
-input[type="submit"]:hover {
+#guardarhorario:hover {
     background-color: #596a81;
 }
+
+#exportar:hover{
+    background-color: #596a81;
+}
+
+#Regresar{
+    margin-left: 62.5%;
+    width: 10%;
+}
+
 
 /* Estilo para la lista desplegable en modo ediciÃ³n */
 .editable-list {
@@ -145,5 +155,9 @@ input[type="submit"]:hover {
 #guardarhorario{
     margin-left: 3.80rem;
 
+}
+
+.centrar-hora {
+    text-align: center;
 }
 

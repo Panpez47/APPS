@@ -12,118 +12,123 @@
 
 <!--Menu-->
 <nav class="stroke">
-        <ul>
-            <li><a class="active" href="./Horario-data.php">Horario</a></li>
-            <li><a href="./maestros/maestros-data.php">Maestros</a></li>
-            <li><a href="./materias/materias-data.php">Materias</a></li>
-            <li><a href="./generacion/generacion-data.php">Generacion</a></li> <br> <br>
-            <li><a href="./semestre/semestre-data.php">Semestre</a></li>
-            <li><a href="./incidencias/incidencias-data.php">Reportes</a></li>
-            <li><a href="./actext/actext-data.php">Extras</a></li>
-            <li><a href="./grupos/grupos-data.php">Grupos</a></li>
-            <li><a href="./carrera/carrera-data.php">Carrera</a></li>
+    <ul>
+        <li><a class="active" href="./Horario-data.php">Horario</a></li>
+        <li><a href="./maestros/maestros-data.php">Maestros</a></li>
+        <li><a href="./materias/materias-data.php">Materias</a></li>
+        <li><a href="./generacion/generacion-data.php">Generacion</a></li> <br> <br>
+        <li><a href="./semestre/semestre-data.php">Semestre</a></li>
+        <li><a href="./incidencias/incidencias-data.php">Incidencias</a></li>
+        <li><a href="./actext/actext-data.php">Extras</a></li>
+        <li><a href="./grupos/grupos-data.php">Grupos</a></li>
+        <li><a href="./carrera/carrera-data.php">Carrera</a></li>
+    </ul>
+</nav>
+<h1>Ver y Editar Horario</h1>
 
-        </ul>
-    </nav>
-    <h1>Ver y Editar Horario</h1>
+<!-- Formulario para ver y editar horario -->
+<form action="guardar_horario.php" method="post">
+    <table class="tablita lineasVerticales">
+        <tr id="headerTabla">
+            <th>Hora</th>
+            <th>Lunes</th>
+            <th>Martes</th>
+            <th>Miércoles</th>
+            <th>Jueves</th>
+            <th>Viernes</th>
+            <th>Sábado</th>
+        </tr>
+        <?php
+        // Verificar si se ha pasado el nombre del archivo por la URL
+        if (isset($_GET['archivo'])) {
+            $archivo = $_GET['archivo'];
+            $rutaArchivo = "HorariosJSON/{$archivo}";
 
-    <!-- Formulario para ver y editar horario -->
-    <form action="guardar_horario.php" method="post">
-        <table class="tablita lineasVerticales">
-            <tr id="headerTabla">
-                <th>Hora</th>
-                <th>Lunes</th>
-                <th>Martes</th>
-                <th>Miércoles</th>
-                <th>Jueves</th>
-                <th>Viernes</th>
-                <th>Sábado</th>
-            </tr>
+            // Leer el archivo JSON
+            $json_data = file_get_contents($rutaArchivo);
+            $horario = json_decode($json_data, true);
+
+            // Mostrar el horario guardado
+            for ($hora = 5; $hora <= 20; $hora++):
+                ?>
+                <tr id="datosTabla">
+                    <td>
+                        <input class="centrar-hora"type="text" name="hora[<?php echo $hora; ?>]" value="<?php echo sprintf("%02d:00 - %02d:50", $hora, $hora); ?>" />
+                    </td>
+                    <?php for ($dia = 1; $dia <= 6; $dia++): ?>
+                        <td>
+                            <input type="text" name="materia[<?php echo $dia; ?>][<?php echo $hora; ?>]" value="<?php echo isset($horario[$dia . '_' . $hora]) ? $horario[$dia . '_' . $hora] : ''; ?>" list="materiasList" />
+                            <datalist id="materiasList">
+                                <option value="Matematicas">
+                                <option value="Español">
+                                <option value="Biologia">
+                                <option value="Programacion">
+                            </datalist>
+                        </td>
+                    <?php endfor; ?>
+                </tr>
             <?php
-            // Verificar si se ha pasado el nombre del archivo por la URL
-            if (isset($_GET['archivo'])) {
-                $archivo = $_GET['archivo'];
-                $rutaArchivo = "HorariosJSON/{$archivo}";
+            endfor;
+        } else {
+            echo "<tr><td colspan='7'>No se ha especificado un archivo.</td></tr>";
+        }
+        ?>
+    </table>
+    <br>
+    <input id="guardarhorario" type="submit" value="Guardar Cambios">
+    <button id="exportar" type="button" onclick="exportarExcel()">Exportar a Excel</button>
+    <a href="horario-data.php">
+        <button id="Regresar" type="button">Regresar</button>
+    </a>
+</form>
 
-                // Leer el archivo JSON
-                $json_data = file_get_contents($rutaArchivo);
-                $horario = json_decode($json_data, true);
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    function showEditableList(spanElement) {
+        $(spanElement).hide().siblings('.editable-list').show();
+    }
 
-                // Mostrar el horario guardado
-                for ($hora = 5; $hora <= 20; $hora++):
-                    ?>
-                    <tr id="datosTabla">
-                        <td><?php echo $hora . ':00'; ?></td>
-                        <?php for ($dia = 1; $dia <= 6; $dia++): ?>
-                            <td>
-                                <input type="text" name="materia[<?php echo $dia; ?>][<?php echo $hora; ?>]" value="<?php echo isset($horario[$dia . '_' . $hora]) ? $horario[$dia . '_' . $hora] : ''; ?>" list="materiasList" />
-                                <datalist id="materiasList">
-                                    <option value="Matematicas">
-                                    <option value="Español">
-                                    <option value="Biologia">
-                                    <option value="Programacion">
-                                </datalist>
-                            </td>
-                        <?php endfor; ?>
-                    </tr>
-                <?php endfor;
-            } else {
-                echo "<tr><td colspan='7'>No se ha especificado un archivo.</td></tr>";
-            }
-            ?>
-        </table>
-        <br>
-        <input type="submit" value="Guardar Cambios">
-        <button type="button" onclick="exportarExcel()">Exportar a Excel</button>
-    </form>
+    function exportarExcel() {
+        // Obtén las horas y días de la semana con los datos de los inputs
+        var data = obtenerDatosTabla();
 
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script>
-        function showEditableList(spanElement) {
-            $(spanElement).hide().siblings('.editable-list').show();
+        // Crear una nueva hoja de cálculo
+        var wb = XLSX.utils.book_new();
+        var ws = XLSX.utils.aoa_to_sheet(data);
+
+        // Agregar la hoja de cálculo al libro
+        XLSX.utils.book_append_sheet(wb, ws, "Horario");
+
+        // Autoajustar el ancho de las columnas
+        var range = XLSX.utils.decode_range(ws['!ref']);
+        for (var C = range.s.c; C <= range.e.c; ++C) {
+            ws['!cols'] = ws['!cols'] || [];
+            ws['!cols'][C] = { wch: 20 }; // Puedes ajustar el ancho según tus necesidades
         }
 
-        function exportarExcel() {
-            // Obtén las horas y días de la semana con los datos de los inputs
-            var data = obtenerDatosTabla();
+        // Guardar el archivo Excel
+        XLSX.writeFile(wb, "horario.xlsx");
+    }
 
-            // Crear una nueva hoja de cálculo
-            var wb = XLSX.utils.book_new();
-            var ws = XLSX.utils.aoa_to_sheet(data);
+    function obtenerDatosTabla() {
+        var data = [['Hora', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']];
+        var filas = document.querySelectorAll('#datosTabla');
 
-            // Agregar la hoja de cálculo al libro
-            XLSX.utils.book_append_sheet(wb, ws, "Horario");
+        filas.forEach(function (fila) {
+            var rowData = [];
+            var celdas = fila.querySelectorAll('td');
 
-            // Autoajustar el ancho de las columnas
-            var range = XLSX.utils.decode_range(ws['!ref']);
-            for (var C = range.s.c; C <= range.e.c; ++C) {
-                ws['!cols'] = ws['!cols'] || [];
-                ws['!cols'][C] = { wch: 20 }; // Puedes ajustar el ancho según tus necesidades
-            }
-
-            // Guardar el archivo Excel
-            XLSX.writeFile(wb, "horario.xlsx");
-        }
-
-        function obtenerDatosTabla() {
-            var data = [['Hora', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']];
-            var filas = document.querySelectorAll('#datosTabla');
-
-            filas.forEach(function (fila) {
-                var rowData = [];
-                var celdas = fila.querySelectorAll('td');
-
-                celdas.forEach(function (celda) {
-                    // Obtener el texto o el valor del input según sea el caso
-                    var contenido = celda.querySelector('input') ? celda.querySelector('input').value : celda.innerText;
-                    rowData.push(contenido);
-                });
-
-                data.push(rowData);
+            celdas.forEach(function (celda) {
+                // Obtener el texto o el valor del input según sea el caso
+                var contenido = celda.querySelector('input') ? celda.querySelector('input').value : celda.innerText;
+                rowData.push(contenido);
             });
 
-            return data;
-        }
-    </script>
+            data.push(rowData);
+        });
+
+        return data;
+    }
+</script>
 </body>
 </html>
