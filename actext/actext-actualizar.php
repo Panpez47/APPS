@@ -3,15 +3,15 @@ include("../conector.php");
 
 if (isset($_POST['enviar1'])){
     try {
-
         if (!(strlen($_POST['actext']) >= 1 )){
             throw new Exception("¡Por favor complete los campos!");
         }
 
         $id = trim($_POST['id']);
         $nombre = trim($_POST['actext']);
+        $id_maestro = trim($_POST['ID_Maestro']); // Agrega esta línea
 
-        $consulta = "UPDATE actext SET nombre_act ='$nombre' WHERE id_act = '$id'";
+        $consulta = "UPDATE actext SET nombre_act ='$nombre', ID_Maestro ='$id_maestro' WHERE id_act = '$id'";
         $resultado = mysqli_query($conexion, $consulta);
 
         if (!$resultado) {
@@ -24,6 +24,7 @@ if (isset($_POST['enviar1'])){
         // Redirigir al usuario después de la inserción exitosa
         header("Location: actext-data.php");
         exit();
+
         ?>
 
         <div class="ok"><script>

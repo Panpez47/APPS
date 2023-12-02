@@ -29,14 +29,7 @@
     <div class="container">
     <form method="POST">
         <label for="nombreMaestro">Nombre del Maestro:</label>
-        <input type="text" id="nombreMaestro" name="nombreMaestro" required>
-        <br>
-        <label for="horario">Horario:</label>
-        <select name="horario" id="horario">
-            <option value="8:00am-1:00pm">8:00am-1:00pm</option>
-            <option value="9:00am-2:00pm">9:00am-2:00pm</option>
-            <option value="10:00am-3:00pm">10:00am-3:00pm</option>
-        </select>
+        <input type="text" id="nombreMaestro" name="nombreMaestro" required>|
         <br>
         <input type="submit" name = "enviar1" >
     </form>

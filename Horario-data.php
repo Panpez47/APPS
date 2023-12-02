@@ -106,8 +106,9 @@
 
         foreach ($archivos as $archivo) {
             if ($archivo != "." && $archivo != "..") {
+                $nombreArchivo = pathinfo($archivo, PATHINFO_FILENAME);
                 echo "<tr>";
-                echo "<td>{$archivo}</td>";
+                echo "<td>{$nombreArchivo}</td>";
                 echo "<td><a href='ver_horario.php?archivo={$archivo}' class='ver-horario'>Ver Horario</a><a href='javascript:borrarHorario(\"{$archivo}\")' class='borrar-horario'>Borrar Horario</a></td>";
     
                 echo "</tr>";
