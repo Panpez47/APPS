@@ -29,7 +29,9 @@
     <div class="container">
     <form method="POST">
         <label for="nombreMaestro">Nombre del Maestro:</label>
-        <input type="text" id="nombreMaestro" name="nombreMaestro" required>|
+        <input type="text" id="nombreMaestro" name="nombreMaestro" required>
+        <br>
+        <input type="text" id="horario" name="horario" required>
         <br>
         <input type="submit" name = "enviar1" >
     </form>

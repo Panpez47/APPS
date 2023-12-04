@@ -53,16 +53,21 @@
                 ?>
                 <tr id="datosTabla">
                     <td>
-                        <input class="centrar-hora"type="text" name="hora[<?php echo $hora; ?>]" value="<?php echo sprintf("%02d:00 - %02d:50", $hora, $hora); ?>" />
+                        <input class="centrar-hora" type="text" name="hora[<?php echo $hora; ?>]" value="<?php echo sprintf("%02d:00 - %02d:50", $hora, $hora); ?>" />
                     </td>
                     <?php for ($dia = 1; $dia <= 6; $dia++): ?>
                         <td>
                             <input type="text" name="materia[<?php echo $dia; ?>][<?php echo $hora; ?>]" value="<?php echo isset($horario[$dia . '_' . $hora]) ? $horario[$dia . '_' . $hora] : ''; ?>" list="materiasList" />
                             <datalist id="materiasList">
-                                <option value="Matematicas">
-                                <option value="Español">
-                                <option value="Biologia">
-                                <option value="Programacion">
+                                <?php
+                                // Aquí debes cargar las opciones desde tu base de datos
+                                // Reemplaza estas opciones con datos reales de tu base de datos
+                                $opciones = ["Matematicas", "Español", "Biologia", "Programacion"];
+
+                                foreach ($opciones as $opcion) {
+                                    echo "<option value=\"$opcion\">";
+                                }
+                                ?>
                             </datalist>
                         </td>
                     <?php endfor; ?>

@@ -21,7 +21,7 @@
             margin: 20px auto;
         }*/
 
-         td {
+        td {
             padding: 10px;
             text-align: left;
             border: 1px solid #ddd;

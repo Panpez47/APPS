@@ -3,7 +3,7 @@ include("conector.php");
 
 // Realizar la consulta para obtener las materias y los maestros desde la base de datos
 $query = "SELECT m.ID_Materia, m.Nombre_materia, m.ID_Maestro, ma.Nombre_maestro FROM Materia m
-          JOIN Maestros ma ON m.ID_Maestro = ma.ID_Maestro";
+        JOIN Maestros ma ON m.ID_Maestro = ma.ID_Maestro";
 $result = mysqli_query($conexion, $query);
 
 // Verificar si la consulta fue exitosa
