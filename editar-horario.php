@@ -2,12 +2,12 @@
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Obtén el nombre del archivo desde el formulario
     $nombreArchivo = $_POST['nombreArchivo'];
-
+    
     // Obtén las materias editadas desde el formulario
     $materias = $_POST['materia'];
 
     // Cargar el horario actual desde el archivo JSON
-    $rutaArchivo = "HorariosJSON/{$nombreArchivo}";
+    $rutaArchivo = "HorariosJSON/{$nombreArchivo}.json";
 
     if (file_exists($rutaArchivo)) {
         $json_data = file_get_contents($rutaArchivo);
@@ -16,6 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Actualizar el horario con las materias editadas
         foreach ($materias as $dia => $materiaPorDia) {
             foreach ($materiaPorDia as $hora => $materia) {
+                // Crear identificador único para cada celda del horario (por ejemplo, dia_hora)
                 $identificador = $dia . '_' . $hora;
                 $horario[$identificador] = $materia;
             }

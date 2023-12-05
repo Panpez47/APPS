@@ -28,9 +28,6 @@
 
 <!-- Formulario para ver y editar horario -->
 <form action="guardar_horario.php" method="post">
-
-<input type="hidden" name="nombreArchivo" value="<?php echo isset($_GET['archivo']) ? $_GET['archivo'] : ''; ?>">
-
     <table class="tablita lineasVerticales">
         <tr id="headerTabla">
             <th>Hora</th>
@@ -54,8 +51,8 @@
             // Realizar la consulta para obtener las opciones del datalist desde la base de datos
             include("conector.php");
             $query = "SELECT m.ID_Materia, m.Nombre_materia, m.ID_Maestro, ma.Nombre_maestro 
-                    FROM Materia m
-                    JOIN Maestros ma ON m.ID_Maestro = ma.ID_Maestro";
+                      FROM Materia m
+                      JOIN Maestros ma ON m.ID_Maestro = ma.ID_Maestro";
             $result = mysqli_query($conexion, $query);
 
             // Verificar si la consulta fue exitosa
@@ -69,7 +66,7 @@
                 // Manejar el error si la consulta no fue exitosa
                 echo "<tr><td colspan='7'>Error en la consulta: " . mysqli_error($conexion) . "</td></tr>";
             }
-            
+
             // Mostrar el horario guardado
             for ($hora = 5; $hora <= 20; $hora++):
                 ?>
@@ -79,7 +76,7 @@
                     </td>
                     <?php for ($dia = 1; $dia <= 6; $dia++): ?>
                         <td>
-                            <input type="text" name="materia[<?php echo $dia; ?>][<?php echo $hora; ?>]" value="<?php echo isset($horario["{$dia}_{$hora}"]) ? $horario["{$dia}_{$hora}"] : ''; ?>" list="materiasList" />
+                            <input type="text" name="materia[<?php echo $dia; ?>][<?php echo $hora; ?>]" list="materiasList" />
                             <datalist id="materiasList">
                                 <?php
                                 // Mostrar las opciones del datalist obtenidas de la base de datos
@@ -99,7 +96,7 @@
         ?>
     </table>
     <br>
-    <input id="guardarhorario" type="submit" value="Guardar Cambios" onclick="confirmacion()">
+    <input id="guardarhorario" type="submit" value="Guardar Cambios">
     <button id="exportar" type="button" onclick="exportarExcel()">Exportar a Excel</button>
     <a href="horario-data.php">
         <button id="Regresar" type="button">Regresar</button>
@@ -153,12 +150,6 @@
 
         return data;
     }
-
-    function confirmacion() {
-        alert("Horario modificado con éxito");
-        document.forms[0].submit(); // Envía el formulario después de mostrar la alerta
-    }
-
 </script>
 </body>
 </html>

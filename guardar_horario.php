@@ -1,5 +1,7 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Obtén el nombre del archivo desde el formulario
+    $nombreArchivo = $_POST['nombreArchivo'];
     $nombreHorario = $_POST['nombreHorario'];
     $materias = $_POST['materia'];
 
@@ -26,12 +28,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Especifica la ruta completa del archivo
-    $rutaArchivo = $carpetaGuardado . $nombreHorario . '.json';
+    $rutaArchivo = $carpetaGuardado . ($nombreArchivo ? $nombreArchivo : $nombreHorario . '.json');
 
     // Guardar el JSON en el archivo
     file_put_contents($rutaArchivo, $json_horario);
 
-    // Redirigir a la página de visualización del horario recién guardado
-    header("Location: Horario-data.php?nombre=" . urlencode($nombreHorario));
+    // Decide si estás editando o creando
+    if ($nombreArchivo) {
+        // Estás editando, redirige a la página de visualización después de guardar los cambios
+        header("Location: ver_horario.php?archivo=" . urlencode($nombreArchivo));
+    } else {
+        // Estás creando, redirige a la página de visualización del nuevo horario
+        header("Location: Horario-data.php?nombre=" . urlencode($nombreHorario));
+    }
+    exit();
 }
 ?>
