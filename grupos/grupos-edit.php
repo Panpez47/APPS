@@ -35,35 +35,58 @@
     </div>
     
     <div>
-        <form  method="post">
-            <table class = "tablita lineasVerticales">
-                <tr id="headerTabla">
-                    <td><b>Nombre del Grupo</b></td>
-                    <td><b>Accion</b></td>
-                </tr>
-    
+    <div>
+        <form action="grupos-actualizar.php" method="post">
+            <?php
+            $id = $_GET["id"];
+            $stmt = mysqli_prepare($conexion, "SELECT * FROM grupopedagogico WHERE ID_Grupopedagogico = ?");
+            mysqli_stmt_bind_param($stmt, 'i', $id);
+            mysqli_stmt_execute($stmt);
+            $resultado = mysqli_stmt_get_result($stmt);
+            $fila = mysqli_fetch_assoc($resultado);
+            ?>
+
+            <label for="nombregrupo">Nombre del Grupo:</label>
+            <input type="text" id="nombregrupo" name="nombregrupo" value="<?php echo htmlspecialchars($fila['Nombre']); ?>" required>
+            <br>
+
+            <label for="semestre">Semestre:</label>
+            <select id="semestre" name="semestre" required>
+                <?php for($i = 1; $i <= 9; $i++): ?>
+                    <option value="<?php echo $i; ?>" <?php echo (int)$fila['Semestre'] === $i ? 'selected' : ''; ?>><?php echo $i; ?></option>
+                <?php endfor; ?>
+            </select>
+            <br>
+
+            <label for="id_generacion">Generación:</label>
+            <select id="id_generacion" name="id_generacion" required>
                 <?php
-                $id = $_GET["id"];
-                $sql="SELECT * from grupopedagogico WHERE ID_Grupopedagogico = '$id'";
-                $result=mysqli_query($conexion,$sql);
-                $filas=['ID_Grupopedagogico'];
-                $idSemestre=$filas;
-                while($mostrar=mysqli_fetch_array($result)){
-                ?>
-    
-                <tr id="datosTabla">
-                    <input type="hidden" name="id" value="<?php echo $mostrar['ID_Grupopedagogico']?>">
-                    <td><input type="text" name="grupo" value="<?php echo $mostrar['Nombre']?>"></td>
-                    <td><input type="submit" name ="enviar1"></td>
-                </tr>
+                $genSql = "SELECT ID_Generacion, Nombre FROM Generacion";
+                $genResult = mysqli_query($conexion, $genSql);
+                while($genRow = mysqli_fetch_assoc($genResult)): ?>
+                    <option value="<?php echo $genRow['ID_Generacion']; ?>" <?php echo $genRow['ID_Generacion'] == $fila['ID_Generacion'] ? 'selected' : ''; ?>>
+                        <?php echo $genRow['Nombre']; ?>
+                    </option>
+                <?php endwhile; ?>
+            </select>
+            <br>
+
+            <label for="id_carrera">Carrera:</label>
+            <select id="id_carrera" name="id_carrera" required>
                 <?php
-                }
-                include("grupos-actualizar.php");
-                ?>
-            </table> 
-            
+                $carrSql = "SELECT id_carrera, nombre FROM Carrera";
+                $carrResult = mysqli_query($conexion, $carrSql);
+                while($carrRow = mysqli_fetch_assoc($carrResult)): ?>
+                    <option value="<?php echo $carrRow['id_carrera']; ?>" <?php echo $carrRow['id_carrera'] == $fila['id_carrera'] ? 'selected' : ''; ?>>
+                        <?php echo $carrRow['nombre']; ?>
+                    </option>
+                <?php endwhile; ?>
+            </select>
+            <br>
+
+            <input type="hidden" name="id" value="<?php echo $id; ?>">
+            <input type="submit" name="enviar1" value="Actualizar Grupo">
         </form>
     </div>
-
 </body>
 </html>

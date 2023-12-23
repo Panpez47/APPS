@@ -3,15 +3,20 @@ include("../conector.php");
 
 if (isset($_POST['enviar1'])){
     try {
-
-        if (!(strlen($_POST['grupo']) >= 1)){
-            throw new Exception("¡Por favor complete los campos!");
+        // Validar que los campos no estén vacíos
+        if (!(strlen($_POST['nombregrupo']) >= 1 && isset($_POST['semestre']) && isset($_POST['id_generacion']) && isset($_POST['id_carrera']))) {
+            throw new Exception("¡Por favor complete todos los campos!");
         }
 
-        $nombre = trim($_POST['grupo']);
+        $nombre = mysqli_real_escape_string($conexion, trim($_POST['nombregrupo']));
+        $semestre = mysqli_real_escape_string($conexion, $_POST['semestre']);
+        $id_generacion = mysqli_real_escape_string($conexion, $_POST['id_generacion']);
+        $id_carrera = mysqli_real_escape_string($conexion, $_POST['id_carrera']);
 
-        $consulta = "INSERT INTO `grupopedagogico`(`Nombre`) VALUES ('$nombre')";
-        $resultado = mysqli_query($conexion, $consulta);
+        $consulta = "INSERT INTO `grupopedagogico` (`Nombre`, `Semestre`, `ID_Generacion`, `id_carrera`) VALUES (?, ?, ?, ?)";
+        $stmt = mysqli_prepare($conexion, $consulta);
+        mysqli_stmt_bind_param($stmt, 'siii', $nombre, $semestre, $id_generacion, $id_carrera);
+        $resultado = mysqli_stmt_execute($stmt);
 
         if (!$resultado) {
             throw new Exception("¡Ha ocurrido un error en su registro!");
@@ -21,18 +26,14 @@ if (isset($_POST['enviar1'])){
         $mensajeExito = "¡Su registro fue exitoso!";
         
         // Redirigir al usuario después de la inserción exitosa
-        header("Location: grupos.php");
+        header("Location: grupos.php?success=1");
         exit();
-        ?>
-        
-        <div class="ok"><script>
-            alert("<?php echo $mensajeExito; ?>");
-        </script><h3 style='color: green'><?php echo $mensajeExito; ?></h3></div>
-        <?php
+
     } catch (Exception $e) {
-        ?>
-        <div class="bad"><script>alert("<?php echo $e->getMessage(); ?>")</script><h3 style='color: red'><?php echo $e->getMessage(); ?></h3></div>
-        <?php
+        // Puedes optar por redirigir al usuario a la página con un mensaje de error
+        header("Location: grupos.php?error=".urlencode($e->getMessage()));
+        exit();
     }
 }
+
 ?>

@@ -1,0 +1,2 @@
+-Quitar Semestres del Header
+-Quitar index y definir la pagina principal

@@ -40,7 +40,6 @@
             <tr id="headerTabla">
                 <td><b>ID</b></td>
                 <td><b>Nombre del Maestro</b></td>
-                <td><b>Horario</b></td>
                 <td><b>Acciones</b></td>
             </tr>
 
@@ -55,7 +54,7 @@
             <tr id="datosTabla">
                 <td><?php echo $mostrar['ID_Maestro']?></td>
                 <td><?php echo $mostrar['Nombre_maestro']?></td>
-                <td><?php echo $mostrar['Horario']?></td>
+                
                 
 
                 <td id="botonesss">

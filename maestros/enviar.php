@@ -1,18 +1,31 @@
 <?php
+
 include("../conector.php");
 
-if (isset($_POST['enviar1'])){
-    try {
+function existeMaestro($nombre, $conexion)
+{
+    $consulta = "SELECT COUNT(*) as total FROM maestros WHERE Nombre_maestro = '$nombre'";
+    $resultado = mysqli_query($conexion, $consulta);
 
-        if (!(strlen($_POST['nombreMaestro']) >= 1 &&
-            strlen($_POST['horario']) >= 1 )){
-            throw new Exception("¡Por favor complete los campos!");
+    if (!$resultado) {
+        throw new Exception("Error al verificar si el maestro ya existe");
+    }
+
+    $fila = mysqli_fetch_assoc($resultado);
+
+    return $fila['total'] > 0;
+}
+
+if (isset($_POST['enviar1'])) {
+    try {
+        $nombre = trim($_POST['nombreMaestro']);
+
+        // Verificar si el maestro ya existe
+        if (existeMaestro($nombre, $conexion)) {
+            throw new Exception("¡El maestro ya existe en la base de datos!");
         }
 
-        $nombre = trim($_POST['nombreMaestro']);
-        $horario = trim($_POST['horario']);
-
-        $consulta = "INSERT INTO `maestros`(`Nombre_maestro`, `Horario`) VALUES ('$nombre','$horario')";
+        $consulta = "INSERT INTO `maestros`(`Nombre_maestro`) VALUES ('$nombre')";
         $resultado = mysqli_query($conexion, $consulta);
 
         if (!$resultado) {
@@ -21,7 +34,7 @@ if (isset($_POST['enviar1'])){
 
         // Mensaje de éxito
         $mensajeExito = "¡Su registro fue exitoso!";
-        
+
         // Redirigir al usuario después de la inserción exitosa
         header("Location: maestros.php");
         exit();

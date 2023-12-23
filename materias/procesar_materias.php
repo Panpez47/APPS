@@ -5,17 +5,15 @@ include("../conector.php");
 // Verificar si se ha enviado el formulario
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["enviar_materia"])) {
     // Obtener los datos del formulario
-    $nombreMateria = mysqli_real_escape_string($conexion, $_POST["nombreMateria"]);
-    $horas = mysqli_real_escape_string($conexion, $_POST["horas"]);
-    $idMaestro = mysqli_real_escape_string($conexion, $_POST["maestro"]);
-    $idGeneracion = mysqli_real_escape_string($conexion, $_POST["generacion"]);
-    $idCarrera = mysqli_real_escape_string($conexion, $_POST["carrera"]);
-    $idGrupo = mysqli_real_escape_string($conexion, $_POST["grupo"]);
-    $idSemestre = mysqli_real_escape_string($conexion, $_POST["semestre"]);
+    // Obtener los datos del formulario
+$nombreMateria = mysqli_real_escape_string($conexion, $_POST["nombreMateria"]);
+$horasTotales = mysqli_real_escape_string($conexion, $_POST["horas_totales"]);
+$idGrupoPedagogico = mysqli_real_escape_string($conexion, $_POST["grupo"]);
 
-    // Query para insertar datos en la tabla materias
-    $insertQuery = "INSERT INTO materia (Nombre_Materia, Horas, ID_Maestro, ID_Generacion, ID_Carrera, ID_Grupopedagogico, ID_Semestre)
-                    VALUES ('$nombreMateria', '$horas', '$idMaestro', '$idGeneracion', '$idCarrera', '$idGrupo', '$idSemestre')";
+// Query para insertar datos en la tabla materia
+$insertQuery = "INSERT INTO materia (Nombre_Materia, `Horas_Totales`, `Horas_Restantes`, ID_Grupopedagogico)
+                VALUES ('$nombreMateria', '$horasTotales', '$horasTotales', '$idGrupoPedagogico')";
+
 
     // Ejecutar la consulta
     if (mysqli_query($conexion, $insertQuery)) {

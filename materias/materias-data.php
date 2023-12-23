@@ -13,6 +13,8 @@
     <?php
     include("../conector.php");
     ?>
+
+    
 <!--Menu-->
 <nav class="stroke">
         <ul>
@@ -39,23 +41,21 @@
         <tr id="headerTabla">
             <td><b>ID</b></td>
             <td><b>Nombre de la Materia</b></td>
-            <td><b>Horas</b></td>
-            <td><b>Nombre del Maestro</b></td>
-            <td><b>Generación</b></td>
-            <td><b>Carrera</b></td>
+            <td><b>Horas Totales</b></td>
+            <td><b>Horas Restantes</b></td>
             <td><b>Grupo Pedagógico</b></td>
-            <td><b>Semestre</b></td>
             <td><b>Acciones</b></td>
         </tr>
 
         <?php
-        $sql = "SELECT m.*, ma.Nombre_maestro, g.Nombre AS NombreGeneracion, c.Nombre AS NombreCarrera, gp.Nombre AS NombreGrupo, s.Nombre_semestre
+         $sql="SELECT * from materia";
+        /*$sql = "SELECT m.*, ma.Nombre_maestro, g.Nombre AS NombreGeneracion, c.Nombre AS NombreCarrera, gp.Nombre AS NombreGrupo, s.Nombre_semestre
                 FROM materia m
                 JOIN maestros ma ON m.ID_Maestro = ma.ID_Maestro
                 JOIN generacion g ON m.ID_Generacion = g.ID_Generacion
                 JOIN carrera c ON m.id_carrera = c.id_carrera
                 JOIN grupopedagogico gp ON m.ID_Grupopedagogico = gp.ID_Grupopedagogico
-                JOIN semestre s ON m.ID_Semestre = s.ID_Semestre";
+                JOIN semestre s ON m.ID_Semestre = s.ID_Semestre";*/
 
         $result = mysqli_query($conexion, $sql);
 
@@ -66,12 +66,10 @@
                 <tr id="datosTabla">
                     <td><?php echo $mostrar['ID_Materia']?></td>
                     <td><?php echo $mostrar['Nombre_materia']?></td>
-                    <td><?php echo $mostrar['Horas']?></td>
-                    <td><?php echo $mostrar['Nombre_maestro']?></td>
-                    <td><?php echo $mostrar['NombreGeneracion']?></td>
-                    <td><?php echo $mostrar['NombreCarrera']?></td>
-                    <td><?php echo $mostrar['NombreGrupo']?></td>
-                    <td><?php echo $mostrar['Nombre_semestre']?></td>
+                    <td><?php echo $mostrar['Horas_totales']?></td>
+                    <td><?php echo $mostrar['Horas_restantes']?></td>
+                    <td><?php echo $mostrar['ID_Grupopedagogico']?></td>
+
 
                     <td id="botonesss">
                         <a href="materias-edit.php?id=<?php echo $mostrar['ID_Materia']?>" <button class="button"><b>Editar</b></button></a>

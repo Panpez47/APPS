@@ -32,17 +32,14 @@
     $maestrosQuery = "SELECT ID_Maestro, Nombre_maestro FROM maestros";
     $maestrosResult = $conexion->query($maestrosQuery);
 
-    $generacionesQuery = "SELECT ID_Generacion, Nombre FROM generacion";
-    $generacionesResult = $conexion->query($generacionesQuery);
+    
 
-    $carrerasQuery = "SELECT ID_Carrera, Nombre FROM carrera";
-    $carrerasResult = $conexion->query($carrerasQuery);
+
 
     $gruposQuery = "SELECT ID_Grupopedagogico, Nombre FROM Grupopedagogico";
     $gruposResult = $conexion->query($gruposQuery);
 
-    $semestresQuery = "SELECT ID_Semestre, Nombre_semestre FROM semestre";
-    $semestresResult = $conexion->query($semestresQuery);
+    
     ?>
 
     <!-- Formulario -->
@@ -52,55 +49,15 @@
             <input type="text" id="nombreMateria" name="nombreMateria" required>
             <br>
 
-            <label for="horas">Horas:</label>
-            <input type="number" id="horas" name="horas" required>
+            <label for="horas_totales">Horas totales:</label>
+            <input type="number" id="horas_totales" name="horas_totales" required>
             <br>
 
-            <label for="maestro">Maestro:</label>
-            <select id="maestro" name="maestro" required>
-                <?php
-                while ($row = $maestrosResult->fetch_assoc()) {
-                    echo "<option value='" . $row['ID_Maestro'] . "'>" . $row['Nombre_maestro'] . "</option>";
-                }
-                ?>
-            </select>
-            <br>
-
-            <label for="generacion">Generación:</label>
-            <select id="generacion" name="generacion" required>
-                <?php
-                while ($row = $generacionesResult->fetch_assoc()) {
-                    echo "<option value='" . $row['ID_Generacion'] . "'>" . $row['Nombre'] . "</option>";
-                }
-                ?>
-            </select>
-            <br>
-
-            <label for="carrera">Carrera:</label>
-            <select id="carrera" name="carrera" required>
-                <?php
-                while ($row = $carrerasResult->fetch_assoc()) {
-                    echo "<option value='" . $row['ID_Carrera'] . "'>" . $row['Nombre'] . "</option>";
-                }
-                ?>
-            </select>
-            <br>
-
-            <label for="grupo">Grupo Pedagógico:</label>
+            <label for="grupo">ID Grupo Pedagógico:</label>
             <select id="grupo" name="grupo" required>
                 <?php
                 while ($row = $gruposResult->fetch_assoc()) {
                     echo "<option value='" . $row['ID_Grupopedagogico'] . "'>" . $row['Nombre'] . "</option>";
-                }
-                ?>
-            </select>
-            <br>
-
-            <label for="semestre">Semestre:</label>
-            <select id="semestre" name="semestre" required>
-                <?php
-                while ($row = $semestresResult->fetch_assoc()) {
-                    echo "<option value='" . $row['ID_Semestre'] . "'>" . $row['Nombre_semestre'] . "</option>";
                 }
                 ?>
             </select>

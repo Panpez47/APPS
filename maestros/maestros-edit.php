@@ -39,7 +39,6 @@
             <table class = "tablita lineasVerticales">
                 <tr id="headerTabla">
                     <td><b>Nombre del Maestro</b></td>
-                    <td><b>Horario</b></td>
                     <td><b>Accion</b></td>
                 </tr>
 
@@ -55,7 +54,6 @@
                 <tr id="datosTabla">
                     <input type="hidden" name="id" value="<?php echo $mostrar['ID_Maestro']?>">
                     <td><input type="text" name="Nombre_maestro" value="<?php echo $mostrar['Nombre_maestro']?>"></td>
-                    <td><input type="text" name="Horario" value="<?php echo $mostrar['Horario']?>"></td>
                     <td><input type="submit" name ="enviar1"></td>
                 </tr>
                 <?php

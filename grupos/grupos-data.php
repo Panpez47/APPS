@@ -36,36 +36,44 @@
     </div>
 
     <div>
-        <table class = "tablita lineasVerticales">
-            <tr id="headerTabla">
-                <td><b>ID</b></td>
-                <td><b>Grupo</b></td>
-                <td><b>Acciones</b></td>
-            </tr>
+    <table class="tablita lineasVerticales">
+        <tr id="headerTabla">
+            <td><b>ID</b></td>
+            <td><b>Nombre del Grupo</b></td>
+            <td><b>Semestre</b></td>
+            <td><b>Generación</b></td>
+            <td><b>Carrera</b></td>
+            <td><b>Acciones</b></td>
+        </tr>
 
-            <?php
-            $sql="SELECT * from grupopedagogico";
-            $result=mysqli_query($conexion,$sql);
-            $filas=['ID_Grupopedagogico'];
-            $idSemestre=$filas;
-            while($mostrar=mysqli_fetch_array($result)){
-            ?>
+        <?php
+        $sql = "SELECT gp.ID_Grupopedagogico, gp.Nombre, gp.Semestre, g.Nombre AS NombreGeneracion, c.nombre AS NombreCarrera 
+                FROM grupopedagogico gp
+                JOIN Generacion g ON gp.ID_Generacion = g.ID_Generacion
+                JOIN Carrera c ON gp.id_carrera = c.id_carrera";
+        $result = mysqli_query($conexion, $sql);
 
-            <tr id="datosTabla">
-                <td><?php echo $mostrar['ID_Grupopedagogico']?></td>
-                <td><?php echo $mostrar['Nombre']?></td>
-                
+        while ($mostrar = mysqli_fetch_assoc($result)) {
+        ?>
 
-                <td id="botonesss">
-                    <a href="grupos-edit.php?id=<?php echo $mostrar['ID_Grupopedagogico']?>" <button class="button"><b>Editar</b></button></a>
-                    <a href="grupos-delete.php?id=<?php echo $mostrar['ID_Grupopedagogico']?>" <button class="button1"><b>Borrar</b></button></a>
-                </td>
-            </tr>
-            <?php
-            }
-            ?>
-        </table> 
-    </div>
-            <script src ="confirmacion.js"></script>
+        <tr id="datosTabla">
+            <td><?php echo $mostrar['ID_Grupopedagogico']; ?></td>
+            <td><?php echo $mostrar['Nombre']; ?></td>
+            <td><?php echo $mostrar['Semestre']; ?></td>
+            <td><?php echo $mostrar['NombreGeneracion']; ?></td>
+            <td><?php echo $mostrar['NombreCarrera']; ?></td>
+
+            <td id="botonesss">
+            <a href="grupos-edit.php?id=<?php echo $mostrar['ID_Grupopedagogico']; ?>" class="button"><b>Editar</b></a>
+            <a href="grupos-delete.php?id=<?php echo $mostrar['ID_Grupopedagogico']; ?>" class="button1"><b>Borrar</b></a>
+            </td>
+        </tr>
+        <?php
+        }
+        ?>
+    </table> 
+    
+</div>
+    <script src ="confirmacion.js"></script>
 </body>
 </html>
