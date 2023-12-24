@@ -1,3 +1,18 @@
+<?php
+
+session_start();
+
+// Verificar si hay un error para mostrar
+if (isset($_SESSION['error'])) {
+    $error = $_SESSION['error'];
+    echo '<script>
+            document.addEventListener("DOMContentLoaded", function() {
+                alert("' . $error . '");
+            });
+          </script>';
+    unset($_SESSION['error']);  // Limpiar el error para evitar que se muestre nuevamente
+} ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,7 +31,7 @@
             <li><a href="../maestros/maestros-data.php">Maestros</a></li>
             <li><a href="../materias/materias-data.php">Materias</a></li>
             <li><a class="active" href="../generacion/generacion-data.php">Generacion</a></li> <br> <br>
-            <li><a href="../semestre/semestre-data.php">Semestre</a></li>
+            <li><a href="../mm/mm-data.php">Cursos Docentes</a></li>
             <li><a href="../incidencias/incidencias-data.php">Incidencias</a></li>
             <li><a href="../actext/actext-data.php">Extras</a></li>
             <li><a href="../grupos/grupos-data.php">Grupos</a></li>

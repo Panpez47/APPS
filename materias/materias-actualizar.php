@@ -7,23 +7,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["editar_materia"])) {
     $idMateria = mysqli_real_escape_string($conexion, $_POST["idMateria"]);
     $nombreMateria = mysqli_real_escape_string($conexion, $_POST["nombreMateria"]);
     $horasTotales = mysqli_real_escape_string($conexion, $_POST["horas_totales"]);
-   /* $idMaestro = mysqli_real_escape_string($conexion, $_POST["maestro"]);
-    $idGeneracion = mysqli_real_escape_string($conexion, $_POST["generacion"]);
-    $idCarrera = mysqli_real_escape_string($conexion, $_POST["carrera"]);*/
     $idGrupo = mysqli_real_escape_string($conexion, $_POST["grupo"]);
-    /*$idSemestre = mysqli_real_escape_string($conexion, $_POST["semestre"]);*/
 
-    // Query para actualizar los datos en la tabla materias
+    // Actualizar las horas totales y restantes al mismo valor
     $updateQuery = "UPDATE materia 
-                SET Nombre_materia = '$nombreMateria', 
-                Horas_totales = '$horasTotales', 
-                Horas_totales = '$horasTotales', 
-                   /* ID_Maestro = '$idMaestro', 
-                    ID_Generacion = '$idGeneracion', 
-                    id_carrera = '$idCarrera', */
-                    ID_Grupopedagogico = '$idGrupo' 
-                   /* ID_Semestre = '$idSemestre'*/
-                WHERE ID_Materia = '$idMateria'";
+                    SET Nombre_materia = '$nombreMateria', 
+                        Horas_totales = '$horasTotales', 
+                        Horas_restantes = '$horasTotales', 
+                        ID_Grupopedagogico = '$idGrupo' 
+                    WHERE ID_Materia = '$idMateria'";
 
     // Ejecutar la consulta de actualización
     if (mysqli_query($conexion, $updateQuery)) {

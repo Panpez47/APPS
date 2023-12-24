@@ -1,3 +1,9 @@
+<?php
+// Recuperar el mensaje de éxito de la URL si existe
+$mensajeExito = isset($_GET['exito']) ? urldecode($_GET['exito']) : null;
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,7 +26,7 @@
             <li><a class="active" href="../maestros/maestros-data.php">Maestros</a></li>
             <li><a href="../materias/materias-data.php">Materias</a></li>
             <li><a href="../generacion/generacion-data.php">Generacion</a></li> <br> <br>
-            <li><a href="../semestre/semestre-data.php">Semestre</a></li>
+            <li><a href="../mm/mm-data.php">Cursos Docentes</a></li>
             <li><a href="../incidencias/incidencias-data.php">Incidencias</a></li>
             <li><a href="../actext/actext-data.php">Extras</a></li>
             <li><a href="../grupos/grupos-data.php">Grupos</a></li>
@@ -68,5 +74,14 @@
         </table> 
     </div>
             <script src ="confirmacion.js"></script>
+            <script>
+             // Función para mostrar la alerta después de la carga de la página
+        window.onload = function() {
+            <?php if (isset($_GET['exito'])) : ?>
+                alert("<?php echo urldecode($_GET['exito']); ?>");
+           
+            <?php endif; ?>
+        };
+    </script>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,20 +7,20 @@
     <link rel="stylesheet" type="text/css" href="../Styles/barranav.css">
     <link rel="stylesheet" href="../Styles/tables.css">
 
-    <title>Semestre</title>
+    <title>Maestro Materia</title>
 </head>
 <body>
-    <?php
-    include("../conector.php");
-    ?>
+    <?php include("../conector.php"); ?>
+
     <!--Menu-->
-    <nav class="stroke">
+   <!--Menu-->
+   <nav class="stroke">
         <ul>
             <li><a href="../Horario-data.php">Horario</a></li>
             <li><a href="../maestros/maestros-data.php">Maestros</a></li>
             <li><a href="../materias/materias-data.php">Materias</a></li>
             <li><a href="../generacion/generacion-data.php">Generacion</a></li> <br> <br>
-            <li><a href="../mm/mm-data.php">Cursos Docentes</a></li>
+            <li><a href="mm-data.php">Cursos Docentes</a></li>
             <li><a href="../incidencias/incidencias-data.php">Incidencias</a></li>
             <li><a href="../actext/actext-data.php">Extras</a></li>
             <li><a href="../grupos/grupos-data.php">Grupos</a></li>
@@ -29,36 +29,40 @@
         </ul>
     </nav>
 
+
     <div class="ContenedorAgregar">
-        <a href="../semestre/semestre.php">
+        <a href="mm.php"> <!-- Ajusta el enlace al formulario de creación -->
             <button class="buttonnav"><b>Agregar</b></button>
         </a>
     </div>
 
     <div>
-        <table class = "tablita lineasVerticales">
+        <table class="tablita lineasVerticales">
             <tr id="headerTabla">
                 <td><b>ID</b></td>
-                <td><b>Semestre</b></td>
+                <td><b>Maestro</b></td>
+                <td><b>Materia</b></td>
                 <td><b>Acciones</b></td>
             </tr>
 
             <?php
-            $sql="SELECT * from semestre";
-            $result=mysqli_query($conexion,$sql);
-            $filas=['ID_Semestre'];
-            $idSemestre=$filas;
-            while($mostrar=mysqli_fetch_array($result)){
+            $sql = "SELECT mm.id_maestro_materia, m.Nombre_maestro, mt.Nombre_materia
+                    FROM MaestroMateria mm
+                    JOIN Maestros m ON mm.ID_Maestro = m.ID_Maestro
+                    JOIN Materia mt ON mm.ID_Materia = mt.ID_Materia";
+            $result = mysqli_query($conexion, $sql);
+
+            while ($mostrar = mysqli_fetch_assoc($result)) {
             ?>
 
             <tr id="datosTabla">
-                <td><?php echo $mostrar['ID_Semestre']?></td>
-                <td><?php echo $mostrar['Nombre_semestre']?></td>
-                
+                <td><?php echo $mostrar['id_maestro_materia']; ?></td>
+                <td><?php echo $mostrar['Nombre_maestro']; ?></td>
+                <td><?php echo $mostrar['Nombre_materia']; ?></td>
 
                 <td id="botonesss">
-                    <a href="semestre-edit.php?id=<?php echo $mostrar['ID_Semestre']?>" <button class="button"><b>Editar</b></button></a>
-                    <a href="semestre-delete.php?id=<?php echo $mostrar['ID_Semestre']?>" <button class="button1"><b>Borrar</b></button></a>
+                    <a href="mm-edit.php?id=<?php echo $mostrar['id_maestro_materia']; ?>" class="button"><b>Editar</b></a>
+                    <a href="mm-delete.php?id=<?php echo $mostrar['id_maestro_materia']; ?>" class="button1" onclick="return confirm('¿Estás seguro que deseas eliminar este registro?');"><b>Borrar</b></a>
                 </td>
             </tr>
             <?php
@@ -66,6 +70,7 @@
             ?>
         </table> 
     </div>
-        <script src ="confirmacion.js"></script>
+
+    <script src="../confirmacion.js"></script> <!-- Asegúrate de que este script exista y esté correctamente enlazado -->
 </body>
 </html>

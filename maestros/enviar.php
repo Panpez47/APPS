@@ -1,5 +1,4 @@
 <?php
-
 include("../conector.php");
 
 function existeMaestro($nombre, $conexion)
@@ -35,20 +34,16 @@ if (isset($_POST['enviar1'])) {
         // Mensaje de éxito
         $mensajeExito = "¡Su registro fue exitoso!";
 
-        // Redirigir al usuario después de la inserción exitosa
-        header("Location: maestros.php");
+        // Redirigir al usuario con el mensaje de éxito
+        header("Location: maestros-data.php?exito=" . urlencode($mensajeExito));
         exit();
-        ?>
-        
-        <div class="ok"><script>
-            alert("<?php echo $mensajeExito; ?>");
-        </script><h3 style='color: green'><?php echo $mensajeExito; ?></h3></div>
-        <?php
     } catch (Exception $e) {
-        ?>
-        <div class="bad"><script>alert("<?php echo $e->getMessage(); ?>")</script><h3 style='color: red'><?php echo $e->getMessage(); ?></h3></div>
-        <?php
+        // Mensaje de error
+        $mensajeError = $e->getMessage();
+
+        // Redirigir al usuario con el mensaje de error
+        header("Location: maestros.php?error=" . urlencode($mensajeError));
+        exit();
     }
 }
-
 ?>

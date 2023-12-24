@@ -1,3 +1,19 @@
+<?php
+session_start();
+
+// Verificar si hay un mensaje de éxito para mostrar
+if (isset($_SESSION['mensajeExito'])) {
+    $mensajeExito = $_SESSION['mensajeExito'];
+    unset($_SESSION['mensajeExito']); // Limpiar el mensaje para evitar que se muestre nuevamente
+
+    // Almacenar el mensaje en una variable JavaScript
+    echo '<script>
+            var mensajeExito = "' . $mensajeExito . '";
+          </script>';
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,7 +36,7 @@
             <li><a href="../maestros/maestros-data.php">Maestros</a></li>
             <li><a href="../materias/materias-data.php">Materias</a></li>
             <li><a href="../generacion/generacion-data.php">Generacion</a></li> <br> <br>
-            <li><a href="../semestre/semestre-data.php">Semestre</a></li>
+            <li><a href="../mm/mm-data.php">Cursos Docentes</a></li>
             <li><a href="../incidencias/incidencias-data.php">Incidencias</a></li>
             <li><a href="../actext/actext-data.php">Extras</a></li>
             <li><a href="../grupos/grupos-data.php">Grupos</a></li>
@@ -67,5 +83,15 @@
         </table> 
     </div>
             <script src ="confirmacion.js"></script>
+
+            <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            setTimeout(function() {
+                if (typeof mensajeExito !== 'undefined') {
+                    alert(mensajeExito);
+                }
+            }, 300);
+        });
+    </script>
 </body>
 </html>

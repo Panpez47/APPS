@@ -4,19 +4,22 @@ include("../conector.php");
 // Verificar si se ha enviado el formulario
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["editar_materia"])) {
     // Obtener los datos del formulario
-    $idMateria = mysqli_real_escape_string($conexion, $_POST["ID_Materia"]);
-    $nombreMateria = mysqli_real_escape_string($conexion, $_POST["Nombre_Materia"]);
+    $idMateria = mysqli_real_escape_string($conexion, $_POST["idMateria"]);
+    $nombreMateria = mysqli_real_escape_string($conexion, $_POST["nombreMateria"]);
     $horasTotales = mysqli_real_escape_string($conexion, $_POST["horas_totales"]);
     $idGrupoPedagogico = mysqli_real_escape_string($conexion, $_POST["grupo"]);
 
+    // Calcular las horas restantes
+    $horasUtilizadas = $mostrar['Horas_totales'] - $mostrar['Horas_restantes'];
+    $horasRestantes = $horasTotales - $horasUtilizadas;
 
     // Query para actualizar los datos en la tabla materias
     $updateQuery = "UPDATE materia 
-                SET Nombre_materia = '$nombreMateria', 
-                    horas_totales = '$horasTotales',
-                    Horas_restantes = '$horasRestantes', 
-                    grupo = '$idGrupoPedagogico' 
-                WHERE ID_Materia = '$idMateria'";
+                    SET Nombre_materia = '$nombreMateria', 
+                        horas_totales = '$horasTotales',
+                        Horas_restantes = '$horasRestantes', 
+                        grupo = '$idGrupoPedagogico' 
+                    WHERE ID_Materia = '$idMateria'";
 
     // Ejecutar la consulta de actualización
     if (mysqli_query($conexion, $updateQuery)) {
@@ -70,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["editar_materia"])) {
             <li><a href="../maestros/maestros-data.php">Maestros</a></li>
             <li><a class="active" href="../materias/materias-data.php">Materias</a></li>
             <li><a href="../generacion/generacion-data.php">Generacion</a></li> <br> <br>
-            <li><a href="../semestre/semestre-data.php">Semestre</a></li>
+            <li><a href="../mm/mm-data.php">Cursos Docentes</a></li>
             <li><a href="../incidencias/incidencias-data.php">Incidencias</a></li>
             <li><a href="../actext/actext-data.php">Extras</a></li>
             <li><a href="../grupos/grupos-data.php">Grupos</a></li>
@@ -96,8 +99,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["editar_materia"])) {
                     
                     <td><input class="input-form" type="text" name="nombreMateria" value="<?php echo $mostrar['Nombre_materia']; ?>" required></td>
                     <td><input class="input-form" type="text" name="horas_totales" value="<?php echo $mostrar['Horas_totales']; ?>" required></td>
-
-
                     
                     
 
@@ -125,7 +126,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["editar_materia"])) {
                     
                     <td><input class="button-form" type="submit" name="editar_materia" value="Enviar">
                         <input type="hidden" name="idMateria" value="<?php echo $mostrar['ID_Materia']; ?>">
-
+                        </td>
                 </tr>
             </table>
         </form>

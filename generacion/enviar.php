@@ -1,17 +1,27 @@
 <?php
 include("../conector.php");
 
-if (isset($_POST['enviar1'])){
+if (isset($_POST['enviar1'])) {
     try {
-
-        if (!(strlen($_POST['generacion']) >= 1)){
+        if (!(strlen($_POST['generacion']) >= 1)) {
             throw new Exception("¡Por favor complete los campos!");
         }
 
         $nombre = trim($_POST['generacion']);
 
-        $consulta = "INSERT INTO `generacion`(`Nombre`) VALUES ('$nombre')";
-        $resultado = mysqli_query($conexion, $consulta);
+        // Verificar si la generación ya existe
+        $verificarQuery = "SELECT COUNT(*) as existe FROM generacion WHERE Nombre = '$nombre'";
+        $verificarResult = mysqli_query($conexion, $verificarQuery);
+        $row = mysqli_fetch_assoc($verificarResult);
+        $existeGeneracion = $row['existe'];
+
+        if ($existeGeneracion > 0) {
+            throw new Exception("Error: La generación ya existe.");
+        }
+
+        // Insertar la nueva generación
+        $insertQuery = "INSERT INTO `generacion`(`Nombre`) VALUES ('$nombre')";
+        $resultado = mysqli_query($conexion, $insertQuery);
 
         if (!$resultado) {
             throw new Exception("¡Ha ocurrido un error en su registro!");
@@ -19,20 +29,22 @@ if (isset($_POST['enviar1'])){
 
         // Mensaje de éxito
         $mensajeExito = "¡Su registro fue exitoso!";
-        
+
+        // Almacenar el mensaje en la sesión para que se muestre en la página de destino
+        session_start();
+        $_SESSION['mensajeExito'] = $mensajeExito;
+
         // Redirigir al usuario después de la inserción exitosa
+        header("Location: generacion-data.php");
+        exit();
+    } catch (Exception $e) {
+        // Almacenar el mensaje de error en la sesión para que se muestre en la página de destino
+        session_start();
+        $_SESSION['error'] = $e->getMessage();
+
+        // Redirigir al usuario después de encontrar un error
         header("Location: generacion.php");
         exit();
-        ?>
-        
-        <div class="ok"><script>
-            alert("<?php echo $mensajeExito; ?>");
-        </script><h3 style='color: green'><?php echo $mensajeExito; ?></h3></div>
-        <?php
-    } catch (Exception $e) {
-        ?>
-        <div class="bad"><script>alert("<?php echo $e->getMessage(); ?>")</script><h3 style='color: red'><?php echo $e->getMessage(); ?></h3></div>
-        <?php
     }
 }
 ?>
