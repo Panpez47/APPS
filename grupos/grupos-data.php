@@ -1,3 +1,22 @@
+<?php
+session_start();
+
+// Verificar si hay un mensaje de éxito para mostrar
+if (isset($_GET['success']) && $_GET['success'] == 1 && isset($_SESSION['mensajeExito'])) {
+    $mensajeExito = $_SESSION['mensajeExito'];
+    unset($_SESSION['mensajeExito']); // Limpiar el mensaje para evitar que se muestre nuevamente
+
+    // Mostrar la alerta después de un retraso de 300 ms después de que la página esté totalmente cargada
+    echo '<script>
+            document.addEventListener("DOMContentLoaded", function() {
+                setTimeout(function() {
+                    alert("' . $mensajeExito . '");
+                }, 300);
+            });
+          </script>';
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

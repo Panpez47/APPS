@@ -1,10 +1,13 @@
 -Quitar Semestres del Header-------------------------------------------------------------------
+-Quitar las horas de todos los días-----------------------------------------------------------------
+-Verificar la insercion del ID Maestromateria------------------------------------------------------
+-Funcion al boton agregar fila--------------------------------------------------------------
+-Forms de  Maestromateria-------------------------------------------------------------------
+-Guardar las horas para cada materia y no para todos los dias------------------------------------
+-Verificar maestros ocupados 
+-Verificar horas de materias
+-Usar una base de datos con los datos de los soldados
+-Adelantar documentación
 -Quitar index y definir la pagina principal
 -Materias-data.php mostrar datos de Grupo pedagogico no el ID
--Quitar las horas de todos los días
--Verificar la insercion del ID Maestromateria------------------------------------------------------
--Funcion al boton agregar fila------------------------------
--Forms de  Maestromateria-------------------------------------------------------------------
--Guardar las horas para cada materia y no para todos los dias 
--Verificar maestros ocupados
--Verificar horas de materias
+-Modifcar la tabla "Horario"

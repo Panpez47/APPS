@@ -9,7 +9,7 @@ $resultado = mysqli_query($conexion, $eliminar);
 
 if($resultado){
     header("Location: grupos-data.php");
-}else{
-    echo" <script>  alert('No') </script> ";
+} else {
+    echo "Error al eliminar el grupo: " . mysqli_error($conexion);
 }
 ?>

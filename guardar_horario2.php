@@ -1,38 +1,36 @@
 <?php
 include("conector.php");
 
-if (isset($_POST['hora_inicio'], $_POST['hora_fin'], $_POST['maestromateria'])) {
-    $errores = false;
-    $conexion->begin_transaction(MYSQLI_TRANS_START_READ_WRITE);
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Supongamos que has enviado la información de horario en campos llamados 'hora_inicio' y 'hora_fin'
+    $horaInicio = $_POST['hora_inicio'];
+    $horaFin = $_POST['hora_fin'];
+    $maestroMateria = $_POST['maestromateria'];
 
-    try {
-        for ($i = 0; $i < count($_POST['hora_inicio']); $i++) {
-            for ($dia = 1; $dia <= 6; $dia++) {
-                $horaInicio = $_POST['hora_inicio'][$i];
-                $horaFin = $_POST['hora_fin'][$i];
-                $id_maestro_materia = $_POST['maestromateria'][$dia][$i];
+    // Recorre los valores de maestromateria y las horas
+    foreach ($maestroMateria as $dia => $valoresDia) {
+        foreach ($valoresDia as $indice => $idMaestroMateria) {
+            // Verifica si el valor no es la cadena vacía, lo que significa que se seleccionó una materia
+            if ($idMaestroMateria !== '') {
+                // Asegúrate de que también tienes horas de inicio y fin para este índice
+                if (isset($horaInicio[$indice]) && isset($horaFin[$indice])) {
+                    // Aquí procesas y guardas los datos en la base de datos
+                    $horaInicioActual = $horaInicio[$indice];
+                    $horaFinActual = $horaFin[$indice];
 
-                $stmt = $conexion->prepare("INSERT INTO DetalleHorario (HoraInicio, HoraFin, Dia, ID_MaestroMateria) VALUES (?, ?, ?, ?)");
-                $stmt->bind_param("ssii", $horaInicio, $horaFin, $dia, $id_maestro_materia);
-                $stmt->execute();
-                $stmt->close();
+                    // Prepara la consulta para insertar en la tabla 'DetalleHorario'
+                    $query = "INSERT INTO DetalleHorario (Dia, HoraInicio, HoraFin, ID_MaestroMateria) VALUES (?, ?, ?, ?)";
+                    $stmt = mysqli_prepare($conexion, $query);
+                    mysqli_stmt_bind_param($stmt, 'sssi', $dia, $horaInicioActual, $horaFinActual, $idMaestroMateria);
+                    mysqli_stmt_execute($stmt);
+                    // Verifica si la inserción fue exitosa y maneja cualquier error
+                }
             }
         }
-        $conexion->commit();
-        echo "Horarios guardados con éxito";
-    } catch (mysqli_sql_exception $e) {
-        $conexion->rollback();
-        $errores = true;
-        echo "Error al guardar los horarios: " . $e->getMessage();
     }
 
-    $conexion->close();
-
-    if ($errores) {
-        http_response_code(500); // Establecer el código de respuesta HTTP apropiado
-    }
-} else {
-    echo "Todos los campos son requeridos.";
-    http_response_code(400); // Código de estado HTTP para solicitud incorrecta
+    // Redirecciona o realiza alguna otra acción después de procesar los datos
+    header("Location: Horario-data.php");
+    exit();
 }
 ?>

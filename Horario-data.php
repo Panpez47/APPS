@@ -90,7 +90,7 @@
     </nav>
     <h1>Horarios Guardados</h1>
     <div class="ContenedorAgregar">
-        <a href="./Horario.php">
+        <a href="./Horario2.php">
             <button class="buttonnav"><b>Agregar</b></button>
         </a>
     </div>

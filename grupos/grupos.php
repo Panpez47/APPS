@@ -1,4 +1,13 @@
 
+<?php
+session_start();
+    if (isset($_SESSION['error'])) {
+        $error = $_SESSION['error'];
+        echo "<script>alert('$error');</script>";
+        unset($_SESSION['error']);  // Limpiar la variable de sesión después de mostrar el mensaje
+    }
+    ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
