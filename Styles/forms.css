@@ -59,7 +59,7 @@ input {
 }
 
 input[type="submit"] {
-  width: 40%;
+  width: 60%;
   background-color: var(--accent-color);
   color: white;
   text-align: center;

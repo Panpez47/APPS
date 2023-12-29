@@ -51,7 +51,7 @@ if (isset($_SESSION['mensajeExito'])) {
                     alert("' . $mensajeExito . '");
                 }, 300);
             });
-          </script>';
+        </script>';
 }
 ?>
     
@@ -68,14 +68,10 @@ if (isset($_SESSION['mensajeExito'])) {
         </tr>
 
         <?php
-         $sql="SELECT * from materia";
-        /*$sql = "SELECT m.*, ma.Nombre_maestro, g.Nombre AS NombreGeneracion, c.Nombre AS NombreCarrera, gp.Nombre AS NombreGrupo, s.Nombre_semestre
-                FROM materia m
-                JOIN maestros ma ON m.ID_Maestro = ma.ID_Maestro
-                JOIN generacion g ON m.ID_Generacion = g.ID_Generacion
-                JOIN carrera c ON m.id_carrera = c.id_carrera
-                JOIN grupopedagogico gp ON m.ID_Grupopedagogico = gp.ID_Grupopedagogico
-                JOIN semestre s ON m.ID_Semestre = s.ID_Semestre";*/
+         $sql = "SELECT m.ID_Materia, m.Nombre_materia, m.Horas_totales, m.Horas_restantes, gp.Nombre AS NombreGrupoPedagogico
+         FROM materia m
+         JOIN grupopedagogico gp ON m.ID_Grupopedagogico = gp.ID_Grupopedagogico";
+        
 
         $result = mysqli_query($conexion, $sql);
 
@@ -84,22 +80,19 @@ if (isset($_SESSION['mensajeExito'])) {
             while ($mostrar = mysqli_fetch_array($result)) {
                 ?>
                 <tr id="datosTabla">
-                    <td><?php echo $mostrar['ID_Materia']?></td>
-                    <td><?php echo $mostrar['Nombre_materia']?></td>
-                    <td><?php echo $mostrar['Horas_totales']?></td>
-                    <td><?php echo $mostrar['Horas_restantes']?></td>
-                    <td><?php echo $mostrar['ID_Grupopedagogico']?></td>
-
-
+                    <td><?php echo $mostrar['ID_Materia']; ?></td>
+                    <td><?php echo $mostrar['Nombre_materia']; ?></td>
+                    <td><?php echo $mostrar['Horas_totales']; ?></td>
+                    <td><?php echo $mostrar['Horas_restantes']; ?></td>
+                    <td><?php echo $mostrar['NombreGrupoPedagogico']; ?></td> <!-- Aquí se muestra el nombre del grupo -->
                     <td id="botonesss">
-                        <a href="materias-edit.php?id=<?php echo $mostrar['ID_Materia']?>" <button class="button"><b>Editar</b></button></a>
-                        <a href="materias-delete.php?id=<?php echo $mostrar['ID_Materia']?>" <button class="button1"><b>Borrar</b></button></a>
+                        <a href="materias-edit.php?id=<?php echo $mostrar['ID_Materia']; ?>"><button class="button"><b>Editar</b></button></a>
+                        <a href="materias-delete.php?id=<?php echo $mostrar['ID_Materia']; ?>"><button class="button1"><b>Borrar</b></button></a>
                     </td>
                 </tr>
                 <?php
             }
         } else {
-            // Imprimir el error si la consulta falla
             echo "Error en la consulta: " . mysqli_error($conexion);
         }
         ?>

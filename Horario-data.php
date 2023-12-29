@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -72,7 +73,12 @@
     </style>
 </head>
 <body>
-
+<?php
+// Al principio de Horario-data.php
+if (isset($_GET['error'])) {
+    echo "<script>alert('" . $_GET['error'] . "');</script>";
+}
+?>
 <!--Menu-->
 <nav class="stroke">
         <ul>
@@ -90,32 +96,40 @@
     </nav>
     <h1>Horarios Guardados</h1>
     <div class="ContenedorAgregar">
-        <a href="./Horario2.php">
+        <a href="./Horario1.php">
             <button class="buttonnav"><b>Agregar</b></button>
         </a>
     </div>
     <table class="tablita lineasVerticales">
-        <tr id="headerTabla">
-            <th>Nombre del Archivo</th>
-            <th>Acciones</th>
-        </tr>
+    <tr id="headerTabla">
+        <th>ID</th>
+        <th>Nombre Horario</th>
+        <th>Grupo Pedagógico</th>
+        <th>Acciones</th>
+    </tr>
 
-        <?php
-        $directorio = 'HorariosJSON/';
-        $archivos = scandir($directorio);
+    <?php
+    include("conector.php");
 
-        foreach ($archivos as $archivo) {
-            if ($archivo != "." && $archivo != "..") {
-                $nombreArchivo = pathinfo($archivo, PATHINFO_FILENAME);
-                echo "<tr>";
-                echo "<td>{$nombreArchivo}</td>";
-                echo "<td><a href='ver_horario.php?archivo={$archivo}' class='ver-horario'>Ver Horario</a><a href='javascript:borrarHorario(\"{$archivo}\")' class='borrar-horario'>Borrar Horario</a></td>";
-    
-                echo "</tr>";
-            }
-        }
-        ?>
-    </table>
+    $sql = "SELECT h.ID_Horario, h.NombreHorario, g.Nombre, g.Semestre, c.nombre as nombre_carrera, gen.Nombre as nombre_generacion 
+            FROM Horario h
+            JOIN Grupopedagogico g ON h.ID_Grupopedagogico = g.ID_Grupopedagogico
+            JOIN Carrera c ON g.id_carrera = c.id_carrera
+            JOIN Generacion gen ON g.ID_Generacion = gen.ID_Generacion";
+    $result = mysqli_query($conexion, $sql);
+
+    while ($mostrar = mysqli_fetch_assoc($result)) {
+        echo "<tr>";
+        echo "<td>" . $mostrar['ID_Horario'] . "</td>";
+        echo "<td>" . $mostrar['NombreHorario'] . "</td>";
+        echo "<td>Carrera: " . $mostrar['nombre_carrera'] . " - Semestre: " . $mostrar['Semestre'] . " - Grupo: " . $mostrar['Nombre'] . " - Generacion: " . $mostrar['nombre_generacion'] . "</td>";
+        echo "<td><a href='editar-horario.php?id=" . $mostrar['ID_Horario'] . "' class='ver-horario'>Editar</a>
+                <a href='borrar_horario.php?id=" . $mostrar['ID_Horario'] . "' class='borrar-horario' onclick='return confirm(\"¿Estás seguro de que quieres borrar el horario?\");'>Borrar</a>
+             </td>";
+        echo "</tr>";
+    }
+    ?>
+</table>
 
     <script>
     function borrarHorario(archivo) {

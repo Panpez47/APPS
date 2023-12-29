@@ -42,7 +42,11 @@
 
         // Consultas adicionales para las listas desplegables
         $maestros = mysqli_query($conexion, "SELECT ID_Maestro, Nombre_maestro FROM Maestros");
-        $materias = mysqli_query($conexion, "SELECT ID_Materia, Nombre_materia FROM Materia");
+       // Consulta actualizada para incluir la información del grupo
+        $materiasQuery = "SELECT m.ID_Materia, m.Nombre_materia, gp.Nombre as NombreGrupo 
+        FROM Materia m
+        LEFT JOIN Grupopedagogico gp ON m.ID_Grupopedagogico = gp.ID_Grupopedagogico";
+        $materiasResult = $conexion->query($materiasQuery);
     } else {
         echo "No se ha proporcionado un ID para editar.";
         exit;
@@ -57,10 +61,10 @@
             <li><a href="../maestros/maestros-data.php">Maestros</a></li>
             <li><a href="../materias/materias-data.php">Materias</a></li>
             <li><a href="../generacion/generacion-data.php">Generacion</a></li> <br> <br>
-            <li><a href="mm-data.php">Cursos Docentes</a></li>
+            <li><a class="active" href="mm-data.php">Cursos Docentes</a></li>
             <li><a href="../incidencias/incidencias-data.php">Incidencias</a></li>
             <li><a href="../actext/actext-data.php">Extras</a></li>
-            <li><a class="active" href="../grupos/grupos-data.php">Grupos</a></li>
+            <li><a href="../grupos/grupos-data.php">Grupos</a></li>
             <li><a href="../carrera/carrera-data.php">Carrera</a></li>
 
         </ul>
@@ -90,13 +94,20 @@
                     </td>
                     <!-- Lista desplegable para las materias -->
                     <td>
-                        <select id="id_materia" name="id_materia" required>
-                            <?php while($row = mysqli_fetch_assoc($materias)): ?>
-                                <option value="<?php echo $row['ID_Materia']; ?>" <?php echo $row['ID_Materia'] == $fila['ID_Materia'] ? 'selected' : ''; ?>>
-                                    <?php echo htmlspecialchars($row['Nombre_materia']); ?>
-                                </option>
-                            <?php endwhile; ?>
-                        </select>
+                    <select id="id_materia" name="id_materia" required>
+    <?php while ($row = mysqli_fetch_assoc($materiasResult)): ?>
+        <?php
+            // Construye el texto que se mostrará en cada opción del select
+            $materiaTexto = htmlspecialchars($row['Nombre_materia']);
+            if ($row['NombreGrupo']) {
+                $materiaTexto .= " - Grupo: " . htmlspecialchars($row['NombreGrupo']);
+            }
+        ?>
+        <option value="<?php echo $row['ID_Materia']; ?>" <?php echo $row['ID_Materia'] == $fila['ID_Materia'] ? 'selected' : ''; ?>>
+            <?php echo $materiaTexto; ?>
+        </option>
+    <?php endwhile; ?>
+</select>
                     </td>
 
                     <!-- Botón de acción para actualizar -->
