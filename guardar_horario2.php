@@ -24,7 +24,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         if (!esMaestroDisponible($conexion, $idMaestroMateria, $dia, $horaInicioActual, $horaFinActual)) {
                             throw new Exception("El maestro no está disponible en el horario seleccionado.");
                         }
-
+                         // Actualiza las horas restantes de la materia
+            $queryHoras = "UPDATE Materia SET Horas_restantes = Horas_restantes - 1 WHERE ID_Materia = (SELECT ID_Materia FROM MaestroMateria WHERE id_maestro_materia = '$idMaestroMateria')";
+            mysqli_query($conexion, $queryHoras);
                         $queryDetalle = "INSERT INTO DetalleHorario (ID_Horario, Dia, HoraInicio, HoraFin, ID_MaestroMateria) VALUES (?, ?, ?, ?, ?)";
                         $stmtDetalle = mysqli_prepare($conexion, $queryDetalle);
                         mysqli_stmt_bind_param($stmtDetalle, 'isssi', $idHorario, $dia, $horaInicioActual, $horaFinActual, $idMaestroMateria);

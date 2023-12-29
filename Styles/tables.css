@@ -1,90 +1,89 @@
-.tablita,#datosTabla{
-
-    width: 80%;
-    border-collapse: collapse;
-    text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
-    border-width: 0.3mm;
-    margin-top: 15px;
-    margin-left: 130px;
-    color: black;
-    background-color: #F0EBD8;
-    border:1px solid black;
-    
+/* Estilos para la tabla y otros elementos */
+.tablita, #datosTabla {
+   width: 80%;
+   border-collapse: collapse;
+   text-align: center;
+   font-family: Arial, Helvetica, sans-serif;
+   border-width: 0.3mm;
+   margin-top: 15px;
+   margin-left: 130px;
+   color: black;
+   background-color: #F0EBD8;
+   border: 1px solid black;
 }
 
-#headerTabla{
-    color: black;
-    background-color: #748CAB;
-    width: 136px;
-    height: 65px;
-    border-bottom: 1px solid black;
+#headerTabla {
+   color: black;
+   background-color: #748CAB;
+   width: 136px;
+   height: 65px;
+   border-bottom: 1px solid black;
 }
 
-  
 .lineasVerticales td {
-    border:1px solid black;
-    
-  }
+   border: 1px solid black;
+   padding: 5px;
+}
 
-  .button{
-    padding-top: 0.2rem;
-    padding-bottom: 0.2rem; 
-    padding-left: 0.5rem;
-    padding-right: 0.5rem; 
-    border-radius: 0.375rem; 
-    color: #ffffff; 
-    background-color: #3B82F6; 
-    margin-right: 0.5rem;
-    
-  }
-  .button:hover {
-    background-color: #1D4ED8;
- }
+.button, .button1, .buttonnav {
+   padding: 0.2rem 0.5rem;
+   border-radius: 0.375rem;
+   color: #ffffff;
+   cursor: pointer;
+}
 
-  .button1{
-    padding-top: 0.2rem;
-    padding-bottom: 0.2rem; 
-    padding-left: 0.5rem;
-    padding-right: 0.5rem; 
-    border-radius: 0.375rem; 
-    color: #ffffff; 
-    background-color: #EF4444; 
-    
-  }
-  .button1:hover {
-    background-color: #B91C1C; 
- }
+.button {
+   background-color: #3B82F6;
+   margin-right: 0.5rem;
+}
 
- .buttonnav{
-    /*display: flex;
-    margin-left: 74%;*/
-    margin-top: 1.2rem;
-    padding-top: 0.8rem;
-    padding-bottom: 0.8rem; 
-    padding-left: 5rem;
-    padding-right: 5rem; 
-    border-radius: 0.375rem; 
-    color: #ffffff;
-    background-color: #748CAB; 
-    display: inline-block;
-    cursor: pointer;
-    
-    
- }
+.button:hover {
+   background-color: #1D4ED8;
+}
 
- .buttonnav:hover{
-    font-weight: bold;
-    background-color: rgb(194, 189, 173);
+.button1 {
+   background-color: #EF4444;
+}
 
- }
+.button1:hover {
+   background-color: #B91C1C;
+}
 
- .ContenedorAgregar{
-    display: flex;
-    margin-left: 73.3%;
-    
- }
+.buttonnav {
+   margin-top: 1.2rem;
+   padding: 0.8rem 1.5rem; /* Ajuste del tamaño del botón de navegación */
+   border-radius: 0.375rem;
+   color: #ffffff;
+   background-color: #748CAB;
+   display: inline-block;
+   cursor: pointer;
+}
 
+.buttonnav:hover {
+   font-weight: bold;
+   background-color: rgb(194, 189, 173);
+}
 
- 
+.ContenedorAgregar {
+   display: flex;
+   justify-content: flex-end;
+   margin-right: 152px;
+}
 
+/* Media query para hacer los estilos responsivos */
+@media (max-width: 768px) {
+   .tablita, #datosTabla {
+       width: 100%;
+       margin-left: 0;
+   }
+
+   .buttonnav {
+       padding: 0.8rem 1rem; /* Ajuste del tamaño del botón de navegación para dispositivos pequeños */
+       margin-top: 0.8rem;
+   }
+
+   .ContenedorAgregar {
+       margin-left: 0;
+       justify-content: center;
+   }
+}

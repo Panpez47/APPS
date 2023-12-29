@@ -36,6 +36,13 @@ h2 {
   margin: 0 0 20px; /* Espacio inferior */
 }
 
+.titulo,h1{
+  font-size: 24px;
+  color: aliceblue;
+  display: flex;
+  justify-content: center;
+}
+
 /* Estilos para las etiquetas y campos de entrada del formulario */
 label {
   font-size: 18px;
@@ -59,7 +66,7 @@ input {
 }
 
 input[type="submit"] {
-  width: 60%;
+  width: 70%;
   background-color: var(--accent-color);
   color: white;
   text-align: center;

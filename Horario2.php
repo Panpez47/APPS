@@ -51,6 +51,12 @@ while ($fila = mysqli_fetch_assoc($resultado)) {
 </style>
 </head>
 <body>
+<?php
+// Al principio de Horario-data.php
+if (isset($_GET['error'])) {
+    echo "<script>alert('" . $_GET['error'] . "');</script>";
+}
+?>
 <script>
         // Aquí pega tu código JavaScript
         document.addEventListener('DOMContentLoaded', function() {
@@ -126,6 +132,6 @@ foreach ($horasInicio as $indice => $horaInicio) {
                 <button type="submit">Guardar Horarios</button>
             </form>
         </div>
-       
+
 </body>
 </html>

@@ -86,7 +86,7 @@ if (isset($_GET['error'])) {
             <li><a href="./maestros/maestros-data.php">Maestros</a></li>
             <li><a href="./materias/materias-data.php">Materias</a></li>
             <li><a href="./generacion/generacion-data.php">Generacion</a></li> <br> <br>
-            <li><a href="./semestre/semestre-data.php">Semestre</a></li>
+            <li><a href="./mm/mm-data.php">Cursos Docentes</a></li>
             <li><a href="./incidencias/incidencias-data.php">Incidencias</a></li>
             <li><a href="./actext/actext-data.php">Extras</a></li>
             <li><a href="./grupos/grupos-data.php">Grupos</a></li>
@@ -123,14 +123,15 @@ if (isset($_GET['error'])) {
         echo "<td>" . $mostrar['ID_Horario'] . "</td>";
         echo "<td>" . $mostrar['NombreHorario'] . "</td>";
         echo "<td>Carrera: " . $mostrar['nombre_carrera'] . " - Semestre: " . $mostrar['Semestre'] . " - Grupo: " . $mostrar['Nombre'] . " - Generacion: " . $mostrar['nombre_generacion'] . "</td>";
-        echo "<td><a href='editar-horario.php?id=" . $mostrar['ID_Horario'] . "' class='ver-horario'>Editar</a>
-                <a href='borrar_horario.php?id=" . $mostrar['ID_Horario'] . "' class='borrar-horario' onclick='return confirm(\"¿Estás seguro de que quieres borrar el horario?\");'>Borrar</a>
-             </td>";
+        echo "<td>
+                <button onclick=\"location.href='editar-horario.php?idHorario=" . $mostrar['ID_Horario'] . "'\" class='ver-horario'>Editar</button>
+                <button onclick=\"return confirm('¿Estás seguro de que quieres borrar el horario?') ? window.location.href='borrar_horario.php?id=" . $mostrar['ID_Horario'] . "' : ''\" class='borrar-horario'>Borrar</button>
+              </td>";
         echo "</tr>";
     }
     ?>
 </table>
-
+<br><br><br><br>
     <script>
     function borrarHorario(archivo) {
         // Mostrar un mensaje de confirmación

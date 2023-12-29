@@ -17,7 +17,7 @@
             <li><a href="./maestros/maestros-data.php">Maestros</a></li>
             <li><a href="./materias/materias-data.php">Materias</a></li>
             <li><a href="./generacion/generacion-data.php">Generacion</a></li> <br> <br>
-            <li><a href="./semestre/semestre-data.php">Semestre</a></li>
+            <li><a href="./mm/mm-data.php">Cursos Docentes</a></li>
             <li><a href="./incidencias/incidencias-data.php">Incidencias</a></li>
             <li><a href="./actext/actext-data.php">Extras</a></li>
             <li><a href="./grupos/grupos-data.php">Grupos</a></li>
@@ -36,27 +36,29 @@
     ";
     $resultado = mysqli_query($conexion, $query);
     ?>
-    <h1>Crear Nuevo Horario</h1>
-    <form action="crear_horario.php" method="post">
-        <label for="nombreHorario">Nombre del Horario:</label>
-        <input type="text" id="nombreHorario" name="nombreHorario" required>
-
-        <label for="grupopedagogico">Grupo Pedagógico:</label>
-        <select name="grupopedagogico" id="grupopedagogico" required>
-    <option value="">Selecciona un grupo pedagógico</option>
-    <?php while ($fila = mysqli_fetch_assoc($resultado)): ?>
-        <option value="<?php echo $fila['ID_Grupopedagogico']; ?>">
-            Carrera: <?php echo $fila['nombre_carrera']; ?> - 
-            Semestre: <?php echo $fila['Semestre']; ?> - 
-            Grupo: <?php echo $fila['Nombre']; ?> - 
-            Generación: <?php echo $fila['nombre_generacion']; ?>
-        </option>
-    <?php endwhile; ?>
-</select>
-
-        
-        
-        <input type="submit" value="Crear Horario">
-    </form>
+    <div><h1>Crear Nuevo Horario</h1></div>
+    <div class="container">
+        <form action="crear_horario.php" method="post">
+            <label for="nombreHorario">Nombre del Horario:</label>
+            <input type="text" id="nombreHorario" name="nombreHorario" required>
+    
+            <label for="grupopedagogico">Grupo Pedagógico:</label>
+            <select name="grupopedagogico" id="grupopedagogico" required>
+        <option value="">Selecciona un grupo pedagógico</option>
+        <?php while ($fila = mysqli_fetch_assoc($resultado)): ?>
+            <option value="<?php echo $fila['ID_Grupopedagogico']; ?>">
+                Carrera: <?php echo $fila['nombre_carrera']; ?> - 
+                Semestre: <?php echo $fila['Semestre']; ?> - 
+                Grupo: <?php echo $fila['Nombre']; ?> - 
+                Generación: <?php echo $fila['nombre_generacion']; ?>
+            </option>
+        <?php endwhile; ?>
+    </select>
+    
+            
+            
+            <input type="submit" value="Crear Horario">
+        </form>
+    </div>
 </body>
 </html>
