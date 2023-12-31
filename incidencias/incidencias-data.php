@@ -11,7 +11,21 @@
 <body>
     <?php
     include("../conector.php");
+
+    // Función para obtener el nombre del maestro
+    function obtenerNombreGrupo($conexion, $idGrupo)
+    {
+        $query = "SELECT Nombre FROM Grupopedagogico WHERE ID_Grupopedagogico = $idGrupo";
+        $result = mysqli_query($conexion, $query);
+        $row = mysqli_fetch_assoc($result);
+        return $row['Nombre'];
+    }
+
+    // Obtener datos de incidencias
+    $sql = "SELECT * FROM Incidencias";
+    $result = mysqli_query($conexion, $sql);
     ?>
+
     <!--Menu-->
     <nav class="stroke">
         <ul>
@@ -24,7 +38,6 @@
             <li><a href="../actext/actext-data.php">Extras</a></li>
             <li><a href="../grupos/grupos-data.php">Grupos</a></li>
             <li><a href="../carrera/carrera-data.php">Carrera</a></li>
-
         </ul>
     </nav>
 
@@ -39,22 +52,18 @@
             <tr id="headerTabla">
                 <td><b>ID</b></td>
                 <td><b>Incidencia</b></td>
-                <td><b>Maestro</b></td>
+                <td><b>Grupo Pedagógico</b></td>
                 <td><b>Fecha</b></td>
                 <td><b>Acciones</b></td>
             </tr>
 
             <?php
-            $sql = "SELECT * FROM incidencias";
-            $result = mysqli_query($conexion, $sql);
-            $filas=['ID_Incidencias'];
-            $idSemestre=$filas;
             while ($mostrar = mysqli_fetch_array($result)) {
                 ?>
                 <tr id="datosTabla">
                     <td><?php echo $mostrar['ID_Incidencias'] ?></td>
                     <td><?php echo $mostrar['Motivo'] ?></td>
-                    <td><?php echo obtenerNombreMaestro($conexion, $mostrar['ID_Maestro']) ?></td>
+                    <td><?php echo obtenerNombreGrupo($conexion, $mostrar['ID_Grupopedagogico']) ?></td>
                     <td><?php echo $mostrar['Fecha'] ?></td>
 
                     <td id="botonesss">
@@ -63,15 +72,6 @@
                     </td>
                 </tr>
                 <?php
-            }
-            
-            // Función para obtener el nombre del maestro
-            function obtenerNombreMaestro($conexion, $idMaestro)
-            {
-                $query = "SELECT Nombre_maestro FROM maestros WHERE ID_Maestro = $idMaestro";
-                $result = mysqli_query($conexion, $query);
-                $row = mysqli_fetch_assoc($result);
-                return $row['Nombre_maestro'];
             }
             ?>
         </table> 

@@ -68,9 +68,13 @@ if (isset($_SESSION['mensajeExito'])) {
         </tr>
 
         <?php
-         $sql = "SELECT m.ID_Materia, m.Nombre_materia, m.Horas_totales, m.Horas_restantes, gp.Nombre AS NombreGrupoPedagogico
+         $sql = "SELECT m.ID_Materia, m.Nombre_materia, m.Horas_totales, m.Horas_restantes, 
+         gp.Nombre AS NombreGrupoPedagogico, gp.Semestre, c.nombre AS nombre_carrera, gen.Nombre AS nombre_generacion
          FROM materia m
-         JOIN grupopedagogico gp ON m.ID_Grupopedagogico = gp.ID_Grupopedagogico";
+         JOIN grupopedagogico gp ON m.ID_Grupopedagogico = gp.ID_Grupopedagogico
+         JOIN Carrera c ON gp.id_carrera = c.id_carrera
+         JOIN Generacion gen ON gp.ID_Generacion = gen.ID_Generacion";
+ 
         
 
         $result = mysqli_query($conexion, $sql);
@@ -84,7 +88,8 @@ if (isset($_SESSION['mensajeExito'])) {
                     <td><?php echo $mostrar['Nombre_materia']; ?></td>
                     <td><?php echo $mostrar['Horas_totales']; ?></td>
                     <td><?php echo $mostrar['Horas_restantes']; ?></td>
-                    <td><?php echo $mostrar['NombreGrupoPedagogico']; ?></td> <!-- Aquí se muestra el nombre del grupo -->
+                    <td><?php echo (isset($mostrar['nombre_carrera']) ? $mostrar['nombre_carrera'] : '') . " - Semestre: " . (isset($mostrar['Semestre']) ? $mostrar['Semestre'] : '') . " - Grupo: " . $mostrar['NombreGrupoPedagogico'] . " - Generación: " . (isset($mostrar['nombre_generacion']) ? $mostrar['nombre_generacion'] : ''); ?></td>
+
                     <td id="botonesss">
                         <a href="materias-edit.php?id=<?php echo $mostrar['ID_Materia']; ?>"><button class="button"><b>Editar</b></button></a>
                         <a href="materias-delete.php?id=<?php echo $mostrar['ID_Materia']; ?>"><button class="button1"><b>Borrar</b></button></a>

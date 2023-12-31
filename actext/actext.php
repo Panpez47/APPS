@@ -38,16 +38,16 @@
         <label for="nombreactext">Actividad Extra:</label>
         <input type="text" id="actext" name="actext" required>
         <br>
-        <label for="maestro">Maestro:</label>
+        <!--<label for="maestro">Maestro:</label>
         <select id="actividad" name="actividad" required>
             <?php
             // Iterar sobre los resultados y generar opciones para la lista desplegable
-            while ($row = $result->fetch_assoc()) {
+           /* while ($row = $result->fetch_assoc()) {
                 echo "<option value='" . $row['ID_Maestro'] . "'>" . $row['Nombre_maestro'] . "</option>";
-            }
+            }*/
             ?>
-        </select>
-        <br>
+        </select>-->
+        
         <input type="submit" name = "enviar1" >
     </form>
     <?php

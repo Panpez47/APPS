@@ -3,19 +3,20 @@ include("../conector.php");
 
 if (isset($_POST['enviar1'])) {
     try {
-
-        if (!(strlen($_POST['motivo']) >= 1)) {
+        // Validar la longitud del motivo
+        if (strlen(trim($_POST['motivo'])) < 1) {
             throw new Exception("¡Por favor complete los campos!");
         }
 
         // Obtener datos del formulario
         $motivo = trim($_POST['motivo']);
-        $idMaestro = $_POST['actividad'];
-        // Obtener y formatear la fecha
-        $fecha = date('d-m-Y', strtotime($_POST['fecha']));
+        $idGrupo = $_POST['grupo'];
 
-        // Insertar datos en la tabla "incidencia"
-        $consulta = "INSERT INTO `incidencias` (`Motivo`, `ID_Maestro`, `Fecha`) VALUES ('$motivo', '$idMaestro', '$fecha')";
+        // Obtener y formatear la fecha (si no está presente, utiliza la fecha actual)
+        $fecha = isset($_POST['fecha']) ? date('Y-m-d', strtotime($_POST['fecha'])) : date('Y-m-d');
+
+        // Insertar datos en la tabla "incidencias"
+        $consulta = "INSERT INTO `Incidencias` (`Motivo`, `Fecha`, `ID_Grupopedagogico`) VALUES ('$motivo', '$fecha', '$idGrupo')";
         $resultado = mysqli_query($conexion, $consulta);
 
         if (!$resultado) {
@@ -28,15 +29,14 @@ if (isset($_POST['enviar1'])) {
         // Redirigir al usuario después de la inserción exitosa
         header("Location: incidencias-data.php");
         exit();
-
-        ?>
-        <div class="ok"><script>
-            alert("<?php echo $mensajeExito; ?>");
-        </script><h3 style='color: green'><?php echo $mensajeExito; ?></h3></div>
-        <?php
     } catch (Exception $e) {
+        // Mensaje de error
+        $mensajeError = $e->getMessage();
         ?>
-        <div class="bad"><script>alert("<?php echo $e->getMessage(); ?>")</script><h3 style='color: red'><?php echo $e->getMessage(); ?></h3></div>
+        <div class="bad">
+            <script>alert("<?php echo $mensajeError; ?>")</script>
+            <h3 style='color: red'><?php echo $mensajeError; ?></h3>
+        </div>
         <?php
     }
 }

@@ -16,6 +16,8 @@ if (isset($_SESSION['error'])) {
             });
           </script>';
 }
+
+
 ?>
 
 
@@ -57,9 +59,12 @@ if (isset($_SESSION['error'])) {
 
 
 
-    $gruposQuery = "SELECT ID_Grupopedagogico, Nombre FROM Grupopedagogico";
-    $gruposResult = $conexion->query($gruposQuery);
-
+    // Consulta para obtener los datos de la tabla Grupopedagogico
+    $query = "SELECT gp.ID_Grupopedagogico, gp.Nombre, gp.Semestre, g.Nombre AS NombreGeneracion, c.nombre AS NombreCarrera
+    FROM Grupopedagogico gp
+    JOIN Generacion g ON gp.ID_Generacion = g.ID_Generacion
+    JOIN Carrera c ON gp.id_carrera = c.id_carrera";
+$resultado = mysqli_query($conexion, $query);
     
     ?>
 
@@ -75,13 +80,15 @@ if (isset($_SESSION['error'])) {
             <br>
 
             <label for="grupo">ID Grupo Pedagógico:</label>
-            <select id="grupo" name="grupo" required>
-                <?php
-                while ($row = $gruposResult->fetch_assoc()) {
-                    echo "<option value='" . $row['ID_Grupopedagogico'] . "'>" . $row['Nombre'] . "</option>";
-                }
-                ?>
-            </select>
+<select id="grupo" name="grupo" required>
+    <?php
+    while ($row = mysqli_fetch_assoc($resultado)) {
+        $textoOpcion = "Carrera: " . $row['NombreCarrera'] . " - Semestre: " . $row['Semestre'] . 
+                       " - Grupo: " . $row['Nombre'] . " - Generación: " . $row['NombreGeneracion'];
+        echo "<option value='" . $row['ID_Grupopedagogico'] . "'>" . htmlspecialchars($textoOpcion) . "</option>";
+    }
+    ?>
+</select>
             <br>
 
             <input type="submit" name="enviar_materia">

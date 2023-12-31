@@ -4,13 +4,18 @@
 -Funcion al boton agregar fila--------------------------------------------------------------
 -Forms de  Maestromateria-------------------------------------------------------------------
 -Guardar las horas para cada materia y no para todos los dias------------------------------------
--Verificar maestros ocupados
+-Verificar maestros ocupados-----------------------------------------------------------------------
 -Verificar horas de materias----------------------------------------
--Usar una base de datos con los datos de los soldados 
--Adelantar documentación 
--Quitar index y definir la pagina principal  
 -Materias-data.php mostrar datos de Grupo pedagogico no el ID----------------------------------------
 -Modifcar la tabla "Horario" en al base de datos ----------------------------------------------------
 -Formulario para crear un nuevo Horario------------------------------------------------------------
--Cargar horarios guardados 
--exportar a Excel 
+-Cargar y editar horarios guardados----------------------------------------------------------------- 
+-exportar a Excel----------------------------------------------------------------------------------------------------------------------------------------------------------
+-Alerta de maestros ocupados!!!!!!!!!!! 
+-Usar una base de datos con los datos de los soldados 
+-Adelantar documentación 
+-Quitar index y definir la pagina principal  
+-Agregar el mismo Formulario  de grupope en materia-----------------------------------------------------------------------------------------------------------------------
+-Agregar Activiades extra en select de horarios 
+-Modificar incidencias------------------------------------------------------------------------------------------------------------------
+-Actualizar Actividades Extras en la BD y agregarlas en los select del horario.

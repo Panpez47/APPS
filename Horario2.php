@@ -1,10 +1,16 @@
 <?php
+session_start();
 include("conector.php");
 $idHorario = isset($_GET['horarioId']) ? $_GET['horarioId'] : null;
+
+// Recuperar datos de la sesión si existen
+$horarioData = isset($_SESSION['horario_data']) ? $_SESSION['horario_data'] : null;
+
 $query = "SELECT mm.id_maestro_materia, m.Nombre_materia, ma.Nombre_maestro, m.Horas_totales, m.Horas_restantes 
           FROM MaestroMateria mm
           JOIN Materia m ON mm.ID_Materia = m.ID_Materia
           JOIN Maestros ma ON mm.ID_Maestro = ma.ID_Maestro";
+
 
 $resultado = mysqli_query($conexion, $query);
 
@@ -22,39 +28,17 @@ while ($fila = mysqli_fetch_assoc($resultado)) {
 <head>
     <meta charset="UTF-8">
     <title>Horario Semanal</title>
-    <!-- Agrega aquí tu CSS para estilos -->
-    <style>
-    /* Tus estilos aquí */
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        table-layout: fixed; /* Esto ayuda a que todas las columnas tengan el mismo ancho */
-    }
-    th, td {
-        border: 1px solid black;
-        padding: 5px;
-        text-align: center;
-        overflow: hidden; /* Esto asegura que el contenido no desborde */
-    }
-    th {
-        background-color: #f2f2f2;
-    }
-    select {
-        width: 100%; /* Esto hace que el select ocupe todo el ancho de la celda */
-        box-sizing: border-box; /* Esto asegura que el padding y border estén incluidos en el ancho */
-    }
-
-    .container {
-    overflow-x: auto; /* Permite el desplazamiento horizontal si la tabla es muy ancha */
-    }
-
-</style>
+    <link rel="stylesheet" href="./Styles/table-horario.css">
+    <link rel="stylesheet" href="./Styles/barranav.css">
 </head>
 <body>
 <?php
-// Al principio de Horario-data.php
+// Al principio de Horario2.php
 if (isset($_GET['error'])) {
-    echo "<script>alert('" . $_GET['error'] . "');</script>";
+    $errorMessage = $_GET['error'];
+
+    // Mostrar una alerta con información detallada del error
+    echo "<script>alert('Error: $errorMessage');</script>";
 }
 ?>
 <script>
@@ -90,9 +74,9 @@ if (isset($_GET['error'])) {
             <form id="horarioForm" action="guardar_horario2.php" method="post">
             <!-- Asegúrate de que $idHorario está definido y es el ID correcto que deseas pasar -->
         <input type="hidden" name="idHorario" value="<?php echo isset($idHorario) ? $idHorario : ''; ?>">
-                <table>
-                    <tr>
-                        <th>Hora</th>
+                <table class="tablita lineasVerticales">
+                    <tr id="headerTabla">
+                        <th id="hora">Hora</th>
                         <th>Lunes</th>
                         <th>Martes</th>
                         <th>Miercoles</th>
@@ -128,8 +112,8 @@ foreach ($horasInicio as $indice => $horaInicio) {
                     }
                     ?>
                 </table>
-                <button type="button" onclick="agregarFila()">Agregar Horario</button>
-                <button type="submit">Guardar Horarios</button>
+                <button class="botones agregar" type="button" onclick="agregarFila()">Agregar Horario</button>
+                <button class="botones" type="submit">Guardar Horarios</button>
             </form>
         </div>
 

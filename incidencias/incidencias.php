@@ -16,6 +16,9 @@
 
     $query = "SELECT ID_Maestro , Nombre_maestro FROM maestros";
     $result = $conexion->query($query);
+
+    $gruposQuery = "SELECT ID_Grupopedagogico, Nombre FROM Grupopedagogico";
+    $gruposResult = $conexion->query($gruposQuery);
     ?>
 
     <!--Menu-->
@@ -41,16 +44,16 @@
             <input type="text" id="motivo" name="motivo" required>
             <br>
 
-            <!-- Lista desplegable de maestros -->
-            <label for="maestro">Maestro:</label>
-            <select id="actividad" name="actividad" required>
-            <?php
-            // Iterar sobre los resultados y generar opciones para la lista desplegable
-            while ($row = $result->fetch_assoc()) {
-                echo "<option value='" . $row['ID_Maestro'] . "'>" . $row['Nombre_maestro'] . "</option>";
-            }
-            ?>
-        </select>
+            
+
+            <label for="grupo">ID Grupo Pedagógico:</label>
+            <select id="grupo" name="grupo" required>
+                <?php
+                while ($row = $gruposResult->fetch_assoc()) {
+                    echo "<option value='" . $row['ID_Grupopedagogico'] . "'>" . $row['Nombre'] . "</option>";
+                }
+                ?>
+            </select>
             <br>
 
             <!-- Fecha -->

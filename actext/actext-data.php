@@ -40,14 +40,17 @@
             <tr id="headerTabla">
                 <td><b>ID</b></td>
                 <td><b>Actividades</b></td>
-                <td><b>Maestro</b></td>
+                <!--<td><b>Maestro</b></td>-->
                 <td><b>Acciones</b></td>
             </tr>
 
             <?php
-            $sql = "SELECT actext.id_act, actext.nombre_act, actext.ID_Maestro, maestros.nombre_maestro 
+
+            $sql = "SELECT id_act, nombre_act FROM actext";
+
+           /* $sql = "SELECT actext.id_act, actext.nombre_act, actext.ID_Maestro, maestros.nombre_maestro 
                     FROM actext 
-                    INNER JOIN maestros ON actext.ID_Maestro = maestros.ID_Maestro";
+                    INNER JOIN maestros ON actext.ID_Maestro = maestros.ID_Maestro";*/
 
             $result = mysqli_query($conexion, $sql);
 
@@ -56,7 +59,7 @@
                 <tr id="datosTabla">
                     <td><?php echo $mostrar['id_act'] ?></td>
                     <td><?php echo $mostrar['nombre_act'] ?></td>
-                    <td><?php echo $mostrar['nombre_maestro'] ?></td>
+                   
 
                     <td id="botonesss">
                         <a href="actext-edit.php?id=<?php echo $mostrar['id_act'] ?>"><button class="button"><b>Editar</b></button></a>

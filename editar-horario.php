@@ -42,30 +42,11 @@ echo '</pre>';
 <head>
     <meta charset="UTF-8">
     <title>Horario Semanal</title>
+    <link rel="stylesheet" href="./Styles/table-horario.css">
+    <link rel="stylesheet" href="./Styles/barranav.css">
     <!-- Agrega aquí tu CSS para estilos -->
     <style>
-        /* Tus estilos aquí */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            table-layout: fixed;
-        }
-        th, td {
-            border: 1px solid black;
-            padding: 5px;
-            text-align: center;
-            overflow: hidden;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        select {
-            width: 100%;
-            box-sizing: border-box;
-        }
-        .container {
-            overflow-x: auto;
-        }
+        
     </style>
 </head>
 <body>
@@ -107,9 +88,9 @@ if (isset($_GET['error'])) {
           <div class="container">
         <form id="horarioForm" action="actualizar-horario2.php" method="post">
             <input type="hidden" name="idHorario" value="<?php echo $idHorario; ?>">
-            <table>
-                <tr>
-                    <th>Hora</th>
+            <table class="tablita lineasVerticales">
+                <tr id="headerTabla">
+                    <th id="hora">Hora</th>
                     <th>Lunes</th>
                     <th>Martes</th>
                     <th>Miércoles</th>
@@ -142,9 +123,19 @@ if (isset($_GET['error'])) {
                 }
                 ?>
             </table>
-            <button type="button" onclick="agregarFila()">Agregar Horario</button>
-            <button type="submit">Guardar Horarios</button>
+            <button class="botones agregar" type="button" onclick="agregarFila()">Agregar Horario</button>
+            <button class="botones" type="submit">Guardar Horarios</button>
+            <button class="botones" type="button" onclick="regresarAHorarioData()">Regresar</button>
         </form>
     </div>
+
+
+    
+
+<script>
+    function regresarAHorarioData() {
+        window.location.href = 'horario-data.php';
+    }
+</script>
 </body>
 </html>
