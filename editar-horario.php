@@ -94,12 +94,11 @@ if (isset($_GET['error'])) {
                 }
                 ?>
             </table>
-            <button class="botones agregar" type="button" onclick="agregarFila()">Agregar Horario</button>
-            <button class="botones" type="submit">Guardar Horarios</button>
+            <button class="botones agregar" type="submit">Guardar Horarios</button>
             <button class="botones" type="button" onclick="regresarAHorarioData()">Regresar</button>
-            
         </form>
-        <button onclick="exportTableToExcel('miTabla', 'HorarioSemanal')">Exportar a Excel</button>
+        
+        <button class="botones excel"onclick="exportTableToExcel('miTabla', 'HorarioSemanal')">Exportar a Excel</button>
 
     </div>
     

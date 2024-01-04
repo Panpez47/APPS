@@ -32,6 +32,11 @@
     margin-left: 5%;
   }
 
+  .excel{
+    margin-left: 5%;
+    background-color: rgb(29, 155, 29);
+  }
+
   .button{
     padding-top: 0.2rem;
     padding-bottom: 0.2rem; 
