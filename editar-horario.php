@@ -1,4 +1,5 @@
 <?php
+
 include("conector.php");
 $idHorario = isset($_GET['idHorario']) ? $_GET['idHorario'] : null;
 
@@ -32,16 +33,13 @@ while ($detalle = mysqli_fetch_assoc($resultadoHorario)) {
 }
 mysqli_stmt_close($stmtHorario);
 
-// Comenta esta parte una vez que hayas verificado que los datos son correctos
-echo '<pre>';
-print_r($horarioActual);
-echo '</pre>';
 ?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Horario Semanal</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.2/xlsx.full.min.js"></script>
     <link rel="stylesheet" href="./Styles/table-horario.css">
     <link rel="stylesheet" href="./Styles/barranav.css">
     <!-- Agrega aquí tu CSS para estilos -->
@@ -49,6 +47,7 @@ echo '</pre>';
         
     </style>
 </head>
+
 <body>
 <?php
 // Al principio de Horario-data.php
@@ -56,39 +55,11 @@ if (isset($_GET['error'])) {
     echo "<script>alert('" . $_GET['error'] . "');</script>";
 }
 ?>
-<script>
-        // Aquí pega tu código JavaScript
-        document.addEventListener('DOMContentLoaded', function() {
-            var selects = document.querySelectorAll('#horarioForm select');
-            selects.forEach(function(select, index) {
-                cargarOpcionesDisponibles(select, index);
-            });
-        });
 
-        function cargarOpcionesDisponibles(select, indice) {
-            var horaInicio = document.querySelectorAll("input[name='hora_inicio[]']")[indice].value;
-            var horaFin = document.querySelectorAll("input[name='hora_fin[]']")[indice].value;
-            var dia = select.name.split('[')[0];
-
-            fetch('obtener_opciones_disponibles.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: `dia=${dia}&horaInicio=${horaInicio}&horaFin=${horaFin}`
-            })
-            .then(response => response.json())
-            .then(data => {
-                select.innerHTML = "<option value=''>-- Seleccionar --</option>";
-                data.forEach(opcion => {
-                    select.innerHTML += `<option value='${opcion.id}'>${opcion.texto}</option>`;
-                });
-            })
-            .catch(error => console.error('Error:', error));
-        }
-    </script>
-          <div class="container">
+        <div class="container">
         <form id="horarioForm" action="actualizar-horario2.php" method="post">
             <input type="hidden" name="idHorario" value="<?php echo $idHorario; ?>">
-            <table class="tablita lineasVerticales">
+            <table class="tablita lineasVerticales" id="miTabla">
                 <tr id="headerTabla">
                     <th id="hora">Hora</th>
                     <th>Lunes</th>
@@ -126,11 +97,114 @@ if (isset($_GET['error'])) {
             <button class="botones agregar" type="button" onclick="agregarFila()">Agregar Horario</button>
             <button class="botones" type="submit">Guardar Horarios</button>
             <button class="botones" type="button" onclick="regresarAHorarioData()">Regresar</button>
+            
         </form>
-    </div>
+        <button onclick="exportTableToExcel('miTabla', 'HorarioSemanal')">Exportar a Excel</button>
 
+    </div>
+    
+       <script>
+function setColWidth(ws, specificWidthForColumnA = 10) {
+    // Asegúrate de que '!cols' esté inicializado como un array.
+    ws['!cols'] = [];
+    // Establece el ancho específico para la columna A.
+    ws['!cols'][0] = { wch: specificWidthForColumnA };
+
+    // A partir de la columna B, ajusta el ancho de las columnas basado en el contenido.
+    var range = XLSX.utils.decode_range(ws['!ref']);
+    for (var C = range.s.c + 1; C <= range.e.c; ++C) { // Comienza en la segunda columna (B)
+        var maxColWidth = 10; // Ancho mínimo por defecto para las columnas
+        for (var R = range.s.r; R <= range.e.r; ++R) {
+            var cell_ref = XLSX.utils.encode_cell({c: C, r: R});
+            if (!ws[cell_ref]) continue;
+            var text = ws[cell_ref].v.toString();
+            if (text && text.length > maxColWidth) maxColWidth = text.length;
+        }
+        ws['!cols'][C] = { wch: maxColWidth };
+    }
+}
+
+function exportTableToExcel(tableID, filename = ''){
+    var tableSelect = document.getElementById(tableID);
+    var wb = XLSX.utils.book_new();
+
+    // Creamos un array para guardar los datos
+    var aoa = [];
+
+    // Aquí el texto predefinido que aparecerá en las primeras filas
+    var headerInfo = [
+        ["2023: Año de Francisco Villa, El Revolucionario del Pueblo y del Bicentenario del Heroico Colegio Militar"],
+        ["Dir. Gral. Educ. Mil. y Rec. U.D.E.F.A."],
+        ["Colegio del Aire. Esc. Mil. de Manto. y Ab. Seccion Academica"],
+        ["Colegio del Aire."],
+        ["Distribución de tiempo para la semana del ______ 2024."],
+        ["Sargentos______. F.A.E.M.A. C.I. (_____ Semestre)"]
+    ];
+
+    // Añadir el texto predefinido al arreglo 'aoa'
+    headerInfo.forEach(row => aoa.push(row));
+
+    // Añadir una fila vacía como separación
+    aoa.push([]);
+
+    // Procesar la fila de encabezado de la tabla
+    var headerCells = tableSelect.querySelectorAll('tr')[0].querySelectorAll('th');
+    var headerRow = [];
+    for(var i = 0; i < headerCells.length; i++) {
+        headerRow.push(headerCells[i].innerText);
+    }
+    aoa.push(headerRow);
+
+    // Iterar sobre cada fila de la tabla, comenzando por la primera fila de datos
+    var rows = tableSelect.querySelectorAll('tr');
+    for(var rowIndex = 1; rowIndex < rows.length; rowIndex++) {
+        var row = [];
+        var cells = rows[rowIndex].querySelectorAll('td');
+        for(var cellIndex = 0; cellIndex < cells.length; cellIndex++) {
+            var cell = cells[cellIndex];
+            var text = "";
+            if(cellIndex === 0) { // La columna de las horas
+                var inputs = cell.querySelectorAll('input[type="time"]');
+                if(inputs.length === 2) {
+                    text = inputs[0].value + '-' + inputs[1].value; // Formato "HH:MM-HH:MM"
+                }
+            } else {
+                var select = cell.querySelector('select');
+                if(select && select.selectedIndex > 0) {
+                    text = select.options[select.selectedIndex].text;
+                    if(text === "-- Seleccionar --") {
+                        text = "";
+                    }
+                }
+            }
+            row.push(text);
+        }
+        aoa.push(row);
+    }
+
+    // Agregamos los datos al libro de trabajo
+    var ws = XLSX.utils.aoa_to_sheet(aoa);
+
+    // Inicializar la propiedad de merges si aún no existe
+    ws['!merges'] = [];
+
+    // Combinar las celdas para el texto predefinido (ajustar el rango según sea necesario)
+    headerInfo.forEach((_, index) => {
+        ws['!merges'].push({ s: {r: index, c: 0}, e: {r: index, c: 6} }); // Combinar desde columna A a G
+    });
+
+    // Ajustar el ancho de las columnas
+    setColWidth(ws); // Asegúrate de que esta función esté definida en tu código
+    
 
     
+    XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+// Antes de guardar el archivo:
+
+    // Escribir el archivo
+    XLSX.writeFile(wb, (filename || 'Horario') + '.xlsx');
+}
+</script>
 
 <script>
     function regresarAHorarioData() {

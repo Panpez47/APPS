@@ -1,0 +1,78 @@
+Se hace en la pagina: https://dbdiagram.io/home
+
+Usando el código dentro de la misma:
+
+Table "Maestros" {
+  "ID_Maestro" int(3) [pk, not null, increment]
+  "Nombre_maestro" varchar(30) [not null]
+}
+
+Table "Grupopedagogico" {
+  "ID_Grupopedagogico" int(3) [pk, not null, increment]
+  "Nombre" varchar(30)
+  "Semestre" int (3)
+  "ID_Generacion" int(3)
+  "id_carrera" int (3)
+
+}
+
+Table "Materia" {
+  "ID_Materia" int(3) [pk, not null, increment]
+  "Nombre_materia" varchar(20) [not null]
+  "Horas_totales" int(20)
+  "Horas_restantes" int (20)
+  "ID_Grupopedagogico" int(3)
+}
+
+Table "Generacion" {
+  "ID_Generacion" int(3) [pk, not null, increment]
+  "Nombre" varchar(30) [not null]
+  
+}
+
+Table "Carrera" {
+  "id_carrera" int (3) [pk, not null, increment]
+  "nombre" varchar (50) [not null]
+}
+
+Table "Incidencias" {
+  "ID_Incidencias" int(3) [pk, not null, increment]
+  "Motivo" varchar(50)
+  "Fecha" date
+  "ID_Grupopedagogico" int(3)
+}
+
+Table "Actext" {
+  "id_act" int(3) [pk, not null, increment]
+  "nombre_act" varchar(50)
+}
+
+Table "MaestroMateria" {
+  "id_maestro_materia" int (3) [pk, not null, increment]
+  ID_Maestro int [ref: > Maestros.ID_Maestro]
+  ID_Materia int [ref: > Materia.ID_Materia]
+}
+Table Horario {
+  ID_Horario int [pk, increment] // Clave primaria autoincremental
+  NombreHorario varchar // Un identificador descriptivo para el horario
+  ID_Grupopedagogico int (3)
+}
+
+Table DetalleHorario {
+  ID_DetalleHorario int [pk, increment] // Clave primaria autoincremental
+  ID_Horario int [ref: > Horario.ID_Horario] // Clave foránea referenciando a Horario
+  Dia varchar(10) // El día de la semana
+  HoraInicio time // Hora de inicio de la clase
+  HoraFin time // Hora de fin de la clase
+  ID_MaestroMateria int [ref: > MaestroMateria.id_maestro_materia] // Clave foránea referenciando a MaestroMateria
+}
+
+Ref:"Grupopedagogico"."ID_Grupopedagogico" - "Materia"."ID_Grupopedagogico"
+
+Ref:"Grupopedagogico"."ID_Grupopedagogico" < "Incidencias"."ID_Grupopedagogico"
+
+Ref: "Generacion"."ID_Generacion" < "Grupopedagogico"."ID_Generacion"
+
+Ref: "Carrera"."id_carrera" < "Grupopedagogico"."id_carrera"
+
+Ref: "Grupopedagogico"."ID_Grupopedagogico" < "Horario"."ID_Grupopedagogico"  

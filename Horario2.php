@@ -7,10 +7,9 @@ $idHorario = isset($_GET['horarioId']) ? $_GET['horarioId'] : null;
 $horarioData = isset($_SESSION['horario_data']) ? $_SESSION['horario_data'] : null;
 
 $query = "SELECT mm.id_maestro_materia, m.Nombre_materia, ma.Nombre_maestro, m.Horas_totales, m.Horas_restantes 
-          FROM MaestroMateria mm
-          JOIN Materia m ON mm.ID_Materia = m.ID_Materia
-          JOIN Maestros ma ON mm.ID_Maestro = ma.ID_Maestro";
-
+        FROM MaestroMateria mm
+        JOIN Materia m ON mm.ID_Materia = m.ID_Materia
+        JOIN Maestros ma ON mm.ID_Maestro = ma.ID_Maestro";
 
 $resultado = mysqli_query($conexion, $query);
 
@@ -41,35 +40,6 @@ if (isset($_GET['error'])) {
     echo "<script>alert('Error: $errorMessage');</script>";
 }
 ?>
-<script>
-        // Aquí pega tu código JavaScript
-        document.addEventListener('DOMContentLoaded', function() {
-            var selects = document.querySelectorAll('#horarioForm select');
-            selects.forEach(function(select, index) {
-                cargarOpcionesDisponibles(select, index);
-            });
-        });
-
-        function cargarOpcionesDisponibles(select, indice) {
-            var horaInicio = document.querySelectorAll("input[name='hora_inicio[]']")[indice].value;
-            var horaFin = document.querySelectorAll("input[name='hora_fin[]']")[indice].value;
-            var dia = select.name.split('[')[0];
-
-            fetch('obtener_opciones_disponibles.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: `dia=${dia}&horaInicio=${horaInicio}&horaFin=${horaFin}`
-            })
-            .then(response => response.json())
-            .then(data => {
-                select.innerHTML = "<option value=''>-- Seleccionar --</option>";
-                data.forEach(opcion => {
-                    select.innerHTML += `<option value='${opcion.id}'>${opcion.texto}</option>`;
-                });
-            })
-            .catch(error => console.error('Error:', error));
-        }
-    </script>
         <div class="container">
             <form id="horarioForm" action="guardar_horario2.php" method="post">
             <!-- Asegúrate de que $idHorario está definido y es el ID correcto que deseas pasar -->
