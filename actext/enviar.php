@@ -10,10 +10,10 @@ if (isset($_POST['enviar1'])) {
 
         // Limpieza y obtención de valores
         $nombre = mysqli_real_escape_string($conexion, trim($_POST['actext']));
-        $_POST[$ID_Maestro = mysqli_real_escape_string($conexion, $_POST['actividad'])]; // Aquí capturamos la opción seleccionada
+       
 
         // Inserción en la base de datos
-        $consulta = "INSERT INTO `actext`(`nombre_act`, `ID_Maestro`) VALUES ('$nombre', '$ID_Maestro')";
+        $consulta = "INSERT INTO `actext`(`nombre_act`) VALUES ('$nombre')";
         $resultado = mysqli_query($conexion, $consulta);
 
         if (!$resultado) {
@@ -25,7 +25,7 @@ if (isset($_POST['enviar1'])) {
 
         // Redirección al usuario después de la inserción exitosa
         echo "<script>alert('$mensajeExito');</script>";
-        header("Location: actext.php");
+        header("Location: actext-data.php");
         exit();
 
     } catch (Exception $e) {

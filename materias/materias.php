@@ -79,7 +79,7 @@ $resultado = mysqli_query($conexion, $query);
             <input type="number" id="horas_totales" name="horas_totales" required>
             <br>
 
-            <label for="grupo">ID Grupo Pedagógico:</label>
+            <label for="grupo">Grupo Pedagógico:</label>
 <select id="grupo" name="grupo" required>
     <?php
     while ($row = mysqli_fetch_assoc($resultado)) {

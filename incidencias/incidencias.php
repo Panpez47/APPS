@@ -46,7 +46,7 @@
 
             
 
-            <label for="grupo">ID Grupo Pedagógico:</label>
+            <label for="grupo">Grupo Pedagógico:</label>
             <select id="grupo" name="grupo" required>
                 <?php
                 while ($row = $gruposResult->fetch_assoc()) {

@@ -82,7 +82,6 @@ foreach ($horasInicio as $indice => $horaInicio) {
                     }
                     ?>
                 </table>
-                <button class="botones agregar" type="button" onclick="agregarFila()">Agregar Horario</button>
                 <button class="botones" type="submit">Guardar Horarios</button>
             </form>
         </div>

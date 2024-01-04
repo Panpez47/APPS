@@ -39,7 +39,6 @@
             <table class = "tablita lineasVerticales">
                 <tr id="headerTabla">
                     <td><b>Motivo</b></td>
-                    <td><b>Maestro</b></td>
                     <td><b>Fecha</b></td>
                     <td><b>Accion</b></td>
                 </tr>

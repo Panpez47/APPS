@@ -10,10 +10,9 @@ if (isset($_POST['enviar1'])){
 
         $id = trim($_POST['id']);
         $motivo = trim($_POST['motivo']);
-        $id_maestro = trim($_POST['maestro']);
         $fecha = trim($_POST['fecha']);
 
-        $consulta = "UPDATE incidencias SET Motivo ='$motivo', ID_Maestro = '$id_maestro', Fecha = '$fecha' WHERE ID_Incidencias = '$id'";
+        $consulta = "UPDATE incidencias SET Motivo ='$motivo', Fecha = '$fecha' WHERE ID_Incidencias = '$id'";
         $resultado = mysqli_query($conexion, $consulta);
 
         if (!$resultado) {

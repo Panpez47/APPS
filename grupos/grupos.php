@@ -27,9 +27,9 @@ session_start();
             <li><a href="../materias/materias-data.php">Materias</a></li>
             <li><a href="../generacion/generacion-data.php">Generacion</a></li> <br> <br>
             <li><a href="../mm/mm-data.php">Cursos Docentes</a></li>
-            <li><a class="active" href="../incidencias/incidencias-data.php">Incidencias</a></li>
+            <li><a href="../incidencias/incidencias-data.php">Incidencias</a></li>
             <li><a href="../actext/actext-data.php">Extras</a></li>
-            <li><a href="../grupos/grupos-data.php">Grupos</a></li>
+            <li><a class="active" href="../grupos/grupos-data.php">Grupos</a></li>
             <li><a href="../carrera/carrera-data.php">Carrera</a></li>
 
         </ul>

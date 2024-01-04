@@ -20,6 +20,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   // Cerrar la sentencia y la conexión
   $stmt->close();
   $conexion->close();
-  header("Location: mm.php");
+  header("Location: mm-data.php");
 }
 ?>
