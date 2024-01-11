@@ -65,7 +65,10 @@
     </style>
 </head>
 <body>
+
 <?php
+include("formato_horario.php");
+
 // Al principio de Horario-data.php
 if (isset($_GET['error'])) {
     echo "<script>alert('" . $_GET['error'] . "');</script>";
@@ -102,6 +105,7 @@ if (isset($_GET['success'])) {
     <tr id="headerTabla">
         <th>ID</th>
         <th>Nombre Horario</th>
+        <th>Semana</th> <!-- Nuevo encabezado para la columna Semana -->
         <th>Grupo Pedagógico</th>
         <th>Acciones</th>
     </tr>
@@ -109,17 +113,20 @@ if (isset($_GET['success'])) {
     <?php
     include("conector.php");
 
-    $sql = "SELECT h.ID_Horario, h.NombreHorario, g.Nombre, g.Semestre, c.nombre as nombre_carrera, gen.Nombre as nombre_generacion 
-            FROM Horario h
-            JOIN Grupopedagogico g ON h.ID_Grupopedagogico = g.ID_Grupopedagogico
-            JOIN Carrera c ON g.id_carrera = c.id_carrera
-            JOIN Generacion gen ON g.ID_Generacion = gen.ID_Generacion";
+
+    
+    $sql = "SELECT h.ID_Horario, h.NombreHorario, h.Semana, g.Nombre, g.Semestre, c.nombre as nombre_carrera, gen.Nombre as nombre_generacion 
+    FROM Horario h
+    JOIN Grupopedagogico g ON h.ID_Grupopedagogico = g.ID_Grupopedagogico
+    JOIN Carrera c ON g.id_carrera = c.id_carrera
+    JOIN Generacion gen ON g.ID_Generacion = gen.ID_Generacion";
     $result = mysqli_query($conexion, $sql);
 
     while ($mostrar = mysqli_fetch_assoc($result)) {
         echo "<tr>";
         echo "<td>" . $mostrar['ID_Horario'] . "</td>";
         echo "<td>" . $mostrar['NombreHorario'] . "</td>";
+        echo "<td>" . formatWeekToMonthDayRange($mostrar['Semana']) . "</td>"; // Mostrar la semana aquí
         echo "<td>Carrera: " . $mostrar['nombre_carrera'] . " - Semestre: " . $mostrar['Semestre'] . " - Grupo: " . $mostrar['Nombre'] . " - Generacion: " . $mostrar['nombre_generacion'] . "</td>";
         echo "<td>
                 <a href='editar-horario.php?idHorario=" . $mostrar['ID_Horario'] . "' class='ver-horario'>Editar</a>
@@ -139,6 +146,9 @@ if (isset($_GET['success'])) {
             window.location.href = 'borrar_horario.php?idHorario=' + id; // Cambia 'borrar_horario.php' al archivo y ruta correctos
         }
     }
+
+    
+}
 </script>
 </body>
 </html>

@@ -1,25 +1,27 @@
 <?php
 include("conector.php");
 
-function esMaestroDisponible($conexion, $idMaestroMateria, $dia, $horaInicio, $horaFin) {
-    // Aquí iría la lógica para comprobar si el maestro ya tiene asignada una clase en ese horario
-    // Esto implica consultar la base de datos y verificar si hay solapamientos de horarios
-    // Retorna true si el maestro está disponible, false de lo contrario
-
-    // Ejemplo de consulta (deberás adaptarla a tu base de datos y lógica):
-    $query = "SELECT COUNT(*) FROM DetalleHorario WHERE ID_MaestroMateria = ? AND Dia = ? AND (? < HoraFin AND ? > HoraInicio)";
+function esMaestroDisponible($conexion, $idMaestroMateria, $dia, $horaInicio, $horaFin, $semanaHorario) {
+    // Incluir la comprobación de la semana en la consulta
+    $query = "SELECT COUNT(*)
+              FROM DetalleHorario dh
+              JOIN Horario h ON dh.ID_Horario = h.ID_Horario
+              WHERE dh.ID_MaestroMateria = ? 
+                AND dh.Dia = ? 
+                AND (? < dh.HoraFin AND ? > dh.HoraInicio)
+                AND h.Semana = ?";
     $stmt = mysqli_prepare($conexion, $query);
-    mysqli_stmt_bind_param($stmt, 'isss', $idMaestroMateria, $dia, $horaInicio, $horaFin);
+    mysqli_stmt_bind_param($stmt, 'issss', $idMaestroMateria, $dia, $horaInicio, $horaFin, $semanaHorario);
     mysqli_stmt_execute($stmt);
     mysqli_stmt_bind_result($stmt, $conteo);
     mysqli_stmt_fetch($stmt);
     mysqli_stmt_close($stmt);
 
-    return $conteo == 0; // Si el conteo es 0, no hay horarios solapados y el maestro está disponible
+    return $conteo == 0; // Si el conteo es 0, no hay horarios solapados en la misma semana y el maestro está disponible
 }
 
 function actualizarHorasRestantesMateria($conexion, $idMaestroMateria) {
-    $query = "UPDATE Materia SET Horas_restantes = Horas_restantes - 1 WHERE ID_Materia = (SELECT ID_Materia FROM MaestroMateria WHERE id_maestro_materia = ?)";
+    $query = "UPDATE Materia SET Horas_impartidas = Horas_impartidas - 1 WHERE ID_Materia = (SELECT ID_Materia FROM MaestroMateria WHERE id_maestro_materia = ?)";
     $stmt = mysqli_prepare($conexion, $query);
     mysqli_stmt_bind_param($stmt, 'i', $idMaestroMateria);
     mysqli_stmt_execute($stmt);

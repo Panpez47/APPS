@@ -6,7 +6,7 @@ $idHorario = isset($_GET['horarioId']) ? $_GET['horarioId'] : null;
 // Recuperar datos de la sesión si existen
 $horarioData = isset($_SESSION['horario_data']) ? $_SESSION['horario_data'] : null;
 
-$query = "SELECT mm.id_maestro_materia, m.Nombre_materia, ma.Nombre_maestro, m.Horas_totales, m.Horas_restantes 
+$query = "SELECT mm.id_maestro_materia, m.Nombre_materia, ma.Nombre_maestro, m.Horas_totales, m.Horas_impartidas 
         FROM MaestroMateria mm
         JOIN Materia m ON mm.ID_Materia = m.ID_Materia
         JOIN Maestros ma ON mm.ID_Maestro = ma.ID_Maestro";
@@ -17,7 +17,7 @@ $maestroMateriaOptions = [];
 while ($fila = mysqli_fetch_assoc($resultado)) {
     $maestroMateriaOptions[] = [
         'id' => $fila['id_maestro_materia'],
-        'texto' => $fila['Nombre_materia'] . ' - ' . $fila['Nombre_maestro'] . ' ' . $fila['Horas_restantes'] . '/' . $fila['Horas_totales']
+        'texto' => $fila['Nombre_materia'] . ' - ' . $fila['Nombre_maestro'] . ' ' . $fila['Horas_impartidas'] . '/' . $fila['Horas_totales']
     ];
 }
 

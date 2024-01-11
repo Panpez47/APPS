@@ -4,7 +4,7 @@ include("conector.php");
 $idHorario = isset($_GET['idHorario']) ? $_GET['idHorario'] : null;
 
 // Consulta para obtener las opciones de maestro y materia
-$queryOpciones = "SELECT mm.id_maestro_materia, m.Nombre_materia, ma.Nombre_maestro, m.Horas_totales, m.Horas_restantes 
+$queryOpciones = "SELECT mm.id_maestro_materia, m.Nombre_materia, ma.Nombre_maestro, m.Horas_totales, m.Horas_impartidas 
                   FROM MaestroMateria mm
                   JOIN Materia m ON mm.ID_Materia = m.ID_Materia
                   JOIN Maestros ma ON mm.ID_Maestro = ma.ID_Maestro";
@@ -14,12 +14,12 @@ $maestroMateriaOptions = [];
 while ($fila = mysqli_fetch_assoc($resultadoOpciones)) {
     $maestroMateriaOptions[] = [
         'id' => $fila['id_maestro_materia'],
-        'texto' => $fila['Nombre_materia'] . ' - ' . $fila['Nombre_maestro'] . ' ' . $fila['Horas_restantes'] . '/' . $fila['Horas_totales']
+        'texto' => $fila['Nombre_materia'] . ' - ' . $fila['Nombre_maestro'] . ' ' . $fila['Horas_impartidas'] . '/' . $fila['Horas_totales']
     ];
 }
 
-// Consulta para obtener los detalles del horario actual
-$queryHorario = "SELECT Dia, HoraInicio, ID_MaestroMateria 
+// Consulta para obtener los detalles del horario actual incluyendo HoraImpartida
+$queryHorario = "SELECT Dia, HoraInicio, HoraFin, ID_MaestroMateria, HoraImpartida
                  FROM DetalleHorario 
                  WHERE ID_Horario = ?";
 $stmtHorario = mysqli_prepare($conexion, $queryHorario);
@@ -29,8 +29,16 @@ $resultadoHorario = mysqli_stmt_get_result($stmtHorario);
 
 $horarioActual = [];
 while ($detalle = mysqli_fetch_assoc($resultadoHorario)) {
-    $horarioActual[$detalle['Dia']][$detalle['HoraInicio']] = $detalle['ID_MaestroMateria'];
+    // Usar HoraInicio y HoraFin para identificar de manera única cada casilla del horario
+    $identificador = $detalle['Dia'] . '-' . $detalle['HoraInicio'] . '-' . $detalle['HoraFin'];
+    $horarioActual[$identificador] = [
+        'ID_MaestroMateria' => $detalle['ID_MaestroMateria'],
+        'HoraImpartida' => $detalle['HoraImpartida'] // Asumiendo que este es el nombre del campo en tu base de datos
+    ];
 }
+// Usar var_dump para inspeccionar los resultados
+var_dump($horarioActual);
+
 mysqli_stmt_close($stmtHorario);
 
 ?>
@@ -79,13 +87,22 @@ if (isset($_GET['error'])) {
                     echo "<input type='time' value='" . substr($horaFin, 0, 5) . "' name='hora_fin[]' required>";
                     echo "</td>";
                     for ($dia = 1; $dia <= 6; $dia++) {
-                        $selectedID = $horarioActual[$dia][$horaInicio] ?? '';
+                        $clave = $dia . '-' . $horaInicio . '-' . $horaFin;
+                        $detalleActual = $horarioActual[$clave] ?? null;
+                        $selectedID = $detalleActual['ID_MaestroMateria'] ?? '';
+                        $horaImpartida = $detalleActual['HoraImpartida'] ?? 0; // Asegúrate de que este campo existe en tu base de datos y se llama así
+                
                         echo "<td>";
                         echo "<select name='maestromateria[$dia][$horaInicio]'>";
                         echo "<option value=''>-- Seleccionar --</option>";
                         foreach ($maestroMateriaOptions as $opcion) {
                             $selected = ($opcion['id'] == $selectedID) ? 'selected' : '';
-                            echo "<option value='{$opcion['id']}' $selected>{$opcion['texto']}</option>";
+                            $textoOpcion = $opcion['texto'];
+                            if ($selectedID == $opcion['id'] && $horaImpartida > 0) {
+                                // Añadir solo la hora impartida actual
+                                $textoOpcion .= " - " . $horaImpartida . "" . $opcion['Horas_totales'];
+                            }
+                            echo "<option value='{$opcion['id']}' $selected>{$textoOpcion}</option>";
                         }
                         echo "</select>";
                         echo "</td>";

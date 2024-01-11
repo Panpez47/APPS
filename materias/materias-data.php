@@ -68,7 +68,7 @@ if (isset($_SESSION['mensajeExito'])) {
         </tr>
 
         <?php
-         $sql = "SELECT m.ID_Materia, m.Nombre_materia, m.Horas_totales, m.Horas_restantes, 
+         $sql = "SELECT m.ID_Materia, m.Nombre_materia, m.Horas_totales, m.Horas_impartidas, 
          gp.Nombre AS NombreGrupoPedagogico, gp.Semestre, c.nombre AS nombre_carrera, gen.Nombre AS nombre_generacion
          FROM materia m
          JOIN grupopedagogico gp ON m.ID_Grupopedagogico = gp.ID_Grupopedagogico
@@ -87,7 +87,7 @@ if (isset($_SESSION['mensajeExito'])) {
                     <td><?php echo $mostrar['ID_Materia']; ?></td>
                     <td><?php echo $mostrar['Nombre_materia']; ?></td>
                     <td><?php echo $mostrar['Horas_totales']; ?></td>
-                    <td><?php echo $mostrar['Horas_restantes']; ?></td>
+                    <td><?php echo $mostrar['Horas_impartidas']; ?></td>
                     <td><?php echo (isset($mostrar['nombre_carrera']) ? $mostrar['nombre_carrera'] : '') . " - Semestre: " . (isset($mostrar['Semestre']) ? $mostrar['Semestre'] : '') . " - Grupo: " . $mostrar['NombreGrupoPedagogico'] . " - Generación: " . (isset($mostrar['nombre_generacion']) ? $mostrar['nombre_generacion'] : ''); ?></td>
 
                     <td id="botonesss">

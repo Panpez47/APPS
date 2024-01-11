@@ -11,7 +11,7 @@ $sheet = $spreadsheet->getActiveSheet();
 
 // Consulta a la base de datos para obtener los datos (este código ya lo tienes)
 // Consulta para obtener las opciones de maestro y materia
-$queryOpciones = "SELECT mm.id_maestro_materia, m.Nombre_materia, ma.Nombre_maestro, m.Horas_totales, m.Horas_restantes 
+$queryOpciones = "SELECT mm.id_maestro_materia, m.Nombre_materia, ma.Nombre_maestro, m.Horas_totales, m.Horas_impartidas 
                   FROM MaestroMateria mm
                   JOIN Materia m ON mm.ID_Materia = m.ID_Materia
                   JOIN Maestros ma ON mm.ID_Maestro = ma.ID_Maestro";
@@ -21,7 +21,7 @@ $maestroMateriaOptions = [];
 while ($fila = mysqli_fetch_assoc($resultadoOpciones)) {
     $maestroMateriaOptions[] = [
         'id' => $fila['id_maestro_materia'],
-        'texto' => $fila['Nombre_materia'] . ' - ' . $fila['Nombre_maestro'] . ' ' . $fila['Horas_restantes'] . '/' . $fila['Horas_totales']
+        'texto' => $fila['Nombre_materia'] . ' - ' . $fila['Nombre_maestro'] . ' ' . $fila['Horas_impartidas'] . '/' . $fila['Horas_totales']
     ];
 }
 

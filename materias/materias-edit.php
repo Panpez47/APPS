@@ -10,14 +10,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["editar_materia"])) {
     $idGrupoPedagogico = mysqli_real_escape_string($conexion, $_POST["grupo"]);
 
     // Calcular las horas restantes
-    $horasUtilizadas = $mostrar['Horas_totales'] - $mostrar['Horas_restantes'];
+    $horasUtilizadas = $mostrar['Horas_totales'] - $mostrar['Horas_impartidas'];
     $horasRestantes = $horasTotales - $horasUtilizadas;
 
     // Query para actualizar los datos en la tabla materias
     $updateQuery = "UPDATE materia 
                     SET Nombre_materia = '$nombreMateria', 
                         horas_totales = '$horasTotales',
-                        Horas_restantes = '$horasRestantes', 
+                        Horas_impartidas = '$horasRestantes', 
                         grupo = '$idGrupoPedagogico' 
                     WHERE ID_Materia = '$idMateria'";
 

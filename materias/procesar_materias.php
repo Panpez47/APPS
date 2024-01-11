@@ -31,8 +31,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["enviar_materia"])) {
     }
 
     // Query para insertar datos en la tabla materia
-    $insertQuery = "INSERT INTO materia (Nombre_Materia, `Horas_Totales`, `Horas_Restantes`, ID_Grupopedagogico)
-                    VALUES ('$nombreMateria', '$horasTotales', '$horasTotales', '$idGrupoPedagogico')";
+    $insertQuery = "INSERT INTO materia (Nombre_Materia, `Horas_Totales`, `Horas_impartidas`, ID_Grupopedagogico)
+                    VALUES ('$nombreMateria', '$horasTotales', '0', '$idGrupoPedagogico')";
 
     // Ejecutar la consulta
     if (mysqli_query($conexion, $insertQuery)) {

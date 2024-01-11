@@ -54,7 +54,8 @@
             </option>
         <?php endwhile; ?>
     </select>
-    
+            <label for="semana">Semana:</label>
+            <input type="week" name="semana" id = "semana">
             
             
             <input type="submit" value="Crear Horario">

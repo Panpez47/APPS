@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["editar_materia"])) {
     $updateQuery = "UPDATE materia 
                     SET Nombre_materia = '$nombreMateria', 
                         Horas_totales = '$horasTotales', 
-                        Horas_restantes = '$horasTotales', 
+                        Horas_impartidas = '0', 
                         ID_Grupopedagogico = '$idGrupo' 
                     WHERE ID_Materia = '$idMateria'";
 
